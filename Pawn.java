@@ -8,9 +8,9 @@ public class Pawn {
     private Boolean white;
 
     public Pawn() {
-        this.pos = "";
-        this.is_alive = "";
-        this.white = "";
+        this.pos[0] = 0;
+        this.is_alive = false;
+        this.white = false;
     }
 
     public Pawn(int[] pos, Boolean is_alive, Boolean white) {
