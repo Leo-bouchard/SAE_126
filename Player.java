@@ -11,7 +11,7 @@ public class Player {
     public Player() {
         this.name = "";
         this.score = 0;
-        this.white = "";
+        this.white = false;
         this.pawn_left = 0;
     }
 
