@@ -19,7 +19,6 @@ public class PawnLook extends ElementLook {
         } else if(pawn.getColor()==0) {
             shape[0][0] = "○";
         }
-        }
     }
 }
 
