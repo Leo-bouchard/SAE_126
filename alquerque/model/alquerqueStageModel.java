@@ -30,7 +30,7 @@ public class alquerqueStageModel extends GameStageModel {
     }
 
 
-    public void setRedPawns(Pawn[] pawns) {
+    public void setWhitePawns(Pawn[] pawns) {
         this.redPawns = pawns;
         for (int i = 0; i < pawns.length; i++) {
             addElement(pawns[i]);
