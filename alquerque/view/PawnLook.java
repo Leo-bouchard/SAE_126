@@ -12,14 +12,14 @@ public class PawnLook extends ElementLook {
         super(element,1,1);
     }
 
-    protected void render() {
-        Pawn pawn = (Pawn)element;
-        if (pawn.getColor()==0){
-            shape[0][0] = "●";
-        } else if(pawn.getColor()==0) {
-            shape[0][0] = "○";
-        }
+
+protected void render() {
+    Pawn pawn = (Pawn)element;
+    if (pawn.getColor()==0){
+        shape[0][0] = "●";
+    } else if(pawn.getColor()==1) {
+        shape[0][0] = "○";
     }
 }
-
+}
 
