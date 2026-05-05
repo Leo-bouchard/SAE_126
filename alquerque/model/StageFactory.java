@@ -4,12 +4,12 @@ import boardifier.model.GameStageModel;
 import boardifier.model.StageElementsFactory;
 import boardifier.model.TextElement;
 
-public class alquerqueStageFactory extends StageElementsFactory {
-    private alquerqueStageModel stageModel;
+public class StageFactory extends StageElementsFactory {
+    private StageModel stageModel;
 
-    public alquerqueStageFactory(GameStageModel gameStageModel) {
+    public StageFactory(GameStageModel gameStageModel) {
         super(gameStageModel);
-        stageModel = (alquerqueStageModel) gameStageModel;
+        stageModel = (StageModel) gameStageModel;
     }
 
     @Override
