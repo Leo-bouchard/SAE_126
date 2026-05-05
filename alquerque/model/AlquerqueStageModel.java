@@ -2,7 +2,7 @@ package alquerque.model;
 
 import boardifier.model.*;
 
-public class StageModel extends GameStageModel {
+public class AlquerqueStageModel extends GameStageModel {
 
 
     // define stage game elements
@@ -14,7 +14,7 @@ public class StageModel extends GameStageModel {
     private int blackPawnsCount = 12;
     private int whitePawnsCount = 12;
 
-    public StageModel(String name, Model model) {
+    public AlquerqueStageModel(String name, Model model) {
         super(name, model);
         setupCallbacks();
     }
@@ -108,6 +108,6 @@ public class StageModel extends GameStageModel {
 
     @Override
     public StageElementsFactory getDefaultElementFactory() {
-        return null;
+        return new AlquerqueStageFactory(this);
     }
 }

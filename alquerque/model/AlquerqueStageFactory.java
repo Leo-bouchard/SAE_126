@@ -4,38 +4,38 @@ import boardifier.model.GameStageModel;
 import boardifier.model.StageElementsFactory;
 import boardifier.model.TextElement;
 
-public class StageFactory extends StageElementsFactory {
-    private StageModel stageModel;
+public class AlquerqueStageFactory extends StageElementsFactory {
+    private AlquerqueStageModel alquerqueStageModel;
 
-    public StageFactory(GameStageModel gameStageModel) {
+    public AlquerqueStageFactory(GameStageModel gameStageModel) {
         super(gameStageModel);
-        stageModel = (StageModel) gameStageModel;
+        alquerqueStageModel = (AlquerqueStageModel) gameStageModel;
     }
 
     @Override
     public void setup() {
         // setup pseudo
-        TextElement text = new TextElement(stageModel.getCurrentPlayerName(), stageModel);
+        TextElement text = new TextElement(alquerqueStageModel.getCurrentPlayerName(), alquerqueStageModel);
         text.setLocation(0, 0);
-        stageModel.setPlayerName(text);
+        alquerqueStageModel.setPlayerName(text);
 
         // setup board
-        Board board = new Board(2, 2, stageModel);
-        stageModel.setBoard(board);
+        Board board = new Board(2, 2, alquerqueStageModel);
+        alquerqueStageModel.setBoard(board);
 
         // setup white pawn
         Pawn[] whitePawns = new Pawn[12];
         for (int i = 0; i < 12; i++) {
-            whitePawns[i] = new Pawn(0, stageModel);   // 0 = blanc
+            whitePawns[i] = new Pawn(0, alquerqueStageModel);   // 0 = blanc
         }
-        stageModel.setWhitePawns(whitePawns);
+        alquerqueStageModel.setWhitePawns(whitePawns);
 
         // setup black pawn
         Pawn[] blackPawns = new Pawn[12];
         for (int i = 0; i < 12; i++) {
-            blackPawns[i] = new Pawn(1, stageModel);   // 1 = noir
+            blackPawns[i] = new Pawn(1, alquerqueStageModel);   // 1 = noir
         }
-        stageModel.setBlackPawns(blackPawns);
+        alquerqueStageModel.setBlackPawns(blackPawns);
 
         // put black pawn
         int index = 0;
