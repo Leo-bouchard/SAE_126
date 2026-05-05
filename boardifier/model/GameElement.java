@@ -2,11 +2,6 @@ package boardifier.model;
 
 import boardifier.model.animation.Animation;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Queue;
-
 
 /**
  * abstract class that describes an element of the game, in the largest sense.

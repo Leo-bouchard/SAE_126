@@ -1,6 +1,5 @@
 package boardifier.view;
 
-import boardifier.control.Logger;
 import boardifier.model.Coord2D;
 import boardifier.model.GameElement;
 
