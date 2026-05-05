@@ -1,0 +1,16 @@
+info a ne pas oublier a dev:
+
+
+Pour la partie controlleur :
+
+En revanche, il faut obligatoirement créer une sous-classe de Controller afin d'implémenter :
+    -la gestion d'un tour de jeu du joueur courant en fonction des règles du jeu,
+    -la gestion du passage d'un joueur à un autre en fonction des règles du jeu,
+    -si besoin la gestion du passage d'un stage à un autre.
+
+
+
+
+
+
+ATTENTION : pour pouvoir mettre en place des test unitaires, l'instanciation des GameElement d'un stage et leur insertion dans les listes NE SE FAIT PAS directement dans les sous-classes de GameStageModel
