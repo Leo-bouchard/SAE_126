@@ -1,9 +1,6 @@
 package alquerque.model;
 
-import boardifier.model.GameStageModel;
-import boardifier.model.Model;
-import boardifier.model.StageElementsFactory;
-import boardifier.model.TextElement;
+import boardifier.model.*;
 
 public class alquequeStageModel extends GameStageModel {
 
@@ -15,7 +12,7 @@ public class alquequeStageModel extends GameStageModel {
     private Pawn[] redPawns;
 
     private int blackPawnsCount = 12;
-    private int redPawnsCount = 12;
+    private int whitePawnsCount = 12;
 
     public alquequeStageModel(String name, Model model) {
         super(name, model);
@@ -39,31 +36,52 @@ public class alquequeStageModel extends GameStageModel {
 
 
 
-
-
     private void setupCallbacks() {
         onRemoveFromContainer( (element, container, row, col) -> {
+            if (container != board) return;     // verify if it's the board
+            Pawn p = (Pawn) element;            // Retrieve the removed pawn
 
-            // 1) On veut réagir uniquement si c'est le board
-            if (container != board) return;
-
-            // 2) Récupérer le pion retiré (on cast parce que element est un GameElement)
-            Pawn p = (Pawn) element;
-
-            // 3) Décrémenter le bon compteur selon la couleur
             if (p.getColor() == 0) {
                 whitePawnsCount--;
             } else {
                 blackPawnsCount--;
             }
 
-            // 4) Vérifier la fin de partie
+            // end ?
             if (whitePawnsCount == 0 || blackPawnsCount == 0) {
                 computePartyResult();
             }
         });
     }
 
+    private void computePartyResult() {
+        int nbWhitePawn = 0;
+        int idWinner;
+
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                GameElement element = board.getElement(i, j);   // Retrieve the pawn of what color if there is one.
+                if (element != null) {
+                    Pawn p = (Pawn) element;
+                    if (p.getColor() == 0) {
+                        nbWhitePawn++;
+                    }
+                }
+            }
+        }
+
+
+
+        if (nbWhitePawn == 0) {
+            idWinner = 1;
+        } else {
+            idWinner = 0;
+        }
+
+        model.setIdWinner(idWinner);
+        model.stopStage();
+
+    }
 
 
     @Override
