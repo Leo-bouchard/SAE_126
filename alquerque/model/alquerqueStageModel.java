@@ -2,7 +2,7 @@ package alquerque.model;
 
 import boardifier.model.*;
 
-public class alquequeStageModel extends GameStageModel {
+public class alquerqueStageModel extends GameStageModel {
 
 
     // define stage game elements
@@ -14,10 +14,13 @@ public class alquequeStageModel extends GameStageModel {
     private int blackPawnsCount = 12;
     private int whitePawnsCount = 12;
 
-    public alquequeStageModel(String name, Model model) {
+    public alquerqueStageModel(String name, Model model) {
         super(name, model);
         setupCallbacks();
     }
+
+
+    // setteur
 
     public void setBlackPawns(Pawn[] pawns) {
         this.blackPawns = pawns;
@@ -33,6 +36,25 @@ public class alquequeStageModel extends GameStageModel {
             addElement(pawns[i]);
         }
     }
+
+
+    public void setBoard(Board board) {
+        this.board = board;
+        addContainer(board);
+    }
+
+    public void setPlayerName(TextElement t) {
+        this.playerName = t;
+        addElement(t);
+    }
+
+    // getteur
+
+    public Board getBoard() { return board; }
+    public Pawn[] getBlackPawns() { return blackPawns; }
+    public Pawn[] getRedPawns() { return redPawns; }
+    public TextElement getPlayerName() { return playerName; }
+
 
 
 
