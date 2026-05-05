@@ -9,7 +9,6 @@ public class Pawn extends GameElement {
 
     // white = 0    black = 1
     int color;
-    int type;
 
 
     public Pawn(int color, GameStageModel game) {
