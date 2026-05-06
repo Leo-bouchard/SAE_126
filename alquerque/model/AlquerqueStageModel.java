@@ -7,9 +7,9 @@ public class AlquerqueStageModel extends GameStageModel {
 
     // define stage game elements
     private TextElement playerName;
-    private Board board;
-    private Pawn[] blackPawns;
-    private Pawn[] redPawns;
+    private AlquerqueBoard board;
+    private AlquerquePawn[] blackPawns;
+    private AlquerquePawn[] redPawns;
 
     private int blackPawnsCount = 12;
     private int whitePawnsCount = 12;
@@ -22,7 +22,7 @@ public class AlquerqueStageModel extends GameStageModel {
 
     // setteur
 
-    public void setBlackPawns(Pawn[] pawns) {
+    public void setBlackPawns(AlquerquePawn[] pawns) {
         this.blackPawns = pawns;
         for (int i = 0; i < pawns.length; i++) {
             addElement(pawns[i]);
@@ -30,7 +30,7 @@ public class AlquerqueStageModel extends GameStageModel {
     }
 
 
-    public void setWhitePawns(Pawn[] pawns) {
+    public void setWhitePawns(AlquerquePawn[] pawns) {
         this.redPawns = pawns;
         for (int i = 0; i < pawns.length; i++) {
             addElement(pawns[i]);
@@ -38,7 +38,7 @@ public class AlquerqueStageModel extends GameStageModel {
     }
 
 
-    public void setBoard(Board board) {
+    public void setBoard(AlquerqueBoard board) {
         this.board = board;
         addContainer(board);
     }
@@ -50,9 +50,9 @@ public class AlquerqueStageModel extends GameStageModel {
 
     // getteur
 
-    public Board getBoard() { return board; }
-    public Pawn[] getBlackPawns() { return blackPawns; }
-    public Pawn[] getRedPawns() { return redPawns; }
+    public AlquerqueBoard getBoard() { return board; }
+    public AlquerquePawn[] getBlackPawns() { return blackPawns; }
+    public AlquerquePawn[] getRedPawns() { return redPawns; }
     public TextElement getPlayerName() { return playerName; }
 
 
@@ -61,7 +61,7 @@ public class AlquerqueStageModel extends GameStageModel {
     private void setupCallbacks() {
         onRemoveFromContainer( (element, container, row, col) -> {
             if (container != board) return;     // verify if it's the board
-            Pawn p = (Pawn) element;            // Retrieve the removed pawn
+            AlquerquePawn p = (AlquerquePawn) element;            // Retrieve the removed pawn
 
             if (p.getColor() == 0) {
                 whitePawnsCount--;
@@ -84,7 +84,7 @@ public class AlquerqueStageModel extends GameStageModel {
             for (int j = 0; j < 5; j++) {
                 GameElement element = board.getElement(i, j);   // Retrieve the pawn of what color if there is one.
                 if (element != null) {
-                    Pawn p = (Pawn) element;
+                    AlquerquePawn p = (AlquerquePawn) element;
                     if (p.getColor() == 0) {
                         nbWhitePawn++;
                     }

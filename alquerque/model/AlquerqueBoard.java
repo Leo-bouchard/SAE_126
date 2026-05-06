@@ -1,21 +1,20 @@
 package alquerque.model;
 
 import boardifier.model.ContainerElement;
-import boardifier.model.GameElement;
 import boardifier.model.GameStageModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class Board extends ContainerElement {
+public class AlquerqueBoard extends ContainerElement {
 
 
-    public Board(int x, int y, GameStageModel gameStageModel){
+    public AlquerqueBoard(int x, int y, GameStageModel gameStageModel){
         super("board",x,y,5,5,gameStageModel);
     }
 
-    public List<int[]> computeValidCells(Pawn pawn) {
+    public List<int[]> computeValidCells(AlquerquePawn pawn) {
         List<int[]> valid = new ArrayList<>();
         int[] pos = getElementCell(pawn);
         int x = pos[0];
@@ -27,7 +26,7 @@ public class Board extends ContainerElement {
                     //we add every empty cell around the pawn to a list
                     valid.add(new int[]{x + i, y + j});
 
-                } else if (!isEmptyAt(x + i, y + j) && ((Pawn) getElement(x + i, y + j)).getColor() != pawn.getColor()) {
+                } else if (!isEmptyAt(x + i, y + j) && ((AlquerquePawn) getElement(x + i, y + j)).getColor() != pawn.getColor()) {
                         if (x + i * 2 >= 0 && x + i * 2 < 5 && y + j * 2 >= 0 && y + j * 2 < 5 && isEmptyAt(x + i * 2, y + j * 2)) {
 
                             //we add every empty cell behind an enemy to the list

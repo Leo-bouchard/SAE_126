@@ -20,20 +20,20 @@ public class AlquerqueStageFactory extends StageElementsFactory {
         alquerqueStageModel.setPlayerName(text);
 
         // setup board
-        Board board = new Board(2, 2, alquerqueStageModel);
+        AlquerqueBoard board = new AlquerqueBoard(2, 2, alquerqueStageModel);
         alquerqueStageModel.setBoard(board);
 
         // setup white pawn
-        Pawn[] whitePawns = new Pawn[12];
+        AlquerquePawn[] whitePawns = new AlquerquePawn[12];
         for (int i = 0; i < 12; i++) {
-            whitePawns[i] = new Pawn(0, alquerqueStageModel);   // 0 = blanc
+            whitePawns[i] = new AlquerquePawn(0, alquerqueStageModel);   // 0 = blanc
         }
         alquerqueStageModel.setWhitePawns(whitePawns);
 
         // setup black pawn
-        Pawn[] blackPawns = new Pawn[12];
+        AlquerquePawn[] blackPawns = new AlquerquePawn[12];
         for (int i = 0; i < 12; i++) {
-            blackPawns[i] = new Pawn(1, alquerqueStageModel);   // 1 = noir
+            blackPawns[i] = new AlquerquePawn(1, alquerqueStageModel);   // 1 = noir
         }
         alquerqueStageModel.setBlackPawns(blackPawns);
 

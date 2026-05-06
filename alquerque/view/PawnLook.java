@@ -1,10 +1,8 @@
 package alquerque.view;
 
-import alquerque.model.Pawn;
+import alquerque.model.AlquerquePawn;
 import boardifier.model.GameElement;
 import boardifier.view.ElementLook;
-
-import javax.swing.text.Element;
 
 public class PawnLook extends ElementLook {
 
@@ -13,11 +11,11 @@ public class PawnLook extends ElementLook {
     }
 
 
-protected void render() {
-    Pawn pawn = (Pawn)element;
-    if (pawn.getColor()==0){
+public void render() {
+    AlquerquePawn pawn = (AlquerquePawn)element;
+    if (pawn.getColor()==1){
         shape[0][0] = "●";
-    } else if(pawn.getColor()==1) {
+    } else if(pawn.getColor()==0) {
         shape[0][0] = "○";
     }
 }
