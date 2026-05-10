@@ -4,9 +4,9 @@ import boardifier.model.ContainerElement;
 import boardifier.view.GridLook;
 
 // the game board will be shown this way
-//     A   B   C   D   E
+//     A     B     C     D     E
 //   ┌───────────────────────────┐
-// 2 | ● ─── ● ─── ● ─── ● ─── ● |
+// 1 | ● ─── ● ─── ● ─── ● ─── ● |
 //   | |  \  |  /  |  \  |  /  | |
 // 2 | ● ─── ● ─── ● ─── ● ─── ● |
 //   | |  /  |  \  |  /  |  \  | |
@@ -21,54 +21,62 @@ import boardifier.view.GridLook;
 public class BoardLook extends GridLook {
 
     public BoardLook(ContainerElement containerElement) {
-        super(2, 6, containerElement, 1, 1);
+        super(2, 6, containerElement, 1, 1,2,1);
     }
 
     @Override
     public void renderBorders() {
-        shape[0][0] = "┌";
-        for(int i = 1; i < 28; i++) shape[0][i] = "─";
-        shape[0][28] = "┐";
-        shape[10][0] = "└";
-        for(int i = 1; i < 28; i++) shape[10][i] = "─";
-        shape[10][28] = "┘";
-        for(int i = 1; i < 10; i++) {
-            shape[i][0] =  "│ ";
-            shape[i][27] = "│";
+        shape[1][2] = "┌";
+        for(int i = 3; i < 30; i++) shape[1][i] = "─";
+        shape[1][30] = "┐";
+        shape[11][2] = "└";
+        for(int i = 3; i < 30; i++) shape[11][i] = "─";
+        shape[11][30] = "┘";
+        for(int i = 2; i < 11; i++) {
+            shape[i][2] =  "│ ";
+            shape[i][29] = "│";
         }
-        for(int row = 1; row <= 10; row = row+2) {
+        for(int row = 3; row <= 12; row = row+2) {
             for(int col = 0; col < 4; col++) {
                 for(int k = 1; k <= 3; k++) {
-                    shape[row][2 + col*6 + k] = "─";
+                    shape[row-1][4 + col*6 + k] = "─";
                 }
             }
         }
         for (int i = 2; i <= 8; i = i+2){
-            shape[i][1] =  "│";
-            shape[i][7] =  "│";
-            shape[i][13] = "│";
-            shape[i][19] = "│";
-            shape[i][25] = "│";
+            shape[i+1][3] =  "│";
+            shape[i+1][9] =  "│";
+            shape[i+1][15] = "│";
+            shape[i+1][21] = "│";
+            shape[i+1][27] = "│";
         }
 
-        shape[2][4] = "\\";
-        shape[2][16] = "\\";
-        shape[6][4] = "\\";
-        shape[6][16] = "\\";
-        shape[4][10] = "\\";
-        shape[4][22] = "\\";
-        shape[8][10] = "\\";
-        shape[8][22] = "\\";
-        shape[2][10] = "/";
-        shape[2][22] = "/";
-        shape[6][10] = "/";
-        shape[6][22] = "/";
-        shape[4][4] = "/";
-        shape[4][16] = "/";
-        shape[8][4] = "/";
-        shape[8][16] = "/";
+        shape[3][6] = "\\";
+        shape[3][18] = "\\";
+        shape[7][6] = "\\";
+        shape[7][18] = "\\";
+        shape[5][12] = "\\";
+        shape[5][24] = "\\";
+        shape[9][12] = "\\";
+        shape[9][24] = "\\";
+        shape[3][12] = "/";
+        shape[3][24] = "/";
+        shape[7][12] = "/";
+        shape[7][24] = "/";
+        shape[5][6] = "/";
+        shape[5][18] = "/";
+        shape[9][6] = "/";
+        shape[9][18] = "/";
 
-        shape[5][13] = "□";
+        // lettres A B C D E
+        String[] letters = {"A", "B", "C", "D", "E"};
+        for (int col = 0; col < 5; col++) {
+            shape[0][4 + col * 6] = letters[col];
+        }
+        // chiffres 1 2 3 4 5
+        for (int row = 0; row < 5; row++) {
+            shape[2 + row * 2][0] = String.valueOf(row + 1);
+        }
     }
 
 }

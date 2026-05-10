@@ -6,6 +6,8 @@ import boardifier.model.GameException;
 import boardifier.model.Model;
 import boardifier.view.View;
 
+import java.util.Scanner;
+
 public class AlquerqueConsole {
 
     public static void main(String[] args) {
@@ -14,8 +16,14 @@ public class AlquerqueConsole {
         Model model = new Model();
 
         // 2. Ajouter les joueurs (humain vs humain pour commencer simple)
-        model.addHumanPlayer("player1");
-        model.addHumanPlayer("player2");
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("1st player name");
+        String p1Name = scanner.nextLine();
+        System.out.println("2nd player name");
+        String p2Name = scanner.nextLine();
+
+        model.addHumanPlayer(p1Name);
+        model.addHumanPlayer(p2Name);
 
         // 3. Enregistrer le mapping stage ↔ classes
         StageFactory.registerModelAndView(
