@@ -10,6 +10,7 @@ public class PawnLook extends ElementLook {
         super(element, 1, 1);
     }
 
+    // temp comment
     @Override
     protected void render() {
         AlquerquePawn pawn = (AlquerquePawn) element;
