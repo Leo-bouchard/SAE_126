@@ -1,26 +1,45 @@
 package alquerque.control;
 
 import alquerque.model.AlquerqueStageModel;
+import alquerque.model.AlquerquePawn;
+import alquerque.model.AlquerqueBoard;
 import boardifier.control.ActionFactory;
 import boardifier.control.ActionPlayer;
 import boardifier.model.Model;
+import boardifier.model.Player;
 import boardifier.model.action.ActionList;
 import boardifier.view.View;
-import alquerque.model.AlquerquePawn;
-import alquerque.model.AlquerqueBoard;
 
 import java.util.List;
 import java.util.Scanner;
 
 public class AlquerqueController extends boardifier.control.Controller {
+
     public AlquerqueController(Model model, View view) {
         super(model, view);
-
     }
 
     public void playTurn() {
+        int playerType = model.getCurrentPlayer().getType();
+        if (playerType == Player.COMPUTER) {
+            playBot1Turn();
+        } else {
+            playHumanTurn();
+        }
+    }
 
+    private void playBot1Turn() {
+        System.out.println("Bot's turn (" + model.getCurrentPlayerName() + ")...");
+        System.out.println("Welcome to Alquerque!");
 
+        AlquerqueDecider_Bot1_Aleatoire_name_Fred decider = new AlquerqueDecider_Bot1_Aleatoire_name_Fred(model, this);
+        ActionList actions = decider.decide();
+
+        new ActionPlayer(model, this, actions).start();
+
+    }
+
+    private void playHumanTurn() {
         System.out.print("Your turn (" + model.getCurrentPlayerName() + ") > ");
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
@@ -43,17 +62,18 @@ public class AlquerqueController extends boardifier.control.Controller {
                 actions.setDoEndOfTurn(true);
                 new ActionPlayer(model, this, actions).start();
                 moove = true;
-                actions.setDoEndOfTurn(true);
-
             }
-
         }
         if (!moove) {
             System.out.println("impossible movement");
-            moove = false;
         }
+    }
 
-
+    @Override
+    public void endOfTurn() {
+        model.setNextPlayer();
+        AlquerqueStageModel stage = (AlquerqueStageModel) model.getGameStage();
+        stage.getPlayerName().setText(model.getCurrentPlayerName());
     }
 
     @Override
