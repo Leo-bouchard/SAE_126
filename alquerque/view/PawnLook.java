@@ -19,9 +19,9 @@ public class PawnLook extends ElementLook {
         }
         AlquerquePawn pawn = (AlquerquePawn) element;
         if (pawn.getColor() == 1) {
-            shape[0][0] = "○";
-        } else {
             shape[0][0] = "●";
+        } else {
+            shape[0][0] = "○";
         }
     }
 }

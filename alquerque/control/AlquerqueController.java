@@ -55,7 +55,7 @@ public class AlquerqueController extends boardifier.control.Controller {
         AlquerquePawn pawn = (AlquerquePawn) board.getElement(rowStart, colStart);
 
         // we check if it's the player pawn
-        if (pawn == null || pawn.getColor() != model.getIdPlayer()) {
+        if (pawn == null || pawn.getColor() == model.getIdPlayer()) {
             System.out.println("Ce n'est pas votre pion !");
             return;
         }
@@ -65,17 +65,22 @@ public class AlquerqueController extends boardifier.control.Controller {
         for (int[] cell : valid) {
             if (!moove && cell[1] == colEnd && cell[0] == rowEnd ) {
                 moove = true;
-                int rowMid = (rowStart + rowEnd) / 2;
-                int colMid = (colStart + colEnd) / 2;
 
-                if (!board.isEmptyAt(rowMid, colMid)) {
+                // if we moove from 2 box we need to eat
+                if (Math.abs(rowEnd - rowStart) == 2 || Math.abs(colEnd - colStart) == 2) {
+                    // we calcul the middle box
+                    int rowMid = (rowStart + rowEnd) / 2;
+                    int colMid = (colStart + colEnd) / 2;
+                    // we get the enemy pawn before eting
                     AlquerquePawn captured = (AlquerquePawn) board.getElement(rowMid, colMid);
+                    // we moove the player pawn and delete the enemy pawn
                     ActionList moveActions = ActionFactory.generateMoveWithinContainer(model, pawn, rowEnd, colEnd);
                     ActionList captureActions = ActionFactory.generateRemoveFromStage(model, captured);
-                    captureActions.addAll(moveActions);
-                    captureActions.setDoEndOfTurn(true);
-                    new ActionPlayer(model, this, captureActions).start();
+                    moveActions.addAll(captureActions);
+                    moveActions.setDoEndOfTurn(true);
+                    new ActionPlayer(model, this, moveActions).start();
                 } else {
+                    // if no capture we simply moove
                     ActionList action = ActionFactory.generateMoveWithinContainer(model, pawn, rowEnd, colEnd);
                     action.setDoEndOfTurn(true);
                     new ActionPlayer(model, this, action).start();

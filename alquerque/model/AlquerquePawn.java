@@ -7,7 +7,7 @@ import boardifier.model.GameStageModel;
 public class AlquerquePawn extends GameElement {
 
 
-    // white = 0    black = 1
+    // white = 1    black = 0
     int color;
 
     static {
