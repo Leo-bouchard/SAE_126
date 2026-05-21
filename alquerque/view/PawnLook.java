@@ -13,6 +13,10 @@ public class PawnLook extends ElementLook {
     // temp comment
     @Override
     protected void render() {
+        if (!element.isVisible()) {
+            shape[0][0] = " ";
+            return;
+        }
         AlquerquePawn pawn = (AlquerquePawn) element;
         if (pawn.getColor() == 1) {
             shape[0][0] = "●";

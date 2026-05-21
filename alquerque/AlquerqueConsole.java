@@ -88,11 +88,11 @@ public class AlquerqueConsole {
 
     private static void setupPlayers(Model model, Scanner scanner, int mode) {
         if (mode == 0) {
-            System.out.print("Nom du joueur 1 (○) : ");
+            System.out.print("Nom du joueur 1 (●) : ");
             String p1Name = scanner.nextLine().trim();
             if (p1Name.isEmpty()) p1Name = "Joueur 1";
 
-            System.out.print("Nom du joueur 2 (●) : ");
+            System.out.print("Nom du joueur 2 (○3) : ");
             String p2Name = scanner.nextLine().trim();
             if (p2Name.isEmpty()) p2Name = "Joueur 2";
 

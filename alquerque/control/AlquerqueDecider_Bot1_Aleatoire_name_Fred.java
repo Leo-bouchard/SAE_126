@@ -4,8 +4,10 @@ import alquerque.model.AlquerqueBoard;
 import alquerque.model.AlquerquePawn;
 import alquerque.model.AlquerqueStageModel;
 import boardifier.control.ActionFactory;
+import boardifier.control.ActionPlayer;
 import boardifier.control.Controller;
 import boardifier.control.Decider;
+import boardifier.model.Coord2D;
 import boardifier.model.Model;
 import boardifier.model.action.ActionList;
 
@@ -52,13 +54,34 @@ public class AlquerqueDecider_Bot1_Aleatoire_name_Fred extends Decider {
             if (!validCells.isEmpty()) {
                 // select destination random
                 int[] dest = validCells.get(rand.nextInt(validCells.size()));
-                int rowDest = dest[0];
-                int colDest = dest[1];
+                int rowEnd = dest[0];
+                int colEnd = dest[1];
+
+                // get pawn location
+                int[] src = board.getElementCell(pawn);
+                int rowStart = src[0];
+                int colStart = src[1];
 
                 // construc l'ActionList
                 ActionList actions = ActionFactory.generateMoveWithinContainer(
-                        model, pawn, rowDest, colDest
+                        model, pawn, rowEnd, colEnd
                 );
+                int rowMid = (rowStart + rowEnd) / 2;
+                int colMid = (colStart + colEnd) / 2;
+
+                if (!board.isEmptyAt(rowMid, colMid)) {
+                    AlquerquePawn captured = (AlquerquePawn) board.getElement(rowMid, colMid);
+                    ActionList captureActions = ActionFactory.generateRemoveFromStage(model, captured);
+                    ActionList moveActions = ActionFactory.generateMoveWithinContainer(model, pawn, rowEnd, colEnd);
+                    captureActions.addAll(moveActions);
+                    captureActions.setDoEndOfTurn(true);
+                    new ActionPlayer(model, control, captureActions).start();
+                } else {
+                    ActionList action = ActionFactory.generateMoveWithinContainer(model, pawn, rowEnd, colEnd);
+                    action.setDoEndOfTurn(true);
+                    new ActionPlayer(model, control, action).start();
+                }
+
                 actions.setDoEndOfTurn(true);
                 return actions;
             }
