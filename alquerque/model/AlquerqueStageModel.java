@@ -49,14 +49,12 @@ public class AlquerqueStageModel extends GameStageModel {
     }
 
     // getteur
-
     public AlquerqueBoard getBoard() { return board; }
     public AlquerquePawn[] getBlackPawns() { return blackPawns; }
     public AlquerquePawn[] getRedPawns() { return redPawns; }
     public TextElement getPlayerName() { return playerName; }
-
-
-
+    public int getBlackPawnsCount() { return blackPawnsCount; }
+    public int getWhitePawnsCount() { return whitePawnsCount; }
 
     private void setupCallbacks() {
         onRemoveFromContainer( (element, container, row, col) -> {

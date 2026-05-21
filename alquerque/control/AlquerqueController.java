@@ -30,9 +30,7 @@ public class AlquerqueController extends boardifier.control.Controller {
 
     private void playBot1Turn() {
         System.out.println("Bot's turn (" + model.getCurrentPlayerName() + ")...");
-        System.out.println("Welcome to Alquerque!");
-
-        AlquerqueDeciderBot1AleatoirenameFred decider = new AlquerqueDeciderBot1AleatoirenameFred(model, this);
+        AlquerqueDeciderBot3Jesus decider = new AlquerqueDeciderBot3Jesus(model, this);
         ActionList actionsPlayer = decider.decide();
 
         new ActionPlayer(model, this, actionsPlayer).start();
