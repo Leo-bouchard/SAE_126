@@ -41,7 +41,6 @@ public class AlquerqueController extends boardifier.control.Controller {
     private void playBotTurn() {
         System.out.println("Bot's turn (" + model.getCurrentPlayerName() + ")...");
 
-        // pick the correct bot for the current player
         int currentPlayerId = model.getIdPlayer();
         int botChoice;
         if (currentPlayerId == 0) {
@@ -50,7 +49,6 @@ public class AlquerqueController extends boardifier.control.Controller {
             botChoice = botForPlayer1;
         }
 
-        // instantiate the right bot class
         Decider decider;
         if (botChoice == 2) {
             decider = new AlquerqueDeciderBot2Jesus(model, this);
@@ -63,7 +61,6 @@ public class AlquerqueController extends boardifier.control.Controller {
         ActionList actions = decider.decide();
         new ActionPlayer(model, this, actions).start();
 
-        // small pause so we can see the bot's move
         long start = System.currentTimeMillis();
         while (System.currentTimeMillis() - start < 800) { }
     }
