@@ -26,14 +26,14 @@ public class AlquerqueStageFactory extends StageElementsFactory {
         // setup white pawn
         AlquerquePawn[] whitePawns = new AlquerquePawn[12];
         for (int i = 0; i < 12; i++) {
-            whitePawns[i] = new AlquerquePawn(0, alquerqueStageModel);   // 0 = blanc
+            whitePawns[i] = new AlquerquePawn(1, alquerqueStageModel);   // 0 = blanc
         }
         alquerqueStageModel.setWhitePawns(whitePawns);
 
         // setup black pawn
         AlquerquePawn[] blackPawns = new AlquerquePawn[12];
         for (int i = 0; i < 12; i++) {
-            blackPawns[i] = new AlquerquePawn(1, alquerqueStageModel);   // 1 = noir
+            blackPawns[i] = new AlquerquePawn(0, alquerqueStageModel);   // 1 = noir
         }
         alquerqueStageModel.setBlackPawns(blackPawns);
 
