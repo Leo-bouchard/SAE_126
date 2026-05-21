@@ -3,14 +3,12 @@ package alquerque.control;
 import alquerque.model.AlquerqueStageModel;
 import alquerque.model.AlquerquePawn;
 import alquerque.model.AlquerqueBoard;
-import alquerque.view.PawnLook;
 import boardifier.control.ActionFactory;
 import boardifier.control.ActionPlayer;
 import boardifier.model.Model;
 import boardifier.model.Player;
 import boardifier.model.action.ActionList;
 import boardifier.view.View;
-import boardifier.model.action.*;
 
 import java.util.List;
 import java.util.Scanner;
@@ -34,7 +32,7 @@ public class AlquerqueController extends boardifier.control.Controller {
         System.out.println("Bot's turn (" + model.getCurrentPlayerName() + ")...");
         System.out.println("Welcome to Alquerque!");
 
-        AlquerqueDecider_Bot1_Aleatoire_name_Fred decider = new AlquerqueDecider_Bot1_Aleatoire_name_Fred(model, this);
+        AlquerqueDeciderBot1AleatoirenameFred decider = new AlquerqueDeciderBot1AleatoirenameFred(model, this);
         ActionList actionsPlayer = decider.decide();
 
         new ActionPlayer(model, this, actionsPlayer).start();
@@ -59,12 +57,8 @@ public class AlquerqueController extends boardifier.control.Controller {
         List<int[]> valid = board.computeValidCells(pawn);
         boolean moove = false;
         for (int[] cell : valid) {
-            if (cell[1] == colEnd && cell[0] == rowEnd) {
-                ActionList actions = ActionFactory.generateMoveWithinContainer(model, pawn, rowEnd, colEnd);
-                actions.setDoEndOfTurn(true);
-                new ActionPlayer(model, this, actions).start();
+            if (!moove && cell[1] == colEnd && cell[0] == rowEnd ) {
                 moove = true;
-
                 int rowMid = (rowStart + rowEnd) / 2;
                 int colMid = (colStart + colEnd) / 2;
 
@@ -77,11 +71,13 @@ public class AlquerqueController extends boardifier.control.Controller {
                     new ActionPlayer(model, this, captureActions).start();
                 } else {
                     ActionList action = ActionFactory.generateMoveWithinContainer(model, pawn, rowEnd, colEnd);
-                    actions.setDoEndOfTurn(true);
+                    action.setDoEndOfTurn(true);
                     new ActionPlayer(model, this, action).start();
                 }
+
             }
         }
+
         if (!moove) {
             System.out.println("impossible movement");
         }
@@ -102,5 +98,6 @@ public class AlquerqueController extends boardifier.control.Controller {
             endOfTurn();   // play next player turn
         }
         update();          // final show
+        System.out.println("Game over ! Winner : " + model.getPlayers().get(model.getIdWinner()).getName());
     }
 }

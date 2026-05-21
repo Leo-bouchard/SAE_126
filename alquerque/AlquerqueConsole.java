@@ -61,11 +61,11 @@ public class AlquerqueConsole {
             System.out.println("═══════════════════════════════");
             System.out.println("       ALQUERQUE - MENU        ");
             System.out.println("═══════════════════════════════");
-            System.out.println(" 1. Joueur vs Joueur");
-            System.out.println(" 2. Joueur vs Bot");
+            System.out.println(" 1. Player vs Player");
+            System.out.println(" 2. Player vs Bot");
             System.out.println(" 3. Bot vs Bot");
             System.out.println("═══════════════════════════════");
-            System.out.print("Ton choix (1-3) : ");
+            System.out.print("Your choice (1-3) : ");
 
 
 
@@ -80,7 +80,7 @@ public class AlquerqueConsole {
 
 
 
-            System.out.println("Choix invalide. Tape 1, 2 ou 3.");
+            System.out.println("Invalid choice. Type 1, 2 or 3.");
         }
     }
 
@@ -88,21 +88,21 @@ public class AlquerqueConsole {
 
     private static void setupPlayers(Model model, Scanner scanner, int mode) {
         if (mode == 0) {
-            System.out.print("Nom du joueur 1 (●) : ");
+            System.out.print("Player 1 name (●) : ");
             String p1Name = scanner.nextLine().trim();
-            if (p1Name.isEmpty()) p1Name = "Joueur 1";
+            if (p1Name.isEmpty()) p1Name = "Player 1";
 
-            System.out.print("Nom du joueur 2 (○3) : ");
+            System.out.print("Player name 2 (○) : ");
             String p2Name = scanner.nextLine().trim();
-            if (p2Name.isEmpty()) p2Name = "Joueur 2";
+            if (p2Name.isEmpty()) p2Name = "Player 2";
 
             model.addHumanPlayer(p1Name);
             model.addHumanPlayer(p2Name);
         }
         else if (mode == 1) {
-            System.out.print("Ton nom (○) : ");
+            System.out.print("Your name (○) : ");
             String name = scanner.nextLine().trim();
-            if (name.isEmpty()) name = "Joueur";
+            if (name.isEmpty()) name = "Player";
 
             model.addHumanPlayer(name);
             model.addComputerPlayer("Bot");

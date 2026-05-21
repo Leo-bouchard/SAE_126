@@ -7,7 +7,6 @@ import boardifier.control.ActionFactory;
 import boardifier.control.ActionPlayer;
 import boardifier.control.Controller;
 import boardifier.control.Decider;
-import boardifier.model.Coord2D;
 import boardifier.model.Model;
 import boardifier.model.action.ActionList;
 
@@ -16,11 +15,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class AlquerqueDecider_Bot1_Aleatoire_name_Fred extends Decider {
+public class AlquerqueDeciderBot1AleatoirenameFred extends Decider {
 
     private static final Random rand = new Random();
 
-    public AlquerqueDecider_Bot1_Aleatoire_name_Fred(Model model, Controller control) {
+    public AlquerqueDeciderBot1AleatoirenameFred(Model model, Controller control) {
         super(model, control);
     }
 
