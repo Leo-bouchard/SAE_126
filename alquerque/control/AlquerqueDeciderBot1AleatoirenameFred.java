@@ -79,8 +79,6 @@ public class AlquerqueDeciderBot1AleatoirenameFred extends Decider {
     }
 
 
-    // === HELPERS ===
-
     private void addCaptureToActionList(ActionList actions, AlquerqueBoard board, AlquerquePawn pawn, int[] capture) {
         AlquerquePawn captured = (AlquerquePawn) board.getElement(capture[4], capture[5]);
         ActionList move = ActionFactory.generateMoveWithinContainer(model, pawn, capture[2], capture[3]);

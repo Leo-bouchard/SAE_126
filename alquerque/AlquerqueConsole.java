@@ -87,8 +87,8 @@ public class AlquerqueConsole {
             System.out.println("    Choose " + botLabel);
             System.out.println("───────────────────────────────");
             System.out.println(" 1. Fred  (random, easy)");
-            System.out.println(" 2. Smart (thinks 1 move)");
-            System.out.println(" 3. Jesus (thinks 4 moves)");
+            System.out.println(" 2. Jesus (thinks 1 move)");
+            System.out.println(" 3. Master Mind (thinks 4 moves)");
             System.out.println("───────────────────────────────");
             System.out.print("Your choice (1-3) : ");
 
@@ -152,8 +152,8 @@ public class AlquerqueConsole {
      */
     private static String botName(int botChoice) {
         if (botChoice == 1) return "Fred";
-        if (botChoice == 2) return "Smart";
-        if (botChoice == 3) return "Jesus";
+        if (botChoice == 2) return "Jesus";
+        if (botChoice == 3) return "Master Mind";
         return "Bot";
     }
 }

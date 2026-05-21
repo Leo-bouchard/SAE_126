@@ -10,6 +10,7 @@ import boardifier.model.Model;
 import boardifier.model.action.ActionList;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class AlquerqueDeciderBot3MasterMind extends Decider {
@@ -27,6 +28,7 @@ public class AlquerqueDeciderBot3MasterMind extends Decider {
         int[][] matrix = boardToMatrix(board);
 
         List<int[]> allCaptures = findAllCaptures(matrix, botColor);
+        Collections.shuffle(allCaptures);
 
         if (!allCaptures.isEmpty()) {
             // for each first capture, simulate the full chain and count length
@@ -83,6 +85,7 @@ public class AlquerqueDeciderBot3MasterMind extends Decider {
 
         // no capture: pick best simple move
         List<int[]> simpleMoves = findAllSimpleMoves(matrix, botColor);
+        Collections.shuffle(simpleMoves);
         if (simpleMoves.isEmpty()) {
             ActionList empty = new ActionList();
             empty.setDoEndOfTurn(true);
@@ -109,6 +112,7 @@ public class AlquerqueDeciderBot3MasterMind extends Decider {
      */
     private int maxChainFrom(int[][] matrix, int row, int col, int color) {
         List<int[]> nextCaptures = findCapturesFromPosition(matrix, row, col, color);
+        Collections.shuffle(nextCaptures);
         if (nextCaptures.isEmpty()) return 0;
 
         int best = 0;
@@ -137,10 +141,10 @@ public class AlquerqueDeciderBot3MasterMind extends Decider {
      * Corner = +3, edge = +2, inside = 0.
      */
     private int edgeBonus(int row, int col) {
-        boolean topBot = (row == 0 || row == 4);
-        boolean leftRight = (col == 0 || col == 4);
+        boolean topBot = (row == 2 || row == 3);
+        boolean leftRight = (col == 2 || col == 3);
         if (topBot && leftRight) return 3;
-        if (topBot || leftRight) return 2;
+        if (topBot || leftRight) return 3;
         return 0;
     }
 
@@ -162,6 +166,7 @@ public class AlquerqueDeciderBot3MasterMind extends Decider {
 
     private List<int[]> findAllCaptures(int[][] matrix, int color) {
         List<int[]> captures = new ArrayList<>();
+        Collections.shuffle(captures);
         for (int row = 0; row < 5; row++) {
             for (int col = 0; col < 5; col++) {
                 if (matrix[row][col] != color) continue;
@@ -173,6 +178,7 @@ public class AlquerqueDeciderBot3MasterMind extends Decider {
 
     private List<int[]> findCapturesFromPosition(int[][] matrix, int row, int col, int color) {
         List<int[]> captures = new ArrayList<>();
+        Collections.shuffle(captures);
         if (matrix[row][col] != color) return captures;
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
@@ -197,6 +203,7 @@ public class AlquerqueDeciderBot3MasterMind extends Decider {
 
     private List<int[]> findAllSimpleMoves(int[][] matrix, int color) {
         List<int[]> moves = new ArrayList<>();
+        Collections.shuffle(moves);
         for (int row = 0; row < 5; row++) {
             for (int col = 0; col < 5; col++) {
                 if (matrix[row][col] != color) continue;

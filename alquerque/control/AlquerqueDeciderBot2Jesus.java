@@ -10,6 +10,8 @@ import boardifier.model.Model;
 import boardifier.model.action.ActionList;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class AlquerqueDeciderBot2Jesus extends Decider {
@@ -28,6 +30,7 @@ public class AlquerqueDeciderBot2Jesus extends Decider {
 
         // ALQUERQUE RULE: capture is mandatory if available
         List<int[]> allCaptures = findAllCaptures(matrix, botColor);
+        Collections.shuffle(allCaptures);
 
         if (!allCaptures.isEmpty()) {
             // pick the capture with the best local score
@@ -104,7 +107,7 @@ public class AlquerqueDeciderBot2Jesus extends Decider {
      * Bonus: +2 if we land on a safer cell (edge / corner).
      */
     private int scoreCapture(int[] capture) {
-        int score = 10;
+        int score = 20;
         int safetyBefore = edgeBonus(capture[0], capture[1]);
         int safetyAfter = edgeBonus(capture[2], capture[3]);
         if (safetyAfter > safetyBefore) score += 2;
@@ -119,7 +122,7 @@ public class AlquerqueDeciderBot2Jesus extends Decider {
         int score = 0;
         int safetyBefore = edgeBonus(move[0], move[1]);
         int safetyAfter = edgeBonus(move[2], move[3]);
-        if (safetyAfter > safetyBefore) score += 2;
+        if (safetyAfter > safetyBefore) score += 1;
         return score;
     }
 
@@ -128,10 +131,10 @@ public class AlquerqueDeciderBot2Jesus extends Decider {
      * Corner = +3, edge = +2, inside = 0.
      */
     private int edgeBonus(int row, int col) {
-        boolean topBot = (row == 0 || row == 4);
-        boolean leftRight = (col == 0 || col == 4);
-        if (topBot && leftRight) return 3;
-        if (topBot || leftRight) return 2;
+        boolean topBot = (row == 2 || row == 3);
+        boolean leftRight = (col == 2 || col == 3);
+        if (topBot && leftRight) return 4;
+        if (topBot || leftRight) return 4;
         return 0;
     }
 
@@ -153,6 +156,7 @@ public class AlquerqueDeciderBot2Jesus extends Decider {
 
     private List<int[]> findAllCaptures(int[][] matrix, int color) {
         List<int[]> captures = new ArrayList<>();
+        Collections.shuffle(captures);
         for (int row = 0; row < 5; row++) {
             for (int col = 0; col < 5; col++) {
                 if (matrix[row][col] != color) continue;
@@ -164,6 +168,7 @@ public class AlquerqueDeciderBot2Jesus extends Decider {
 
     private List<int[]> findCapturesFromPosition(int[][] matrix, int row, int col, int color) {
         List<int[]> captures = new ArrayList<>();
+        Collections.shuffle(captures);
         if (matrix[row][col] != color) return captures;
 
         for (int i = -1; i <= 1; i++) {
@@ -193,6 +198,7 @@ public class AlquerqueDeciderBot2Jesus extends Decider {
 
     private List<int[]> findAllSimpleMoves(int[][] matrix, int color) {
         List<int[]> moves = new ArrayList<>();
+        Collections.shuffle(moves);
         for (int row = 0; row < 5; row++) {
             for (int col = 0; col < 5; col++) {
                 if (matrix[row][col] != color) continue;
