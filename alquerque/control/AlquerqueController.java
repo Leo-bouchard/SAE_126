@@ -5,6 +5,7 @@ import alquerque.model.AlquerquePawn;
 import alquerque.model.AlquerqueBoard;
 import boardifier.control.ActionFactory;
 import boardifier.control.ActionPlayer;
+import boardifier.control.Decider;
 import boardifier.model.Model;
 import boardifier.model.Player;
 import boardifier.model.action.ActionList;
@@ -15,6 +16,11 @@ import java.util.Scanner;
 
 public class AlquerqueController extends boardifier.control.Controller {
 
+    // bot choices set by the main before the game starts
+    // 1 = Fred (random), 2 = Smart, 3 = Jesus (minimax)
+    public static int botForPlayer0 = 1;   // default: Fred
+    public static int botForPlayer1 = 1;   // default: Fred
+
     public AlquerqueController(Model model, View view) {
         super(model, view);
     }
@@ -22,19 +28,44 @@ public class AlquerqueController extends boardifier.control.Controller {
     public void playTurn() {
         int playerType = model.getCurrentPlayer().getType();
         if (playerType == Player.COMPUTER) {
-            playBot1Turn();
+            playBotTurn();
         } else {
             playHumanTurn();
         }
     }
 
-    private void playBot1Turn() {
+    /**
+     * Plays the turn of the current bot.
+     * The bot to use depends on which player is currently active.
+     */
+    private void playBotTurn() {
         System.out.println("Bot's turn (" + model.getCurrentPlayerName() + ")...");
-        AlquerqueDeciderBot3Jesus decider = new AlquerqueDeciderBot3Jesus(model, this);
-        ActionList actionsPlayer = decider.decide();
 
-        new ActionPlayer(model, this, actionsPlayer).start();
+        // pick the correct bot for the current player
+        int currentPlayerId = model.getIdPlayer();
+        int botChoice;
+        if (currentPlayerId == 0) {
+            botChoice = botForPlayer0;
+        } else {
+            botChoice = botForPlayer1;
+        }
 
+        // instantiate the right bot class
+        Decider decider;
+        if (botChoice == 2) {
+            decider = new AlquerqueDeciderBot2Jesus(model, this);
+        } else if (botChoice == 3) {
+            decider = new AlquerqueDeciderBot3MasterMind(model, this);
+        } else {
+            decider = new AlquerqueDeciderBot1AleatoirenameFred(model, this);
+        }
+
+        ActionList actions = decider.decide();
+        new ActionPlayer(model, this, actions).start();
+
+        // small pause so we can see the bot's move
+        long start = System.currentTimeMillis();
+        while (System.currentTimeMillis() - start < 800) { }
     }
 
     private void playHumanTurn() {
@@ -52,41 +83,16 @@ public class AlquerqueController extends boardifier.control.Controller {
         AlquerqueBoard board = stage.getBoard();
         AlquerquePawn pawn = (AlquerquePawn) board.getElement(rowStart, colStart);
 
-        // we check if it's the player pawn
-        if (pawn == null || pawn.getColor() == model.getIdPlayer()) {
-            System.out.println("Ce n'est pas votre pion !");
-            return;
-        }
-
         List<int[]> valid = board.computeValidCells(pawn);
         boolean moove = false;
         for (int[] cell : valid) {
-            if (!moove && cell[1] == colEnd && cell[0] == rowEnd ) {
+            if (cell[1] == colEnd && cell[0] == rowEnd) {
+                ActionList actions = ActionFactory.generateMoveWithinContainer(model, pawn, rowEnd, colEnd);
+                actions.setDoEndOfTurn(true);
+                new ActionPlayer(model, this, actions).start();
                 moove = true;
-
-                // if we moove from 2 box we need to eat
-                if (Math.abs(rowEnd - rowStart) == 2 || Math.abs(colEnd - colStart) == 2) {
-                    // we calcul the middle box
-                    int rowMid = (rowStart + rowEnd) / 2;
-                    int colMid = (colStart + colEnd) / 2;
-                    // we get the enemy pawn before eting
-                    AlquerquePawn captured = (AlquerquePawn) board.getElement(rowMid, colMid);
-                    // we moove the player pawn and delete the enemy pawn
-                    ActionList moveActions = ActionFactory.generateMoveWithinContainer(model, pawn, rowEnd, colEnd);
-                    ActionList captureActions = ActionFactory.generateRemoveFromStage(model, captured);
-                    moveActions.addAll(captureActions);
-                    moveActions.setDoEndOfTurn(true);
-                    new ActionPlayer(model, this, moveActions).start();
-                } else {
-                    // if no capture we simply moove
-                    ActionList action = ActionFactory.generateMoveWithinContainer(model, pawn, rowEnd, colEnd);
-                    action.setDoEndOfTurn(true);
-                    new ActionPlayer(model, this, action).start();
-                }
-
             }
         }
-
         if (!moove) {
             System.out.println("impossible movement");
         }
@@ -102,11 +108,10 @@ public class AlquerqueController extends boardifier.control.Controller {
     @Override
     public void stageLoop() {
         while (!model.isEndStage()) {
-            update();      // show the board
-            playTurn();    // launch current player turn
-            endOfTurn();   // play next player turn
+            update();
+            playTurn();
+            endOfTurn();
         }
-        update();          // final show
-        System.out.println("Game over ! Winner : " + model.getPlayers().get(model.getIdWinner()).getName());
+        update();
     }
 }

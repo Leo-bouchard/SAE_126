@@ -12,8 +12,8 @@ import boardifier.model.action.ActionList;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AlquerqueDeciderBot3Jesus extends Decider {
-    public AlquerqueDeciderBot3Jesus(Model model, Controller control) {
+public class AlquerqueDeciderBot2Jesus extends Decider {
+    public AlquerqueDeciderBot2Jesus(Model model, Controller control) {
         super(model, control);
     }
 
