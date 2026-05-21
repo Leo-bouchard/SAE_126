@@ -54,6 +54,12 @@ public class AlquerqueController extends boardifier.control.Controller {
         AlquerqueBoard board = stage.getBoard();
         AlquerquePawn pawn = (AlquerquePawn) board.getElement(rowStart, colStart);
 
+        // we check if it's the player pawn
+        if (pawn == null || pawn.getColor() != model.getIdPlayer()) {
+            System.out.println("Ce n'est pas votre pion !");
+            return;
+        }
+
         List<int[]> valid = board.computeValidCells(pawn);
         boolean moove = false;
         for (int[] cell : valid) {
@@ -64,8 +70,8 @@ public class AlquerqueController extends boardifier.control.Controller {
 
                 if (!board.isEmptyAt(rowMid, colMid)) {
                     AlquerquePawn captured = (AlquerquePawn) board.getElement(rowMid, colMid);
-                    ActionList captureActions = ActionFactory.generateRemoveFromStage(model, captured);
                     ActionList moveActions = ActionFactory.generateMoveWithinContainer(model, pawn, rowEnd, colEnd);
+                    ActionList captureActions = ActionFactory.generateRemoveFromStage(model, captured);
                     captureActions.addAll(moveActions);
                     captureActions.setDoEndOfTurn(true);
                     new ActionPlayer(model, this, captureActions).start();
