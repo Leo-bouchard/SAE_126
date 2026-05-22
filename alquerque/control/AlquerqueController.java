@@ -83,11 +83,34 @@ public class AlquerqueController extends boardifier.control.Controller {
         List<int[]> valid = board.computeValidCells(pawn);
         boolean moove = false;
         for (int[] cell : valid) {
-            if (cell[1] == colEnd && cell[0] == rowEnd) {
-                ActionList actions = ActionFactory.generateMoveWithinContainer(model, pawn, rowEnd, colEnd);
-                actions.setDoEndOfTurn(true);
-                new ActionPlayer(model, this, actions).start();
-                moove = true;
+            moove = true;
+
+// si le déplacement est de 2 cases, c'est une capture
+            if (Math.abs(rowEnd - rowStart) == 2 || Math.abs(colEnd - colStart) == 2) {
+                // on calcule la case du milieu entre départ et arrivée
+                int rowMid = (rowStart + rowEnd) / 2;
+                int colMid = (colStart + colEnd) / 2;
+                // on récupère le pion adverse à capturer
+                AlquerquePawn captured = (AlquerquePawn) board.getElement(rowMid, colMid);
+                // on déplace notre pion puis on supprime le pion capturé
+                ActionList moveActions = ActionFactory.generateMoveWithinContainer(model, pawn, rowEnd, colEnd);
+                ActionList captureActions = ActionFactory.generateRemoveFromStage(model, captured);
+                moveActions.addAll(captureActions);
+                moveActions.setDoEndOfTurn(true);
+                new ActionPlayer(model, this, moveActions).start();
+
+                // multi capture
+                List<int[]> newValid = board.computeValidCaptureCells(pawn);
+                boolean canCaptureAgain = false;
+                    if (newValid != null) {
+                    System.out.println("You can still eat a pawn");
+
+                }
+            } else {
+                // déplacement simple sans capture
+                ActionList action = ActionFactory.generateMoveWithinContainer(model, pawn, rowEnd, colEnd);
+                action.setDoEndOfTurn(true);
+                new ActionPlayer(model, this, action).start();
             }
         }
         if (!moove) {
@@ -110,5 +133,8 @@ public class AlquerqueController extends boardifier.control.Controller {
             endOfTurn();
         }
         update();
+    }
+    public void multiCapture(AlquerquePawn pawn){
+
     }
 }
