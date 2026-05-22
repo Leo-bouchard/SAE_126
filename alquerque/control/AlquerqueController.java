@@ -18,8 +18,8 @@ public class AlquerqueController extends boardifier.control.Controller {
 
     // bot choices set by the main before the game starts
     // 1 = Fred (random), 2 = Smart, 3 = Jesus (minimax)
-    public static int botForPlayer0 = 1;   // default: Fred
-    public static int botForPlayer1 = 1;   // default: Fred
+    public static int botForPlayer0 = 3;   // default: Fred
+    public static int botForPlayer1 = 3;   // default: Fred
 
     public AlquerqueController(Model model, View view) {
         super(model, view);
@@ -61,8 +61,8 @@ public class AlquerqueController extends boardifier.control.Controller {
         ActionList actions = decider.decide();
         new ActionPlayer(model, this, actions).start();
 
-        long start = System.currentTimeMillis();
-        while (System.currentTimeMillis() - start < 800) { }
+       // long start = System.currentTimeMillis();
+        //while (System.currentTimeMillis() - start < 800) { }   // a enlever sans fase de teste
     }
 
     private void playHumanTurn() {
