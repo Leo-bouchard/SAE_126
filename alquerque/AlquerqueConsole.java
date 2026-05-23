@@ -130,8 +130,8 @@ public class AlquerqueConsole {
             int botChoice = chooseBot(scanner, "your opponent bot (○)");
             AlquerqueController.botForPlayer1 = botChoice;
 
-            model.addHumanPlayer(name);
             model.addComputerPlayer(botName(botChoice) + " (○)");
+            model.addHumanPlayer(name);
         }
         else if (mode == 2) {
             // Bot vs Bot
