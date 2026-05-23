@@ -108,13 +108,43 @@ public class AlquerqueController extends boardifier.control.Controller {
 
                 // multi capture
                 List<int[]> newValid = board.computeValidCaptureCells(pawn);
-                boolean canCaptureAgain = false;
-                    if (newValid != null) {
-                    System.out.println("You can still eat a pawn");
+                while (newValid != null && !newValid.isEmpty()) {
                     update();
+                    System.out.println("You can still eat a pawn!");
+                    System.out.print("Choose capture destination > ");
+                    String nextInput = new Scanner(System.in).nextLine();
+                    int nextColEnd = nextInput.charAt(0) - 'A';
+                    int nextRowEnd = Integer.parseInt(nextInput.substring(1, 2)) - 1;
 
-
+                    // check if the chosen destination is a valid capture
+                    boolean validCapture = false;
+                    for (int[] c : newValid) {
+                        if (c[0] == nextRowEnd && c[1] == nextColEnd) {
+                            validCapture = true;
+                            break;
+                        }
                     }
+                    if (!validCapture) {
+                        System.out.println("Invalid capture!");
+                        continue;
+                    }
+
+                    // get the middle cell between current position and destination
+                    int[] curPos = board.getElementCell(pawn);
+                    int nextRowMid = (curPos[0] + nextRowEnd) / 2;
+                    int nextColMid = (curPos[1] + nextColEnd) / 2;
+                    AlquerquePawn nextCaptured = (AlquerquePawn) board.getElement(nextRowMid, nextColMid);
+                    if (nextCaptured == null) continue;
+
+                    // move the pawn and remove the captured pawn
+                    ActionList nextMove = ActionFactory.generateMoveWithinContainer(model, pawn, nextRowEnd, nextColEnd);
+                    ActionList nextCapture = ActionFactory.generateRemoveFromStage(model, nextCaptured);
+                    nextMove.addAll(nextCapture);
+                    nextMove.setDoEndOfTurn(false);
+                    new ActionPlayer(model, this, nextMove).start();
+
+                    newValid = board.computeValidCaptureCells(pawn);
+                }
             } else {
                 // déplacement simple sans capture
                 ActionList action = ActionFactory.generateMoveWithinContainer(model, pawn, rowEnd, colEnd);
