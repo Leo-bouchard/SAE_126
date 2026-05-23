@@ -172,14 +172,46 @@ public class AlquerqueController extends boardifier.control.Controller {
 
     @Override
     public void stageLoop() {
+        int turnCount = 0;
+        int turnsWithoutCapture = 0;
+        int maxTurnsWithoutCapture = 40;
+        int previousPawnCount = countPawns();
+
         while (!model.isEndStage()) {
             update();
             playTurn();
             endOfTurn();
+            turnCount++;
+
+            int currentPawnCount = countPawns();
+            if (currentPawnCount < previousPawnCount) {
+                // a capture happened
+                turnsWithoutCapture = 0;
+                previousPawnCount = currentPawnCount;
+            } else {
+                turnsWithoutCapture++;
+            }
+
+            if (turnsWithoutCapture >= maxTurnsWithoutCapture) {
+                System.out.println("Match nul : 40 tours sans capture.");
+                model.setIdWinner(-1);
+                model.stopStage();
+                break;
+            }
         }
+
         update();
     }
-    public void multiCapture(AlquerquePawn pawn){
 
+    private int countPawns() {
+        AlquerqueStageModel stage = (AlquerqueStageModel) model.getGameStage();
+        AlquerqueBoard board = stage.getBoard();
+        int count = 0;
+        for (int row = 0; row < 5; row++) {
+            for (int col = 0; col < 5; col++) {
+                if (!board.isEmptyAt(row, col)) count++;
+            }
+        }
+        return count;
     }
 }
