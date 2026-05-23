@@ -80,6 +80,12 @@ public class AlquerqueController extends boardifier.control.Controller {
         AlquerqueBoard board = stage.getBoard();
         AlquerquePawn pawn = (AlquerquePawn) board.getElement(rowStart, colStart);
 
+        if(pawn.getColor() != model.getIdPlayer()){
+            System.out.println("Not your pawn !");
+            playHumanTurn();
+            return;
+        }
+
         List<int[]> valid = board.computeValidCells(pawn);
         boolean moove = false;
         for (int[] cell : valid) {
@@ -90,7 +96,8 @@ public class AlquerqueController extends boardifier.control.Controller {
                 // on calcule la case du milieu entre départ et arrivée
                 int rowMid = (rowStart + rowEnd) / 2;
                 int colMid = (colStart + colEnd) / 2;
-                // on récupère le pion adverse à capturer
+
+                // on récupère le pion adverse à capturer s
                 AlquerquePawn captured = (AlquerquePawn) board.getElement(rowMid, colMid);
                 // on déplace notre pion puis on supprime le pion capturé
                 ActionList moveActions = ActionFactory.generateMoveWithinContainer(model, pawn, rowEnd, colEnd);
@@ -104,8 +111,10 @@ public class AlquerqueController extends boardifier.control.Controller {
                 boolean canCaptureAgain = false;
                     if (newValid != null) {
                     System.out.println("You can still eat a pawn");
+                    update();
 
-                }
+
+                    }
             } else {
                 // déplacement simple sans capture
                 ActionList action = ActionFactory.generateMoveWithinContainer(model, pawn, rowEnd, colEnd);
