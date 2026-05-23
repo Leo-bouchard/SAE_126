@@ -12,17 +12,11 @@ public class BotComparaisonRunner {
     // CONFIGURATION
     // =============================
 
-    // Number of games
-    private static final int NB_GAMES = 100000;
+    private static final int NB_GAMES = 100;
 
-    // Bot for black player (●)
-    // 1 = Fred
-    // 2 = Jesus
-    // 3 = Master Mind
-    private static final int BOT_PLAYER_0 = 3;
-
-    // Bot for white player (○)
-    private static final int BOT_PLAYER_1 = 2;
+    // 1 = Fred, 2 = Jesus, 3 = Master Mind
+    private static final int BOT_PLAYER_0 = 2;
+    private static final int BOT_PLAYER_1 = 3;
 
 
     public static void main(String[] args) {
@@ -30,6 +24,7 @@ public class BotComparaisonRunner {
         int winsPlayer0 = 0;
         int winsPlayer1 = 0;
         int draws = 0;
+        int errors = 0;
 
         System.out.println("====================================");
         System.out.println("     BOT TOURNAMENT STARTED");
@@ -50,9 +45,13 @@ public class BotComparaisonRunner {
                 winsPlayer1++;
                 System.out.println("Winner : WHITE (○)");
             }
-            else {
+            else if (result == -1) {
                 draws++;
                 System.out.println("Draw");
+            }
+            else {
+                errors++;
+                System.out.println("Game error, skipped");
             }
 
             System.out.println();
@@ -70,38 +69,41 @@ public class BotComparaisonRunner {
         System.out.println("Black bot (" + botName(BOT_PLAYER_0) + ") wins : " + winsPlayer0);
         System.out.println("White bot (" + botName(BOT_PLAYER_1) + ") wins : " + winsPlayer1);
         System.out.println("Draws : " + draws);
+        if (errors > 0) {
+            System.out.println("Errors : " + errors);
+        }
 
         System.out.println();
 
-        double wrBlack = (winsPlayer0 * 100.0) / NB_GAMES;
-        double wrWhite = (winsPlayer1 * 100.0) / NB_GAMES;
+        int validGames = NB_GAMES - errors;
+        if (validGames > 0) {
+            double wrBlack = (winsPlayer0 * 100.0) / validGames;
+            double wrWhite = (winsPlayer1 * 100.0) / validGames;
+            double drawRate = (draws * 100.0) / validGames;
 
-        System.out.println("Black WR : " + wrBlack + "%");
-        System.out.println("White WR : " + wrWhite + "%");
+            System.out.println("Black WR : " + wrBlack + "%");
+            System.out.println("White WR : " + wrWhite + "%");
+            System.out.println("Draw rate : " + drawRate + "%");
+        }
     }
 
 
     private static int playOneGame() {
 
-        // Create model
         Model model = new Model();
 
-        // Register stage
         StageFactory.registerModelAndView(
                 "alquerque",
                 "alquerque.model.AlquerqueStageModel",
                 "alquerque.view.AlquerqueStageView"
         );
 
-        // Configure bots
         AlquerqueController.botForPlayer0 = BOT_PLAYER_0;
         AlquerqueController.botForPlayer1 = BOT_PLAYER_1;
 
-        // Add players
         model.addComputerPlayer(botName(BOT_PLAYER_0) + " (●)");
         model.addComputerPlayer(botName(BOT_PLAYER_1) + " (○)");
 
-        // Create view + controller
         View view = new View(model);
         AlquerqueController control = new AlquerqueController(model, view);
 
@@ -110,14 +112,13 @@ public class BotComparaisonRunner {
         try {
             control.startGame();
 
-            // Main game loop
             while (!model.isEndGame() && !model.isEndStage()) {
                 control.stageLoop();
             }
 
         } catch (GameException e) {
             System.out.println("Error while launching game");
-            return -1;
+            return -99;
         }
 
         return model.getIdWinner();
