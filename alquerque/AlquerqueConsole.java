@@ -71,6 +71,7 @@ public class AlquerqueConsole {
             if (input.equals("2")) return 1;
             if (input.equals("3")) return 2;
 
+
             System.out.println("Invalid choice. Type 1, 2 or 3.");
         }
     }

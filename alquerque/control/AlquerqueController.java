@@ -129,7 +129,15 @@ public class AlquerqueController extends boardifier.control.Controller {
         String input = scanner.nextLine();
         System.out.println("You wrote : " + input);
 
-        int[] coords = parseInput(input);
+        int[] coords;
+        try {
+            coords = parseInput(input);
+        } catch (Exception e) {
+            System.out.println("Invalid input format! Use format: A1 B2");
+            playHumanTurn();
+            return;
+        }
+
         int rowStart = coords[0], colStart = coords[1];
         int rowEnd = coords[2], colEnd = coords[3];
 
