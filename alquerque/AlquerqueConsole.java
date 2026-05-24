@@ -146,6 +146,19 @@ public class AlquerqueConsole {
             model.addComputerPlayer(botName(bot1Choice) + " (●)");
             model.addComputerPlayer(botName(bot2Choice) + " (○)");
         } else if (mode == 4) {
+        } else if (mode == 4) {
+            System.out.println("═══════════════════════════════");
+            System.out.println("         DEMO MODE             ");
+            System.out.println("═══════════════════════════════");
+            System.out.println(" 1. Partie normale");
+            System.out.println(" 2. Captures");
+            System.out.println(" 3. Multi-captures");
+            System.out.println(" 4. Coups invalides (syntaxe)");
+            System.out.println(" 5. Coups invalides (règles)");
+            System.out.println("═══════════════════════════════");
+            System.out.print("Votre choix : ");
+            String demoChoice = scanner.nextLine().trim();
+
             model.addHumanPlayer("Player1 (●)");
             model.addHumanPlayer("Player2 (○)");
         }
