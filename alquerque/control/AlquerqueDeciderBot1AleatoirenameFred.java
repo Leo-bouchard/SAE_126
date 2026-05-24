@@ -94,7 +94,7 @@ public class AlquerqueDeciderBot1AleatoirenameFred extends Decider {
         return actions;
     }
 
-    private List<int[]> findAllCaptures(int[][] matrix, int color) {
+    public List<int[]> findAllCaptures(int[][] matrix, int color) {
         List<int[]> captures = new ArrayList<>();
         for (int row = 0; row < 5; row++) {
             for (int col = 0; col < 5; col++) {
@@ -105,7 +105,7 @@ public class AlquerqueDeciderBot1AleatoirenameFred extends Decider {
         return captures;
     }
 
-    private List<int[]> findCapturesFromPosition(int[][] matrix, int row, int col, int color) {
+    public List<int[]> findCapturesFromPosition(int[][] matrix, int row, int col, int color) {
         List<int[]> captures = new ArrayList<>();
         if (matrix[row][col] != color) return captures;
 
@@ -134,7 +134,7 @@ public class AlquerqueDeciderBot1AleatoirenameFred extends Decider {
         return captures;
     }
 
-    private List<int[]> findAllSimpleMoves(int[][] matrix, int color) {
+    public List<int[]> findAllSimpleMoves(int[][] matrix, int color) {
         List<int[]> moves = new ArrayList<>();
         for (int row = 0; row < 5; row++) {
             for (int col = 0; col < 5; col++) {
@@ -159,7 +159,7 @@ public class AlquerqueDeciderBot1AleatoirenameFred extends Decider {
         return moves;
     }
 
-    private int[][] boardToMatrix(AlquerqueBoard board) {
+    public int[][] boardToMatrix(AlquerqueBoard board) {
         int[][] matrix = new int[5][5];
         for (int row = 0; row < 5; row++) {
             for (int col = 0; col < 5; col++) {
@@ -171,7 +171,7 @@ public class AlquerqueDeciderBot1AleatoirenameFred extends Decider {
         return matrix;
     }
 
-    private void applyMoveOnMatrix(int[][] matrix, int[] move) {
+    public void applyMoveOnMatrix(int[][] matrix, int[] move) {
         int color = matrix[move[0]][move[1]];
         matrix[move[0]][move[1]] = -1;
         matrix[move[2]][move[3]] = color;

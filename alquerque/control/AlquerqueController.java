@@ -18,11 +18,14 @@ public class AlquerqueController extends boardifier.control.Controller {
 
     // bot choices set by the main before the game starts
     // 1 = Fred (random), 2 = Smart, 3 = Jesus (minimax)
-    public static int botForPlayer0 = 3;   // default: Fred
-    public static int botForPlayer1 = 3;   // default: Fred
+    public static int botForPlayer0 = 3;
+    public static int botForPlayer1 = 3;
 
-    public AlquerqueController(Model model, View view) {
+    private final Scanner scanner;
+
+    public AlquerqueController(Model model, View view, Scanner scanner) {
         super(model, view);
+        this.scanner = scanner;
     }
 
     public void playTurn() {
@@ -34,20 +37,11 @@ public class AlquerqueController extends boardifier.control.Controller {
         }
     }
 
-    /**
-     * Plays the turn of the current bot.
-     * The bot to use depends on which player is currently active.
-     */
     private void playBotTurn() {
         System.out.println("Bot's turn (" + model.getCurrentPlayerName() + ")...");
 
         int currentPlayerId = model.getIdPlayer();
-        int botChoice;
-        if (currentPlayerId == 0) {
-            botChoice = botForPlayer0;
-        } else {
-            botChoice = botForPlayer1;
-        }
+        int botChoice = (currentPlayerId == 0) ? botForPlayer0 : botForPlayer1;
 
         Decider decider;
         if (botChoice == 2) {
@@ -62,11 +56,9 @@ public class AlquerqueController extends boardifier.control.Controller {
         new ActionPlayer(model, this, actions).start();
 
         try { Thread.sleep(1000); } catch (InterruptedException e) {}
-       // long start = System.currentTimeMillis();
-        //while (System.currentTimeMillis() - start < 800) { }   // a enlever sans fase de teste
     }
 
-    private int[] parseInput(String input) {
+    public int[] parseInput(String input) {
         int colStart = input.charAt(0) - 'A';
         int rowStart = Integer.parseInt(input.substring(1, 2)) - 1;
         int colEnd = input.charAt(3) - 'A';
@@ -74,7 +66,7 @@ public class AlquerqueController extends boardifier.control.Controller {
         return new int[]{rowStart, colStart, rowEnd, colEnd};
     }
 
-    private AlquerquePawn getPawnAt(AlquerqueBoard board, int row, int col) {
+    public AlquerquePawn getPawnAt(AlquerqueBoard board, int row, int col) {
         AlquerquePawn pawn = (AlquerquePawn) board.getElement(row, col);
         if (pawn == null || pawn.getColor() == model.getIdPlayer()) {
             System.out.println("Not your pawn!");
@@ -102,11 +94,10 @@ public class AlquerqueController extends boardifier.control.Controller {
             update();
             System.out.println("You can still eat a pawn!");
             System.out.print("Choose capture destination > ");
-            String nextInput = new Scanner(System.in).nextLine();
+            String nextInput = scanner.nextLine().trim();
             int nextColEnd = nextInput.charAt(0) - 'A';
             int nextRowEnd = Integer.parseInt(nextInput.substring(1, 2)) - 1;
 
-            // check if the chosen destination is a valid capture
             boolean validCapture = false;
             for (int[] c : newValid) {
                 if (c[0] == nextRowEnd && c[1] == nextColEnd) {
@@ -126,8 +117,12 @@ public class AlquerqueController extends boardifier.control.Controller {
 
     private void playHumanTurn() {
         System.out.print("Your turn (" + model.getCurrentPlayerName() + ") > ");
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
+        String input = scanner.nextLine().trim();
+
+        if (input.equals("stop")) {
+            model.stopStage();
+            return;
+        }
 
         int[] coords;
         try {
@@ -180,22 +175,18 @@ public class AlquerqueController extends boardifier.control.Controller {
 
     @Override
     public void stageLoop() {
-        int turnCount = 0;
         int turnsWithoutCapture = 0;
         int maxTurnsWithoutCapture = 40;
         int previousPawnCount = countPawns();
 
         while (!model.isEndStage()) {
             update();
+            try { Thread.sleep(1500); } catch (InterruptedException e) {}
             playTurn();
             endOfTurn();
-            turnCount++;
-
-
 
             int currentPawnCount = countPawns();
             if (currentPawnCount < previousPawnCount) {
-                // a capture happened
                 turnsWithoutCapture = 0;
                 previousPawnCount = currentPawnCount;
             } else {
@@ -211,8 +202,6 @@ public class AlquerqueController extends boardifier.control.Controller {
         }
 
         update();
-        try { Thread.sleep(1000); } catch (InterruptedException e) {}
-
     }
 
     private int countPawns() {

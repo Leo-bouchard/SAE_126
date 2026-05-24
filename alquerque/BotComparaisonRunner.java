@@ -5,6 +5,9 @@ import boardifier.control.StageFactory;
 import boardifier.model.GameException;
 import boardifier.model.Model;
 import boardifier.view.View;
+import org.mockito.internal.matchers.Null;
+
+import java.util.Scanner;
 
 public class BotComparaisonRunner {
 
@@ -105,7 +108,8 @@ public class BotComparaisonRunner {
         model.addComputerPlayer(botName(BOT_PLAYER_1) + " (○)");
 
         View view = new View(model);
-        AlquerqueController control = new AlquerqueController(model, view);
+        Scanner scanner = null;
+        AlquerqueController control = new AlquerqueController(model, view,scanner);
 
         control.setFirstStageName("alquerque");
 
