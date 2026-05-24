@@ -70,6 +70,7 @@ public class AlquerqueConsole {
             if (input.equals("1")) return 0;
             if (input.equals("2")) return 1;
             if (input.equals("3")) return 2;
+            if (input.equals("4")) return 3;
 
 
             System.out.println("Invalid choice. Type 1, 2 or 3.");
@@ -98,6 +99,8 @@ public class AlquerqueConsole {
             if (input.equals("1")) return 1;
             if (input.equals("2")) return 2;
             if (input.equals("3")) return 3;
+            if (input.equals("4")) return 4;
+
 
             System.out.println("Invalid choice. Type 1, 2 or 3.");
         }
@@ -119,8 +122,7 @@ public class AlquerqueConsole {
 
             model.addHumanPlayer(p1Name);
             model.addHumanPlayer(p2Name);
-        }
-        else if (mode == 1) {
+        } else if (mode == 1) {
             // Player vs Bot
             System.out.print("Your name (●) : ");
             String name = scanner.nextLine().trim();
@@ -133,8 +135,7 @@ public class AlquerqueConsole {
 
             model.addComputerPlayer(botName(botChoice) + " (○)");
             model.addHumanPlayer(name);
-        }
-        else if (mode == 2) {
+        } else if (mode == 2) {
             // Bot vs Bot
             int bot1Choice = chooseBot(scanner, "Bot 1 (●)");
             int bot2Choice = chooseBot(scanner, "Bot 2 (○)");
@@ -144,9 +145,11 @@ public class AlquerqueConsole {
 
             model.addComputerPlayer(botName(bot1Choice) + " (●)");
             model.addComputerPlayer(botName(bot2Choice) + " (○)");
+        } else if (mode == 4) {
+            model.addHumanPlayer("Player1 (●)");
+            model.addHumanPlayer("Player2 (○)");
         }
     }
-
 
     /**
      * Returns the display name of a bot from its number.
@@ -155,6 +158,6 @@ public class AlquerqueConsole {
         if (botChoice == 1) return "Fred";
         if (botChoice == 2) return "Jesus";
         if (botChoice == 3) return "Master Mind";
-        return "Bot";
+        else return "Bot";
     }
 }
