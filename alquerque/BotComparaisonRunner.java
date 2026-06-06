@@ -15,7 +15,7 @@ public class BotComparaisonRunner {
     // CONFIGURATION
     // =============================
 
-    private static final int NB_GAMES = 100;
+    private static final int NB_GAMES = 1;
 
     // 1 = Fred, 2 = Jesus, 3 = Master Mind
     private static final int BOT_PLAYER_0 = 2;

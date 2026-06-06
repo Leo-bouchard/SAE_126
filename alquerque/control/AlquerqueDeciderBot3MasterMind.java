@@ -15,7 +15,7 @@ import java.util.List;
 
 public class AlquerqueDeciderBot3MasterMind extends Decider {
 
-    private static final int DEPTH = 6;
+    private static final int DEPTH = 1;
 
     public AlquerqueDeciderBot3MasterMind(Model model, Controller control) {
         super(model, control);
