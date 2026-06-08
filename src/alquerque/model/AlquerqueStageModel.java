@@ -1,0 +1,112 @@
+package src.alquerque.model;
+
+import boardifier.model.*;
+import src.boardifier.model.*;
+
+public class AlquerqueStageModel extends GameStageModel {
+
+
+    // define stage game elements
+    private TextElement playerName;
+    private AlquerqueBoard board;
+    private AlquerquePawn[] blackPawns;
+    private AlquerquePawn[] redPawns;
+
+    private int blackPawnsCount = 12;
+    private int whitePawnsCount = 12;
+
+    public AlquerqueStageModel(String name, Model model) {
+        super(name, model);
+        setupCallbacks();
+    }
+
+
+    // setteur
+
+    public void setBlackPawns(AlquerquePawn[] pawns) {
+        this.blackPawns = pawns;
+        for (int i = 0; i < pawns.length; i++) {
+            addElement(pawns[i]);
+        }
+    }
+
+
+    public void setWhitePawns(AlquerquePawn[] pawns) {
+        this.redPawns = pawns;
+        for (int i = 0; i < pawns.length; i++) {
+            addElement(pawns[i]);
+        }
+    }
+
+
+    public void setBoard(AlquerqueBoard board) {
+        this.board = board;
+        addContainer(board);
+    }
+
+    public void setPlayerName(TextElement t) {
+        this.playerName = t;
+        addElement(t);
+    }
+
+    // getteur
+    public AlquerqueBoard getBoard() { return board; }
+    public AlquerquePawn[] getBlackPawns() { return blackPawns; }
+    public AlquerquePawn[] getRedPawns() { return redPawns; }
+    public TextElement getPlayerName() { return playerName; }
+    public int getBlackPawnsCount() { return blackPawnsCount; }
+    public int getWhitePawnsCount() { return whitePawnsCount; }
+
+    private void setupCallbacks() {
+        onRemoveFromContainer( (element, container, row, col) -> {
+            if (container != board) return;     // verify if it's the board
+            AlquerquePawn p = (AlquerquePawn) element;            // Retrieve the removed pawn
+
+            if (p.getColor() == 0) {
+                whitePawnsCount--;
+            } else {
+                blackPawnsCount--;
+            }
+
+            // end ?
+            if (whitePawnsCount == 0 || blackPawnsCount == 0) {
+                computePartyResult();
+            }
+        });
+    }
+
+    private void computePartyResult() {
+        int nbWhitePawn = 0;
+        int idWinner;
+
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                GameElement element = board.getElement(i, j);   // Retrieve the pawn of what color if there is one.
+                if (element != null) {
+                    AlquerquePawn p = (AlquerquePawn) element;
+                    if (p.getColor() == 0) {
+                        nbWhitePawn++;
+                    }
+                }
+            }
+        }
+
+
+
+        if (nbWhitePawn == 0) {
+            idWinner = 1;
+        } else {
+            idWinner = 0;
+        }
+
+        model.setIdWinner(idWinner);
+        model.stopStage();
+
+    }
+
+
+    @Override
+    public StageElementsFactory getDefaultElementFactory() {
+        return new AlquerqueStageFactory(this);
+    }
+}
