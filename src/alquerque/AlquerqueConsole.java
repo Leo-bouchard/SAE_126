@@ -26,8 +26,8 @@ public class AlquerqueConsole {
         // 4. Register stage classes
         StageFactory.registerModelAndView(
                 "alquerque",
-                "alquerque.model.AlquerqueStageModel",
-                "alquerque.view.AlquerqueStageView"
+                "src.alquerque.model.AlquerqueStageModel",
+                "src.alquerque.view.AlquerqueStageView"
         );
 
         // 5. Create the view

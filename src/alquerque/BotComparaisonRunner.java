@@ -96,8 +96,8 @@ public class BotComparaisonRunner {
 
         StageFactory.registerModelAndView(
                 "alquerque",
-                "alquerque.model.AlquerqueStageModel",
-                "alquerque.view.AlquerqueStageView"
+                "src.alquerque.model.AlquerqueStageModel",
+                "src.alquerque.view.AlquerqueStageView"
         );
 
         AlquerqueController.botForPlayer0 = BOT_PLAYER_0;
