@@ -95,8 +95,14 @@ public class AlquerqueController extends Controller {
             update();
             System.out.println("You can still eat a pawn!");
             System.out.print("Choose capture destination > ");
-            String nextInput = scanner.nextLine().trim();
-            int nextColEnd = nextInput.charAt(0) - 'A';
+
+            String nextInput = "";
+            try {
+                nextInput = scanner.nextLine().trim();
+            } catch (Exception e) {
+            break;
+        }
+        int nextColEnd = nextInput.charAt(0) - 'A';
             int nextRowEnd = Integer.parseInt(nextInput.substring(1, 2)) - 1;
 
             boolean validCapture = false;
