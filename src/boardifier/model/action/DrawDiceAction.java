@@ -1,6 +1,6 @@
 package src.boardifier.model.action;
 
-import boardifier.model.*;
+import src.boardifier.model.*;
 import src.boardifier.model.DiceElement;
 import src.boardifier.model.ElementTypes;
 import src.boardifier.model.GameElement;

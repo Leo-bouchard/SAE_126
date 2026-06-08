@@ -1,7 +1,7 @@
 package src.boardifier.control;
 
-import boardifier.model.*;
-import boardifier.view.*;
+import src.boardifier.model.*;
+import src.boardifier.view.*;
 import src.boardifier.model.*;
 import src.boardifier.view.ContainerLook;
 import src.boardifier.view.ElementLook;

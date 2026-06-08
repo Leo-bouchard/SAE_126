@@ -1,6 +1,6 @@
 package src.boardifier.view;
 
-import boardifier.model.*;
+import src.boardifier.model.*;
 import src.boardifier.model.GameElement;
 import src.boardifier.model.GameException;
 import src.boardifier.model.GameStageModel;

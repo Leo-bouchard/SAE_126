@@ -3,7 +3,7 @@ package src.boardifier.control;
 import src.boardifier.model.ContainerElement;
 import src.boardifier.model.GameElement;
 import src.boardifier.model.Model;
-import boardifier.model.action.*;
+import src.boardifier.model.action.*;
 import src.boardifier.model.action.*;
 
 /**
