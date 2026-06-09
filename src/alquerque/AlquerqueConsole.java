@@ -50,7 +50,7 @@ public class AlquerqueConsole {
 
 
     /**
-     * Game mode menu.
+     * Game mode menu .
      * 0 = Player vs Player, 1 = Player vs Bot, 2 = Bot vs Bot
      */
     private static int chooseMode(Scanner scanner) {
