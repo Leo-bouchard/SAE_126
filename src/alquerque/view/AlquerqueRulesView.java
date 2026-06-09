@@ -104,7 +104,7 @@ public class AlquerqueRulesView {
         root.getChildren().addAll(title, rules, back);
         root.setStyle("-fx-background-color: cornsilk; -fx-font-family: 'Impact';");
 
-        scene = new Scene(root, 900, 700);
+        scene = new Scene(root, 1000, 700);
     }
 
     // affiche la page des regles dans la fenetre

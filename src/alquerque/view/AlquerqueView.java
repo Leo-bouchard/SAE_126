@@ -32,7 +32,7 @@ public class AlquerqueView {
     public AlquerqueView(Stage stage) {
         this.stage = stage;
         stage.setResizable(false);
-        stage.setMinWidth(900);
+        stage.setMinWidth(1000);
         stage.setMinHeight(700);
         initWidget();
     }
@@ -71,7 +71,7 @@ public class AlquerqueView {
         root.getChildren().addAll(title, vBoxButtonHome);
         root.setStyle("-fx-background-color: cornsilk; -fx-font-family: 'Impact';");
 
-        scene = new Scene(root, 900, 700);
+        scene = new Scene(root, 1000, 700);
     }
 
     // affiche la page d'accueil dans la fenetre
