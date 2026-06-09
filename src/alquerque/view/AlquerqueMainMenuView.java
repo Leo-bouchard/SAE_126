@@ -42,7 +42,7 @@ public class AlquerqueMainMenuView {
         leftBox.setPadding(new Insets(30));
         leftBox.setStyle("-fx-background-color: cornsilk;");
 
-        Button game = new Button("Game");
+        Button game = new Button("Games");
         Button skin = new Button("Skin");
         Button back = new Button("Back");
 
