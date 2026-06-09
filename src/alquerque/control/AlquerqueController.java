@@ -151,20 +151,17 @@ public class AlquerqueController extends Controller {
             return;
         }
 
-        List<int[]> valid = board.computeValidCells(pawn);
+        board.computeValidCells(pawn);
         boolean moove = false;
-        for (int[] cell : valid) {
-            if (cell[0] == rowEnd && cell[1] == colEnd) {
-                moove = true;
-                if (Math.abs(rowEnd - rowStart) == 2 || Math.abs(colEnd - colStart) == 2) {
-                    executeCapture(board, pawn, rowEnd, colEnd);
-                    handleMultiCapture(board, pawn);
-                } else {
-                    ActionList action = ActionFactory.generateMoveWithinContainer(model, pawn, rowEnd, colEnd);
-                    action.setDoEndOfTurn(true);
-                    new ActionPlayer(model, this, action).start();
-                }
-                break;
+        if (board.canReachCell(rowEnd, colEnd)) {
+            moove = true;
+            if (Math.abs(rowEnd - rowStart) == 2 || Math.abs(colEnd - colStart) == 2) {
+                executeCapture(board, pawn, rowEnd, colEnd);
+                handleMultiCapture(board, pawn);
+            } else {
+                ActionList action = ActionFactory.generateMoveWithinContainer(model, pawn, rowEnd, colEnd);
+                action.setDoEndOfTurn(true);
+                new ActionPlayer(model, this, action).start();
             }
         }
         if (!moove) {

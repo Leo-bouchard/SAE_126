@@ -56,6 +56,21 @@ public class AlquerqueStageModel extends GameStageModel {
     public int getBlackPawnsCount() { return blackPawnsCount; }
     public int getWhitePawnsCount() { return whitePawnsCount; }
 
+    public boolean colorHasAnyMove(int color) {
+        for (int row = 0; row < 5; row++) {
+            for (int col = 0; col < 5; col++) {
+                if (board.isEmptyAt(row, col)) continue;
+                AlquerquePawn p = (AlquerquePawn) board.getElement(row, col);
+                if (p.getColor() != color) continue;
+                board.computeValidCells(p);
+                for (int r = 0; r < 5; r++)
+                    for (int c = 0; c < 5; c++)
+                        if (board.canReachCell(r, c)) return true;
+            }
+        }
+        return false;
+    }
+
     private void setupCallbacks() {
         onRemoveFromContainer( (element, container, row, col) -> {
             if (container != board) return;     // verify if it's the board
