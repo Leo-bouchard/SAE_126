@@ -68,7 +68,6 @@ public class AlquerqueController extends Controller {
     }
 
     public AlquerquePawn getPawnAt(AlquerqueBoard board, int row, int col) {
-        // récupération via le board (model) ; validation = c'est bien un pion jouable
         AlquerquePawn pawn = (AlquerquePawn) board.getElement(row, col);
         if (pawn == null || pawn.getColor() == model.getIdPlayer()) {
             return null;
@@ -96,14 +95,17 @@ public class AlquerqueController extends Controller {
             System.out.println("You can still eat a pawn!");
             System.out.print("Choose capture destination > ");
 
-            String nextInput = "";
+            String nextInput;
+            int nextColEnd;
+            int nextRowEnd;
             try {
                 nextInput = scanner.nextLine().trim();
+                nextColEnd = nextInput.charAt(0) - 'A';
+                nextRowEnd = Integer.parseInt(nextInput.substring(1, 2)) - 1;
             } catch (Exception e) {
-                break;
-            }
-            int nextColEnd = nextInput.charAt(0) - 'A';
-            int nextRowEnd = Integer.parseInt(nextInput.substring(1, 2)) - 1;
+                System.out.println("Invalid input format! Use format: A1 B2");
+                continue;
+        }
 
             boolean validCapture = false;
             for (int[] c : newValid) {
