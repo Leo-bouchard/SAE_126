@@ -68,9 +68,9 @@ public class AlquerqueController extends Controller {
     }
 
     public AlquerquePawn getPawnAt(AlquerqueBoard board, int row, int col) {
+        // récupération via le board (model) ; validation = c'est bien un pion jouable
         AlquerquePawn pawn = (AlquerquePawn) board.getElement(row, col);
         if (pawn == null || pawn.getColor() == model.getIdPlayer()) {
-            System.out.println("Not your pawn!");
             return null;
         }
         return pawn;
@@ -100,9 +100,9 @@ public class AlquerqueController extends Controller {
             try {
                 nextInput = scanner.nextLine().trim();
             } catch (Exception e) {
-            break;
-        }
-        int nextColEnd = nextInput.charAt(0) - 'A';
+                break;
+            }
+            int nextColEnd = nextInput.charAt(0) - 'A';
             int nextRowEnd = Integer.parseInt(nextInput.substring(1, 2)) - 1;
 
             boolean validCapture = false;
@@ -147,6 +147,7 @@ public class AlquerqueController extends Controller {
         AlquerqueBoard board = stage.getBoard();
         AlquerquePawn pawn = getPawnAt(board, rowStart, colStart);
         if (pawn == null) {
+            System.out.println("Not your pawn!");
             playHumanTurn();
             return;
         }
@@ -181,7 +182,7 @@ public class AlquerqueController extends Controller {
     public void stageLoop() {
         int turnsWithoutCapture = 0;
         int maxTurnsWithoutCapture = 40;
-        int previousPawnCount = countPawns();
+        int previousPawnCount = ((AlquerqueStageModel) model.getGameStage()).getTotalPawnsCount();
 
         while (!model.isEndStage()) {
             update();
@@ -189,7 +190,7 @@ public class AlquerqueController extends Controller {
             playTurn();
             endOfTurn();
 
-            int currentPawnCount = countPawns();
+            int currentPawnCount = ((AlquerqueStageModel) model.getGameStage()).getTotalPawnsCount();
             if (currentPawnCount < previousPawnCount) {
                 turnsWithoutCapture = 0;
                 previousPawnCount = currentPawnCount;
@@ -206,17 +207,5 @@ public class AlquerqueController extends Controller {
         }
 
         update();
-    }
-
-    private int countPawns() {
-        AlquerqueStageModel stage = (AlquerqueStageModel) model.getGameStage();
-        AlquerqueBoard board = stage.getBoard();
-        int count = 0;
-        for (int row = 0; row < 5; row++) {
-            for (int col = 0; col < 5; col++) {
-                if (!board.isEmptyAt(row, col)) count++;
-            }
-        }
-        return count;
     }
 }

@@ -55,6 +55,7 @@ public class AlquerqueStageModel extends GameStageModel {
     public TextElement getPlayerName() { return playerName; }
     public int getBlackPawnsCount() { return blackPawnsCount; }
     public int getWhitePawnsCount() { return whitePawnsCount; }
+    public int getTotalPawnsCount() { return blackPawnsCount + whitePawnsCount; }
 
     public boolean colorHasAnyMove(int color) {
         for (int row = 0; row < 5; row++) {
