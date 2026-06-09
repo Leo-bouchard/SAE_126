@@ -120,7 +120,14 @@ public class AlquerqueController extends Controller {
             }
 
             executeCapture(board, pawn, nextRowEnd, nextColEnd);
+            System.out.print("continue eating ? Y N");
+            String continueeating = scanner.nextLine().trim();
+            if (continueeating == "y" || continueeating == "Y"){
             newValid = board.computeValidCaptureCells(pawn);
+            } else {
+                newValid = null;
+            }
+
         }
     }
 
