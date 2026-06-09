@@ -17,7 +17,6 @@ public class AlquerqueView {
 
     Button Play, Rules, exit;
 
-    // style commun a tous les boutons (defini une fois, reutilise)
     private static final String BTN_STYLE =
             "-fx-font-size: 22px; -fx-font-family: 'Impact'; " +
                     "-fx-background-color: #552688; -fx-text-fill: cornsilk; " +
@@ -39,7 +38,6 @@ public class AlquerqueView {
 
     public void display() {
 
-        // titre
         Label title = new Label("ALQUERQUE");
         title.setStyle("-fx-font-size: 90px; -fx-font-weight: bold; -fx-font-family: 'Impact'; " +
                 "-fx-text-fill: #19062b;");
@@ -61,7 +59,6 @@ public class AlquerqueView {
         vBoxButtonHome.setAlignment(Pos.CENTER);
         vBoxButtonHome.getChildren().addAll(play, rules, exit);
 
-        // mise en page verticale, centree
         VBox root = new VBox(20);
         root.setAlignment(Pos.CENTER);
         root.setPadding(new Insets(40));
