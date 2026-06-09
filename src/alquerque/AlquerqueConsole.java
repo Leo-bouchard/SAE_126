@@ -6,6 +6,7 @@ import src.boardifier.model.GameException;
 import src.boardifier.model.Model;
 import src.boardifier.view.View;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class AlquerqueConsole {
@@ -50,7 +51,7 @@ public class AlquerqueConsole {
 
 
     /**
-     * Game mode menu .
+     * Game mode menu.
      * 0 = Player vs Player, 1 = Player vs Bot, 2 = Bot vs Bot
      */
     private static int chooseMode(Scanner scanner) {
@@ -110,18 +111,35 @@ public class AlquerqueConsole {
     private static void setupPlayers(Model model, Scanner scanner, int mode) {
         if (mode == 0) {
             // Player vs Player
-            System.out.print("Player 1 name (●) : ");
+            System.out.print("Player 1 name : ");
             String p1Name = scanner.nextLine().trim();
             if (p1Name.isEmpty()) p1Name = "Player 1";
-            p1Name = p1Name + " (●)";
 
-            System.out.print("Player 2 name (○) : ");
+
+            System.out.print("Player 2 name : ");
             String p2Name = scanner.nextLine().trim();
             if (p2Name.isEmpty()) p2Name = "Player 2";
-            p2Name = p2Name + " (○)";
 
-            model.addHumanPlayer(p1Name);
-            model.addHumanPlayer(p2Name);
+            boolean quest = new Random().nextBoolean();
+
+            if (quest) {
+                p1Name = p1Name + " (●)";
+                p2Name = p2Name + " (○)";
+
+                model.addHumanPlayer(p1Name);
+                model.addHumanPlayer(p2Name);
+            }
+            else {
+                p2Name = p2Name + " (●)";
+                p1Name = p1Name + " (○)";
+
+                model.addHumanPlayer(p2Name);
+                model.addHumanPlayer(p1Name);
+            }
+
+
+
+
         } else if (mode == 1) {
             // Player vs Bot
             System.out.print("Your name (●) : ");
