@@ -4,18 +4,18 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import src.alquerque.control.AlquerqueClose;
+import src.alquerque.control.AlquerquePlay;
+import src.alquerque.control.AlquerqueRules;
+
 
 public class AlquerqueView {
 
     private Stage stage;
-
-    Button Play, Rules, exit;
+    private Scene scene;
 
     private static final String BTN_STYLE =
             "-fx-font-size: 22px; -fx-font-family: 'Impact'; " +
@@ -34,9 +34,11 @@ public class AlquerqueView {
         stage.setResizable(false);
         stage.setMinWidth(900);
         stage.setMinHeight(700);
+        initWidget();
     }
 
-    public void display() {
+    // construit (ou reconstruit) la page d'accueil
+    public void initWidget() {
 
         Label title = new Label("ALQUERQUE");
         title.setStyle("-fx-font-size: 90px; -fx-font-weight: bold; -fx-font-family: 'Impact'; " +
@@ -46,7 +48,11 @@ public class AlquerqueView {
         Button play = new Button("Play");
         Button rules = new Button("Rules");
         Button exit = new Button("Exit");
-        exit.setOnAction(e -> stage.close());
+
+        // un handler par bouton (fichiers de control separes)
+        play.setOnAction(new AlquerquePlay(stage));
+        rules.setOnAction(new AlquerqueRules(stage));
+        exit.setOnAction(new AlquerqueClose(stage));
 
         for (Button b : new Button[]{play, rules, exit}) {
             b.setPrefWidth(220);
@@ -65,7 +71,11 @@ public class AlquerqueView {
         root.getChildren().addAll(title, vBoxButtonHome);
         root.setStyle("-fx-background-color: cornsilk; -fx-font-family: 'Impact';");
 
-        Scene scene = new Scene(root, 900, 700);
+        scene = new Scene(root, 900, 700);
+    }
+
+    // affiche la page d'accueil dans la fenetre
+    public void display() {
         stage.setTitle("Alquerque - Menu");
         stage.setScene(scene);
         stage.show();
