@@ -4,13 +4,12 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
 import src.alquerque.view.AlquerqueMainMenuView;
-import src.alquerque.view.AlquerqueRulesView;
 
-public class AlquerquePlay implements EventHandler<ActionEvent> {
+public class AlquerquePlayController implements EventHandler<ActionEvent> {
 
     private Stage stage;
 
-    public AlquerquePlay(Stage stage) {
+    public AlquerquePlayController(Stage stage) {
         this.stage = stage;
     }
 

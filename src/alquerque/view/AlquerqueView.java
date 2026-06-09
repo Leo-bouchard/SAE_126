@@ -7,9 +7,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import src.alquerque.control.AlquerqueClose;
-import src.alquerque.control.AlquerquePlay;
-import src.alquerque.control.AlquerqueRules;
+import src.alquerque.control.AlquerqueCloseController;
+import src.alquerque.control.AlquerquePlayController;
+import src.alquerque.control.AlquerqueRulesController;
 
 
 public class AlquerqueView {
@@ -50,9 +50,9 @@ public class AlquerqueView {
         Button exit = new Button("Exit");
 
         // un handler par bouton (fichiers de control separes)
-        play.setOnAction(new AlquerquePlay(stage));
-        rules.setOnAction(new AlquerqueRules(stage));
-        exit.setOnAction(new AlquerqueClose(stage));
+        play.setOnAction(new AlquerquePlayController(stage));
+        rules.setOnAction(new AlquerqueRulesController(stage));
+        exit.setOnAction(new AlquerqueCloseController(stage));
 
         for (Button b : new Button[]{play, rules, exit}) {
             b.setPrefWidth(220);
