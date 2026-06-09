@@ -3,6 +3,8 @@ package src.alquerque.control;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
+import src.alquerque.view.AlquerqueMainMenuView;
+import src.alquerque.view.AlquerqueRulesView;
 
 public class AlquerquePlay implements EventHandler<ActionEvent> {
 
@@ -14,6 +16,6 @@ public class AlquerquePlay implements EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent event) {
-        System.out.println("Play clicked");
+        new AlquerqueMainMenuView(stage).display();
     }
 }
