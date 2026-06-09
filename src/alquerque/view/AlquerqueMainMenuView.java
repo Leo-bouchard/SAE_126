@@ -24,7 +24,8 @@ public class AlquerqueMainMenuView {
             "-fx-font-size: 22px; -fx-font-family: 'Impact'; " +
                     "-fx-background-color: #4a1d7a; -fx-text-fill: white; " +
                     "-fx-background-radius: 12; -fx-cursor: hand; " +
-                    "-fx-padding: 12 0 12 0;";
+                    "-fx-padding: 12 0 12 0;" +
+                    "-fx-rotate: 2";
 
 
     public AlquerqueMainMenuView(Stage stage) {
@@ -41,14 +42,22 @@ public class AlquerqueMainMenuView {
         leftBox.setPadding(new Insets(30));
         leftBox.setStyle("-fx-background-color: cornsilk;");
 
+        Button game = new Button("Game");
+        Button skin = new Button("Skin");
         Button back = new Button("Back");
-        back.setPrefWidth(220);
-        back.setStyle(BTN_STYLE);
-        back.setOnMouseEntered(e -> back.setStyle(BTN_HOVER));
-        back.setOnMouseExited(e -> back.setStyle(BTN_STYLE));
+
+        for (Button b : new Button[]{game, skin, back}) {
+            b.setPrefWidth(220);
+            b.setStyle(BTN_STYLE);
+            b.setOnMouseEntered(e -> b.setStyle(BTN_HOVER));
+            b.setOnMouseExited(e -> b.setStyle(BTN_STYLE));
+        }
+
+
+
         back.setOnAction(new AlquerqueBackToHomeController(stage));
 
-        leftBox.getChildren().addAll(back);
+        leftBox.getChildren().addAll(game, skin, back);
 
         // ----- zone DROITE : les infos -----
         VBox rightBox = new VBox(20);

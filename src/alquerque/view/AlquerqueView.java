@@ -47,14 +47,16 @@ public class AlquerqueView {
 
         Button play = new Button("Play");
         Button rules = new Button("Rules");
+        Button settings = new Button("Settings");
         Button exit = new Button("Exit");
+
 
         // un handler par bouton (fichiers de control separes)
         play.setOnAction(new AlquerquePlayController(stage));
         rules.setOnAction(new AlquerqueRulesController(stage));
         exit.setOnAction(new AlquerqueCloseController(stage));
 
-        for (Button b : new Button[]{play, rules, exit}) {
+        for (Button b : new Button[]{play, rules, exit, settings}) {
             b.setPrefWidth(220);
             b.setStyle(BTN_STYLE);
             b.setOnMouseEntered(e -> b.setStyle(BTN_HOVER));
@@ -63,7 +65,7 @@ public class AlquerqueView {
 
         VBox vBoxButtonHome = new VBox(35);
         vBoxButtonHome.setAlignment(Pos.CENTER);
-        vBoxButtonHome.getChildren().addAll(play, rules, exit);
+        vBoxButtonHome.getChildren().addAll(play, rules,settings, exit);
 
         VBox root = new VBox(20);
         root.setAlignment(Pos.CENTER);

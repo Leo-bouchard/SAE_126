@@ -24,7 +24,8 @@ public class AlquerqueRulesView {
             "-fx-font-size: 22px; -fx-font-family: 'Impact'; " +
                     "-fx-background-color: #4a1d7a; -fx-text-fill: white; " +
                     "-fx-background-radius: 12; -fx-cursor: hand; " +
-                    "-fx-padding: 12 0 12 0;";
+                    "-fx-padding: 12 0 12 0;" +
+                    "-fx-rotate: 2";
 
     // style commun pour les titres de section
     private static final String SECTION_STYLE =
