@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import src.alquerque.control.AlquerqueGameController;
 
 public class AlquerqueGameView {
@@ -84,6 +85,10 @@ public class AlquerqueGameView {
         controller.showPvP();
 
         Button StartGame = new Button("Start");
+        StartGame.setOnAction(e -> {
+            Stage stage = (Stage) StartGame.getScene().getWindow();
+            src.alquerque.control.AlquerqueController.startGame(stage);
+        });
         for (Button b : new Button[]{StartGame }) {
             b.setPrefWidth(125);
             b.setPrefHeight(25);
