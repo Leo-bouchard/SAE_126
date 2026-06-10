@@ -16,7 +16,6 @@ public class AlquerqueSkinButtonController implements EventHandler<ActionEvent> 
 
     @Override
     public void handle(ActionEvent event) {
-        // demande au menu d'afficher le panneau Skin a droite
         menu.setRightPanel(new AlquerqueSkinView().getPanel());
     }
 }

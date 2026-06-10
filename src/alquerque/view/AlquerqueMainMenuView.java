@@ -58,21 +58,21 @@ public class AlquerqueMainMenuView {
             b.setOnMouseExited(e -> b.setStyle(BTN_STYLE));
         }
 
-        // un controller par bouton
+
         game.setOnAction(new AlquerqueGameButtonController(this));
         skin.setOnAction(new AlquerqueSkinButtonController(this));
         back.setOnAction(new AlquerqueBackToHomeController(stage));
 
         leftBox.getChildren().addAll(game, skin, back);
 
-        // ----- zone DROITE : contenu echangeable -----
+
         rightBox = new VBox(20);
         rightBox.setAlignment(Pos.CENTER);
         rightBox.setPadding(new Insets(30));
         rightBox.setStyle("-fx-background-color: #f5e9c8;");
-        rightBox.getChildren().add(new AlquerqueGameView().getPanel());  // Games par défaut
+        rightBox.getChildren().add(new AlquerqueGameView().getPanel());
 
-        // ----- le SplitPane qui remplit toute la fenetre -----
+
         SplitPane splitPane = new SplitPane();
         splitPane.getItems().addAll(leftBox, rightBox);
         splitPane.setDividerPositions(0.3);
