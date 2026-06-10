@@ -12,11 +12,22 @@ import src.alquerque.control.AlquerqueGameController;
 public class AlquerqueGameView {
 
 
+
+    private Button PvP, PvB, BvB;
+
+
     private static final String BTN_STYLE =
             "-fx-font-size: 20px; -fx-font-family: 'Impact'; " +
                     "-fx-background-color: #773eb8; -fx-text-fill: cornsilk; " +
                     "-fx-background-radius: 12; -fx-cursor: hand; " +
                     "-fx-padding: 12 0 12 0;";
+
+    private static final String BTN_STYLE_ACTIVE =
+            "-fx-font-size: 20px; -fx-font-family: 'Impact'; " +
+                    "-fx-background-color: #4d2281; -fx-text-fill: cornsilk; " +
+                    "-fx-background-radius: 12; -fx-cursor: hand; " +
+                    "-fx-padding: 12 0 12 0;";
+
     private static final String BTN_HOVER =
             "-fx-font-size: 20px; -fx-font-family: 'Impact'; " +
                     "-fx-background-color: #6a1db3; -fx-text-fill: white; " +
@@ -47,15 +58,15 @@ public class AlquerqueGameView {
                     "-fx-border-width: 2; " +
                     "-fx-padding: 4;";
 
-    private VBox configBox;   // zone qui change selon le mode
+    private VBox configBox;
 
     public VBox getPanel() {
 
         AlquerqueGameController controller = new AlquerqueGameController(this);
 
-        Button PvP = new Button("PvsP");
-        Button PvB = new Button("PvsB");
-        Button BvB = new Button("BvsB");
+        PvP = new Button("2 Players");
+        PvB = new Button("1 Player");
+        BvB = new Button("2 Bots");
 
 
 
@@ -73,14 +84,15 @@ public class AlquerqueGameView {
         controller.showPvP();
 
         Button StartGame = new Button("Start");
-
-        for (Button b : new Button[]{PvP, PvB, BvB, StartGame}) {
+        for (Button b : new Button[]{StartGame }) {
             b.setPrefWidth(125);
             b.setPrefHeight(25);
             b.setStyle(BTN_STYLE);
             b.setOnMouseEntered(e -> b.setStyle(BTN_HOVER));
             b.setOnMouseExited(e -> b.setStyle(BTN_STYLE));
         }
+
+
 
 
         VBox box = new VBox(20);
@@ -107,6 +119,23 @@ public class AlquerqueGameView {
         l2.setStyle(SECTION_STYLE);
         TextField nom2 = new TextField(); nom2.setMaxWidth(200);
         nom2.setStyle(TEXTFIELD_STYLE);
+
+        for (Button b : new Button[]{PvP}) {
+            b.setPrefWidth(125);
+            b.setPrefHeight(25);
+            b.setStyle(BTN_STYLE_ACTIVE);
+            b.setOnMouseEntered(e -> b.setStyle(BTN_HOVER));
+            b.setOnMouseExited(e -> b.setStyle(BTN_STYLE_ACTIVE));
+        }
+
+        for (Button b : new Button[]{ PvB, BvB }) {
+            b.setPrefWidth(125);
+            b.setPrefHeight(25);
+            b.setStyle(BTN_STYLE);
+            b.setOnMouseEntered(e -> b.setStyle(BTN_HOVER));
+            b.setOnMouseExited(e -> b.setStyle(BTN_STYLE));
+        }
+
         v.getChildren().addAll(l1, nom1, l2, nom2);
         return v;
     }
@@ -126,6 +155,23 @@ public class AlquerqueGameView {
         bot.getItems().addAll("Fred", "Jesus", "Master Mind");
         bot.setValue("Fred");
         bot.setStyle(COMBOX_STYLE);
+
+
+        for (Button b : new Button[]{PvB}) {
+            b.setPrefWidth(125);
+            b.setPrefHeight(25);
+            b.setStyle(BTN_STYLE_ACTIVE);
+            b.setOnMouseEntered(e -> b.setStyle(BTN_HOVER));
+            b.setOnMouseExited(e -> b.setStyle(BTN_STYLE_ACTIVE));
+        }
+
+        for (Button b : new Button[]{ PvP, BvB }) {
+            b.setPrefWidth(125);
+            b.setPrefHeight(25);
+            b.setStyle(BTN_STYLE);
+            b.setOnMouseEntered(e -> b.setStyle(BTN_HOVER));
+            b.setOnMouseExited(e -> b.setStyle(BTN_STYLE));
+        }
 
         v.getChildren().addAll(l1, nom, l2, bot);
         return v;
@@ -149,6 +195,24 @@ public class AlquerqueGameView {
         bot2.getItems().addAll("Fred", "Jesus", "Master Mind");
         bot2.setValue("Jesus");
         bot2.setStyle(COMBOX_STYLE);
+
+        for (Button b : new Button[]{BvB}) {
+            b.setPrefWidth(125);
+            b.setPrefHeight(25);
+            b.setStyle(BTN_STYLE_ACTIVE);
+            b.setOnMouseEntered(e -> b.setStyle(BTN_HOVER));
+            b.setOnMouseExited(e -> b.setStyle(BTN_STYLE_ACTIVE));
+        }
+
+        for (Button b : new Button[]{ PvB, PvP }) {
+            b.setPrefWidth(125);
+            b.setPrefHeight(25);
+            b.setStyle(BTN_STYLE);
+            b.setOnMouseEntered(e -> b.setStyle(BTN_HOVER));
+            b.setOnMouseExited(e -> b.setStyle(BTN_STYLE));
+        }
+
+
         v.getChildren().addAll(l1, bot1, l2, bot2);
         return v;
     }
