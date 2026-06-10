@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import src.alquerque.control.AlquerqueButtonGoSettingController;
 import src.alquerque.control.AlquerqueCloseController;
 import src.alquerque.control.AlquerquePlayController;
 import src.alquerque.control.AlquerqueRulesController;
@@ -54,6 +55,7 @@ public class AlquerqueView {
         // un handler par bouton (fichiers de control separes)
         play.setOnAction(new AlquerquePlayController(stage));
         rules.setOnAction(new AlquerqueRulesController(stage));
+        settings.setOnAction(new AlquerqueButtonGoSettingController(stage));
         exit.setOnAction(new AlquerqueCloseController(stage));
 
         for (Button b : new Button[]{play, rules, exit, settings}) {
