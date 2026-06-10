@@ -7,32 +7,53 @@ import src.boardifier.control.ActionFactory;
 import src.boardifier.control.ActionPlayer;
 import src.boardifier.control.Controller;
 import src.boardifier.control.Decider;
+import src.boardifier.control.StageFactory;
+import src.boardifier.model.GameException;
 import src.boardifier.model.Model;
-import src.boardifier.model.Player;
 import src.boardifier.model.action.ActionList;
+import src.boardifier.view.RootPane;
 import src.boardifier.view.View;
+import javafx.stage.Stage;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class AlquerqueController extends Controller {
 
-    // bot choices set by the main before the game starts
-    // 1 = Fred (random), 2 = Smart, 3 = Jesus (minimax)
     public static int botForPlayer0 = 3;
     public static int botForPlayer1 = 3;
 
-    private final Scanner scanner;
-
-    public AlquerqueController(Model model, View view, Scanner scanner) {
+    public AlquerqueController(Model model, View view) {
         super(model, view);
-        this.scanner = scanner;
     }
 
 
-    private void playBotTurn() {
-        System.out.println("Bot's turn (" + model.getCurrentPlayerName() + ")...");
+    public static void startGame(Stage stage) {
+        Model model = new Model();
+        model.addHumanPlayer("Joueur 1");
+        model.addHumanPlayer("Joueur 2");
 
+        StageFactory.registerModelAndView(
+                "alquerque",
+                "src.alquerque.model.AlquerqueStageModel",
+                "src.alquerque.view.AlquerqueStageView"
+        );
+
+        RootPane root = new RootPane();
+        View view = new View(model, stage, root);
+
+        AlquerqueController control = new AlquerqueController(model, view);
+        control.setFirstStageName("alquerque");
+        control.setControlMouse(new AlquerqueControllerMouse(model, view, control));
+
+        try {
+            control.startGame();
+            stage.show();
+        } catch (GameException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void playBotTurn() {
         int currentPlayerId = model.getIdPlayer();
         int botChoice = (currentPlayerId == 0) ? botForPlayer0 : botForPlayer1;
 
@@ -47,81 +68,7 @@ public class AlquerqueController extends Controller {
 
         ActionList actions = decider.decide();
         new ActionPlayer(model, this, actions).start();
-
-        try { Thread.sleep(1000); } catch (InterruptedException e) {}
     }
-
-    public int[] parseInput(String input) {
-        int colStart = input.charAt(0) - 'A';
-        int rowStart = Integer.parseInt(input.substring(1, 2)) - 1;
-        int colEnd = input.charAt(3) - 'A';
-        int rowEnd = Integer.parseInt(input.substring(4, 5)) - 1;
-        return new int[]{rowStart, colStart, rowEnd, colEnd};
-    }
-
-    public AlquerquePawn getPawnAt(AlquerqueBoard board, int row, int col) {
-        AlquerquePawn pawn = (AlquerquePawn) board.getElement(row, col);
-        if (pawn == null || pawn.getColor() == model.getIdPlayer()) {
-            return null;
-        }
-        return pawn;
-    }
-
-    private void executeCapture(AlquerqueBoard board, AlquerquePawn pawn, int rowEnd, int colEnd) {
-        int[] curPos = board.getElementCell(pawn);
-        int rowMid = (curPos[0] + rowEnd) / 2;
-        int colMid = (curPos[1] + colEnd) / 2;
-        AlquerquePawn captured = (AlquerquePawn) board.getElement(rowMid, colMid);
-        if (captured == null) return;
-        ActionList moveActions = ActionFactory.generateMoveWithinContainer(this ,model, pawn, rowEnd, colEnd);
-        ActionList captureActions = ActionFactory.generateRemoveFromStage(model, captured);
-        moveActions.addAll(captureActions);
-        moveActions.setDoEndOfTurn(false);
-        new ActionPlayer(model, this, moveActions).start();
-    }
-
-    private void handleMultiCapture(AlquerqueBoard board, AlquerquePawn pawn) {
-        List<int[]> newValid = board.computeValidCaptureCells(pawn);
-        while (newValid != null && !newValid.isEmpty()) {
-            update();
-            System.out.println("You can still eat a pawn!");
-            System.out.print("Choose capture destination > ");
-
-            String nextInput;
-            int nextColEnd;
-            int nextRowEnd;
-            try {
-                nextInput = scanner.nextLine().trim();
-                nextColEnd = nextInput.charAt(0) - 'A';
-                nextRowEnd = Integer.parseInt(nextInput.substring(1, 2)) - 1;
-            } catch (Exception e) {
-                System.out.println("Invalid input format! Use format: A1 B2");
-                continue;
-        }
-
-            boolean validCapture = false;
-            for (int[] c : newValid) {
-                if (c[0] == nextRowEnd && c[1] == nextColEnd) {
-                    validCapture = true;
-                    break;
-                }
-            }
-            if (!validCapture) {
-                System.out.println("Invalid capture!");
-                continue;
-            }
-
-            executeCapture(board, pawn, nextRowEnd, nextColEnd);
-            newValid = board.computeValidCaptureCells(pawn);
-            if (!newValid.isEmpty()) {
-                System.out.print("continue eating ? Y N");
-                String continueeating = scanner.nextLine().trim();
-                if (continueeating.equals("n") || continueeating.equals("N")) {
-                    newValid = null;
-                }
-                }
-            }
-        }
 
 
     public void tryMove(AlquerquePawn pawn, int rowEnd, int colEnd) {
@@ -146,11 +93,39 @@ public class AlquerqueController extends Controller {
         }
     }
 
+
+    private void executeCapture(AlquerqueBoard board, AlquerquePawn pawn, int rowEnd, int colEnd) {
+        int[] curPos = board.getElementCell(pawn);
+        int rowMid = (curPos[0] + rowEnd) / 2;
+        int colMid = (curPos[1] + colEnd) / 2;
+        AlquerquePawn captured = (AlquerquePawn) board.getElement(rowMid, colMid);
+        if (captured == null) return;
+
+        ActionList moveActions = ActionFactory.generateMoveWithinContainer(this, model, pawn, rowEnd, colEnd);
+        ActionList captureActions = ActionFactory.generateRemoveFromStage(model, captured);
+        moveActions.addAll(captureActions);
+        moveActions.setDoEndOfTurn(false);
+        new ActionPlayer(model, this, moveActions).start();
+    }
+
+    private void handleMultiCapture(AlquerqueBoard board, AlquerquePawn pawn) {
+        List<int[]> newValid = board.computeValidCaptureCells(pawn);
+        while (newValid != null && !newValid.isEmpty()) {
+            int[] next = newValid.get(0);
+            executeCapture(board, pawn, next[0], next[1]);
+            newValid = board.computeValidCaptureCells(pawn);
+        }
+        // terminer le tour après la chaîne
+        ActionList endTurn = new ActionList();
+        endTurn.setDoEndOfTurn(true);
+        new ActionPlayer(model, this, endTurn).start();
+    }
+
+
     @Override
     public void endOfTurn() {
         model.setNextPlayer();
         AlquerqueStageModel stage = (AlquerqueStageModel) model.getGameStage();
         stage.getPlayerName().setText(model.getCurrentPlayerName());
     }
-
 }
