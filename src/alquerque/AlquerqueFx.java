@@ -2,7 +2,16 @@ package src.alquerque;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import src.alquerque.control.AlquerquePlaylistController;
 import src.alquerque.view.AlquerqueView;
+
+// change VM option with this : --module-path
+
+/// Users/spines/Downloads/javafx-sdk-17.0.18/lib
+//--add-modules
+//javafx.controls,javafx.fxml,javafx.media
+
+// because We need JavaFx.media
 
 public class AlquerqueFx extends Application {
 
@@ -12,6 +21,7 @@ public class AlquerqueFx extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        AlquerquePlaylistController.getInstance().play();
         AlquerqueView view=new AlquerqueView(primaryStage);
         view.display();
     }
