@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 public class BoardLook extends GridLook {
 
     public BoardLook(ContainerElement board) {
-        super(200, 200, board, 0, 1, Color.TRANSPARENT);
+        super(180, 180, board, 0, 1, Color.TRANSPARENT);
 
         Image image = new Image(getClass().getResourceAsStream("/src/alquerque/Image/BackgroundBoard.png"));
         ImageView bg = new ImageView(image);

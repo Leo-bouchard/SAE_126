@@ -23,8 +23,8 @@ public class PawnLook extends ElementLook {
 
         Image image = new Image(getClass().getResourceAsStream(file));
         imageView = new ImageView(image);
-        imageView.setFitWidth(100);
-        imageView.setFitHeight(100);
+        imageView.setFitWidth(60);
+        imageView.setFitHeight(60);
         addNode(imageView);
     }
 
