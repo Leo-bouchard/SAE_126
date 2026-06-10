@@ -11,6 +11,7 @@ import src.boardifier.model.Coord2D;
 import src.boardifier.model.GameElement;
 import src.boardifier.model.Model;
 import src.boardifier.model.action.ActionList;
+import src.boardifier.view.ContainerLook;
 import src.boardifier.view.View;
 import javafx.scene.input.MouseEvent;
 
@@ -24,40 +25,35 @@ public class AlquerqueControllerMouse extends ControllerMouse {
         super(model, view, control);
         this.control = (AlquerqueController) control;
     }
-
     @Override
     public void handle(MouseEvent event) {
-        // if bot ignore
         if (model.getCurrentPlayer().getType() != src.boardifier.model.Player.HUMAN) return;
 
         AlquerqueStageModel stage = (AlquerqueStageModel) model.getGameStage();
         AlquerqueBoard board = stage.getBoard();
 
-        // 1. get item on clic
+        // coordonnées du clic
         Coord2D click = new Coord2D(event.getX(), event.getY());
-        List<GameElement> elements = control.elementsAt(click);
-        if (elements.isEmpty()) return;
 
-        // 2. get cells under clic
-        int[] cell = board.getElementCell(elements.get(0));
+        // récupérer la cellule cliquée via le look du board (marche même sur case vide)
+        ContainerLook boardLook = (ContainerLook) control.getElementLook(board);
+        int[] dest = boardLook.getCellFromSceneLocation(click);
+        if (dest == null) return; // clic hors plateau
+
+        int row = dest[0], col = dest[1];
 
         if (selected == null) {
-            // no selected pawn
-            for (GameElement el : elements) {
-                if (el instanceof AlquerquePawn) {
-                    AlquerquePawn p = (AlquerquePawn) el;
-                    if (p.getColor() != model.getIdPlayer()) {
-                        selected = p;
-                        board.computeValidCells(p);
-                        control.update();
-                        return;
-                    }
-                }
+            AlquerquePawn p = (AlquerquePawn) board.getElement(row, col);
+            System.out.println("Clic case [" + row + "," + col + "], pion = " + p);
+            if (p != null && p.getColor() != model.getIdPlayer()) {
+                selected = p;
+                board.computeValidCells(p);
+                control.update();
+                System.out.println("Pion sélectionné !");
             }
         } else {
-            //  pawn already selected we try to move it
-            int[] dest = board.getElementCell(elements.get(0)); // case cliquée
-            control.tryMove(selected, dest[0], dest[1]);
+            System.out.println("Tentative move vers [" + row + "," + col + "]");
+            control.tryMove(selected, row, col);
             selected = null;
             board.resetReachableCells(false);
             control.update();

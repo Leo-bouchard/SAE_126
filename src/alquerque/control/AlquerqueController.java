@@ -15,8 +15,6 @@ import src.boardifier.view.RootPane;
 import src.boardifier.view.View;
 import javafx.stage.Stage;
 
-import java.util.List;
-
 public class AlquerqueController extends Controller {
 
     public static int botForPlayer0 = 3;
@@ -25,7 +23,6 @@ public class AlquerqueController extends Controller {
     public AlquerqueController(Model model, View view) {
         super(model, view);
     }
-
 
     public static void startGame(Stage stage) {
         Model model = new Model();
@@ -70,11 +67,9 @@ public class AlquerqueController extends Controller {
         new ActionPlayer(model, this, actions).start();
     }
 
-
     public void tryMove(AlquerquePawn pawn, int rowEnd, int colEnd) {
         AlquerqueStageModel stage = (AlquerqueStageModel) model.getGameStage();
         AlquerqueBoard board = stage.getBoard();
-
         int[] start = board.getElementCell(pawn);
         int rowStart = start[0], colStart = start[1];
 
@@ -83,44 +78,25 @@ public class AlquerqueController extends Controller {
             return;
         }
 
-        if (Math.abs(rowEnd - rowStart) == 2 || Math.abs(colEnd - colStart) == 2) {
-            executeCapture(board, pawn, rowEnd, colEnd);
-            handleMultiCapture(board, pawn);
+        boolean isCapture = Math.abs(rowEnd - rowStart) == 2 || Math.abs(colEnd - colStart) == 2;
+
+        ActionList actions;
+        if (isCapture) {
+            // déplacement + suppression du pion sauté dans UNE seule liste
+            int rowMid = (rowStart + rowEnd) / 2;
+            int colMid = (colStart + colEnd) / 2;
+            AlquerquePawn captured = (AlquerquePawn) board.getElement(rowMid, colMid);
+            actions = ActionFactory.generateMoveWithinContainer(this, model, pawn, rowEnd, colEnd);
+            if (captured != null) {
+                actions.addAll(ActionFactory.generateRemoveFromStage(model, captured));
+            }
         } else {
-            ActionList action = ActionFactory.generateMoveWithinContainer(this, model, pawn, rowEnd, colEnd);
-            action.setDoEndOfTurn(true);
-            new ActionPlayer(model, this, action).start();
+            actions = ActionFactory.generateMoveWithinContainer(this, model, pawn, rowEnd, colEnd);
         }
+
+        actions.setDoEndOfTurn(true);
+        new ActionPlayer(model, this, actions).start();
     }
-
-
-    private void executeCapture(AlquerqueBoard board, AlquerquePawn pawn, int rowEnd, int colEnd) {
-        int[] curPos = board.getElementCell(pawn);
-        int rowMid = (curPos[0] + rowEnd) / 2;
-        int colMid = (curPos[1] + colEnd) / 2;
-        AlquerquePawn captured = (AlquerquePawn) board.getElement(rowMid, colMid);
-        if (captured == null) return;
-
-        ActionList moveActions = ActionFactory.generateMoveWithinContainer(this, model, pawn, rowEnd, colEnd);
-        ActionList captureActions = ActionFactory.generateRemoveFromStage(model, captured);
-        moveActions.addAll(captureActions);
-        moveActions.setDoEndOfTurn(false);
-        new ActionPlayer(model, this, moveActions).start();
-    }
-
-    private void handleMultiCapture(AlquerqueBoard board, AlquerquePawn pawn) {
-        List<int[]> newValid = board.computeValidCaptureCells(pawn);
-        while (newValid != null && !newValid.isEmpty()) {
-            int[] next = newValid.get(0);
-            executeCapture(board, pawn, next[0], next[1]);
-            newValid = board.computeValidCaptureCells(pawn);
-        }
-        // terminer le tour après la chaîne
-        ActionList endTurn = new ActionList();
-        endTurn.setDoEndOfTurn(true);
-        new ActionPlayer(model, this, endTurn).start();
-    }
-
 
     @Override
     public void endOfTurn() {
