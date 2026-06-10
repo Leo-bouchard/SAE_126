@@ -1,13 +1,13 @@
-package boardifier.model.action;
+package src.boardifier.model.action;
 
-import boardifier.model.ContainerElement;
-import boardifier.model.Coord2D;
-import boardifier.model.GameElement;
-import boardifier.model.Model;
-import boardifier.model.animation.AnimationTypes;
-import boardifier.model.animation.LinearMoveAnimation;
-import boardifier.model.animation.MoveAnimation;
-import boardifier.model.animation.WaitAnimation;
+import src.boardifier.model.ContainerElement;
+import src.boardifier.model.Coord2D;
+import src.boardifier.model.GameElement;
+import src.boardifier.model.Model;
+import src.boardifier.model.animation.AnimationTypes;
+import src.boardifier.model.animation.LinearMoveAnimation;
+import src.boardifier.model.animation.MoveAnimation;
+import src.boardifier.model.animation.WaitAnimation;
 
 
 public class RemoveFromContainerAction extends GameAction {

@@ -1,7 +1,7 @@
-package boardifier.model.action;
+package src.boardifier.model.action;
 
-import boardifier.model.GameElement;
-import boardifier.model.Model;
+import src.boardifier.model.GameElement;
+import src.boardifier.model.Model;
 
 public class RemoveFromStageAction extends GameAction {
 

@@ -1,7 +1,7 @@
-package boardifier.view;
+package src.boardifier.view;
 
-import boardifier.model.DiceElement;
-import boardifier.model.GameElement;
+import src.boardifier.model.DiceElement;
+import src.boardifier.model.GameElement;
 
 public class Dice6Look extends SpriteImageLook {
 

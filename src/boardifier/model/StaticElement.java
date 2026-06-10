@@ -1,4 +1,4 @@
-package boardifier.model;
+package src.boardifier.model;
 
 /*
  boardifier.model.StaticElement class :

@@ -1,8 +1,8 @@
-package boardifier.view;
+package src.boardifier.view;
 
-import boardifier.model.GameElement;
-import boardifier.model.GameException;
-import boardifier.model.Model;
+import src.boardifier.model.GameElement;
+import src.boardifier.model.GameException;
+import src.boardifier.model.Model;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;

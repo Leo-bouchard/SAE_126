@@ -1,7 +1,7 @@
-package boardifier.model;
+package src.boardifier.model;
 
-import boardifier.control.Logger;
-import boardifier.view.ElementLook;
+import src.boardifier.control.Logger;
+import src.boardifier.view.ElementLook;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -74,7 +74,7 @@ public abstract class AlquerqueDeciderBase extends Decider {
 
     protected void addCaptureToActionList(ActionList actions, AlquerqueBoard board, AlquerquePawn pawn, int[] capture) {
         AlquerquePawn captured = (AlquerquePawn) board.getElement(capture[4], capture[5]);
-        ActionList move = ActionFactory.generateMoveWithinContainer(model, pawn, capture[2], capture[3]);
+        ActionList move = ActionFactory.generateMoveWithinContainer(control ,model, pawn, capture[2], capture[3]);
         ActionList remove = ActionFactory.generateRemoveFromStage(model, captured);
         actions.addAll(move);
         actions.addAll(remove);
@@ -82,7 +82,7 @@ public abstract class AlquerqueDeciderBase extends Decider {
 
     protected ActionList buildSimpleMoveAction(AlquerqueBoard board, int[] move) {
         AlquerquePawn pawn = (AlquerquePawn) board.getElement(move[0], move[1]);
-        ActionList actions = ActionFactory.generateMoveWithinContainer(model, pawn, move[2], move[3]);
+        ActionList actions = ActionFactory.generateMoveWithinContainer(control ,model, pawn, move[2], move[3]);
         actions.setDoEndOfTurn(true);
         return actions;
     }

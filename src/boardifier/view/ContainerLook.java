@@ -1,8 +1,8 @@
-package boardifier.view;
+package src.boardifier.view;
 
-import boardifier.control.Logger;
-import boardifier.model.ContainerElement;
-import boardifier.model.Coord2D;
+import src.boardifier.control.Logger;
+import src.boardifier.model.ContainerElement;
+import src.boardifier.model.Coord2D;
 import javafx.geometry.Point2D;
 
 import java.util.ArrayList;

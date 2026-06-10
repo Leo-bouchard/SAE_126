@@ -1,7 +1,7 @@
-package boardifier.view;
+package src.boardifier.view;
 
-import boardifier.model.GameElement;
-import boardifier.model.TextElement;
+import src.boardifier.model.GameElement;
+import src.boardifier.model.TextElement;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;

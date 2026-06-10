@@ -1,8 +1,8 @@
-package boardifier.model.action;
+package src.boardifier.model.action;
 
-import boardifier.model.*;
-import boardifier.model.animation.AnimationTypes;
-import boardifier.model.animation.CyclicFaceAnimation;
+import src.boardifier.model.*;
+import src.boardifier.model.animation.AnimationTypes;
+import src.boardifier.model.animation.CyclicFaceAnimation;
 
 import java.util.Calendar;
 import java.util.Random;

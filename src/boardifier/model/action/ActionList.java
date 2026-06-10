@@ -1,4 +1,4 @@
-package boardifier.model.action;
+package src.boardifier.model.action;
 
 import java.util.ArrayList;
 import java.util.List;

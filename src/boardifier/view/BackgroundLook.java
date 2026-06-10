@@ -1,6 +1,6 @@
-package boardifier.view;
+package src.boardifier.view;
 
-import boardifier.model.GameElement;
+import src.boardifier.model.GameElement;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;

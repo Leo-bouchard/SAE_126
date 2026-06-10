@@ -1,4 +1,4 @@
-package boardifier.model;
+package src.boardifier.model;
 
 public abstract class StageElementsFactory {
 

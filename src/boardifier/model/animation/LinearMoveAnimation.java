@@ -1,7 +1,7 @@
-package boardifier.model.animation;
+package src.boardifier.model.animation;
 
-import boardifier.model.Coord2D;
-import boardifier.model.Model;
+import src.boardifier.model.Coord2D;
+import src.boardifier.model.Model;
 
 public class LinearMoveAnimation extends MoveAnimation {
     // type of movement : "move/linearprop" = prop. to the distance => factor is a speed in pixel/frame

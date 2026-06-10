@@ -1,4 +1,4 @@
-package boardifier.model.animation;
+package src.boardifier.model.animation;
 
 import java.util.ArrayList;
 import java.util.List;

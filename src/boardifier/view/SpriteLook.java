@@ -1,6 +1,6 @@
-package boardifier.view;
+package src.boardifier.view;
 
-import boardifier.model.GameElement;
+import src.boardifier.model.GameElement;
 
 public abstract class SpriteLook extends ElementLook {
 

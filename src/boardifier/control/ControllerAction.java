@@ -1,7 +1,7 @@
-package boardifier.control;
+package src.boardifier.control;
 
-import boardifier.model.Model;
-import boardifier.view.View;
+import src.boardifier.model.Model;
+import src.boardifier.view.View;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 

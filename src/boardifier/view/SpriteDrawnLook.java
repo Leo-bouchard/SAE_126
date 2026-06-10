@@ -1,7 +1,7 @@
-package boardifier.view;
+package src.boardifier.view;
 
-import boardifier.model.GameElement;
-import boardifier.model.SpriteElement;
+import src.boardifier.model.GameElement;
+import src.boardifier.model.SpriteElement;
 import javafx.scene.shape.Shape;
 
 import java.util.ArrayList;

@@ -1,9 +1,9 @@
-package boardifier.control;
+package src.boardifier.control;
 
-import boardifier.model.GameException;
-import boardifier.model.GameStageModel;
-import boardifier.model.Model;
-import boardifier.view.GameStageView;
+import src.boardifier.model.GameException;
+import src.boardifier.model.GameStageModel;
+import src.boardifier.model.Model;
+import src.boardifier.view.GameStageView;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package boardifier.model.animation;
+package src.boardifier.model.animation;
 
 @FunctionalInterface
 public interface AnimationCallback {

@@ -1,6 +1,6 @@
-package boardifier.model;
+package src.boardifier.model;
 
-import boardifier.model.animation.Animation;
+import src.boardifier.model.animation.Animation;
 
 
 /**

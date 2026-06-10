@@ -81,7 +81,7 @@ public class AlquerqueController extends Controller {
         int colMid = (curPos[1] + colEnd) / 2;
         AlquerquePawn captured = (AlquerquePawn) board.getElement(rowMid, colMid);
         if (captured == null) return;
-        ActionList moveActions = ActionFactory.generateMoveWithinContainer(model, pawn, rowEnd, colEnd);
+        ActionList moveActions = ActionFactory.generateMoveWithinContainer(this ,model, pawn, rowEnd, colEnd);
         ActionList captureActions = ActionFactory.generateRemoveFromStage(model, captured);
         moveActions.addAll(captureActions);
         moveActions.setDoEndOfTurn(false);
@@ -170,7 +170,7 @@ public class AlquerqueController extends Controller {
                 executeCapture(board, pawn, rowEnd, colEnd);
                 handleMultiCapture(board, pawn);
             } else {
-                ActionList action = ActionFactory.generateMoveWithinContainer(model, pawn, rowEnd, colEnd);
+                ActionList action = ActionFactory.generateMoveWithinContainer(this ,model, pawn, rowEnd, colEnd);
                 action.setDoEndOfTurn(true);
                 new ActionPlayer(model, this, action).start();
             }
@@ -188,34 +188,4 @@ public class AlquerqueController extends Controller {
         stage.getPlayerName().setText(model.getCurrentPlayerName());
     }
 
-    @Override
-    public void stageLoop() {
-        int turnsWithoutCapture = 0;
-        int maxTurnsWithoutCapture = 40;
-        int previousPawnCount = ((AlquerqueStageModel) model.getGameStage()).getTotalPawnsCount();
-
-        while (!model.isEndStage()) {
-            update();
-            try { Thread.sleep(1500); } catch (InterruptedException e) {}
-            playTurn();
-            endOfTurn();
-
-            int currentPawnCount = ((AlquerqueStageModel) model.getGameStage()).getTotalPawnsCount();
-            if (currentPawnCount < previousPawnCount) {
-                turnsWithoutCapture = 0;
-                previousPawnCount = currentPawnCount;
-            } else {
-                turnsWithoutCapture++;
-            }
-
-            if (turnsWithoutCapture >= maxTurnsWithoutCapture) {
-                System.out.println("Match nul : 40 tours sans capture.");
-                model.setIdWinner(-1);
-                model.stopStage();
-                break;
-            }
-        }
-
-        update();
-    }
 }

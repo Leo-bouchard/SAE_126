@@ -1,4 +1,4 @@
-package boardifier.model.action;
+package src.boardifier.model.action;
 
 @FunctionalInterface
 public interface ActionCallback {
