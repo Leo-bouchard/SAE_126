@@ -1,13 +1,13 @@
-package src.boardifier.model.action;
+package boardifier.model.action;
 
-import src.boardifier.control.Logger;
-import src.boardifier.model.ContainerElement;
-import src.boardifier.model.Coord2D;
-import src.boardifier.model.GameElement;
-import src.boardifier.model.Model;
-import src.boardifier.model.animation.AnimationTypes;
-import src.boardifier.model.animation.LinearMoveAnimation;
-import src.boardifier.model.animation.MoveAnimation;
+import boardifier.control.Logger;
+import boardifier.model.ContainerElement;
+import boardifier.model.Coord2D;
+import boardifier.model.GameElement;
+import boardifier.model.Model;
+import boardifier.model.animation.AnimationTypes;
+import boardifier.model.animation.LinearMoveAnimation;
+import boardifier.model.animation.MoveAnimation;
 
 
 public class PutInContainerAction extends GameAction {
@@ -53,7 +53,7 @@ public class PutInContainerAction extends GameAction {
         if (element.getContainer() != null) return;
         // if dsestination container exists, puts element within
         if (containerDest != null) {
-
+            element.waitForContainerOpEnd();
             containerDest.addElement(element, rowDest, colDest);
         }
         onEndCallback.execute();

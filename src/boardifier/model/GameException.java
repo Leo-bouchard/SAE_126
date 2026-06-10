@@ -1,5 +1,5 @@
 
-package src.boardifier.model;
+package boardifier.model;
 
 public class GameException extends Exception {
 

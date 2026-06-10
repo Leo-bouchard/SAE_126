@@ -1,4 +1,6 @@
-package src.boardifier.model;
+package boardifier.model;
+
+import java.util.Queue;
 
 public class EventQueue {
 

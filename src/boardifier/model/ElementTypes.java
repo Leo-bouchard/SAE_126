@@ -1,4 +1,4 @@
-package src.boardifier.model;
+package boardifier.model;
 
 import java.util.HashMap;
 import java.util.Map;

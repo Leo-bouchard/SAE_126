@@ -1,4 +1,4 @@
-package src.boardifier.model;
+package boardifier.model;
 
 public class BackgroundElement extends StaticElement {
 

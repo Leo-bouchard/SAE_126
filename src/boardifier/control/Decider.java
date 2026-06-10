@@ -1,7 +1,7 @@
-package src.boardifier.control;
+package boardifier.control;
 
-import src.boardifier.model.action.ActionList;
-import src.boardifier.model.Model;
+import boardifier.model.action.ActionList;
+import boardifier.model.Model;
 
 public abstract class Decider {
     protected Model model;

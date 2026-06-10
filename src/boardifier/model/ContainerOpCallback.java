@@ -1,4 +1,4 @@
-package src.boardifier.model;
+package boardifier.model;
 
 @FunctionalInterface
 public interface ContainerOpCallback {

@@ -1,4 +1,4 @@
-package src.boardifier.model;
+package boardifier.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -204,6 +204,11 @@ public class Model {
     public String getCurrentPlayerName() {
         return players.get(idPlayer).getName();
     }
+
+    /**
+     * By default, the next player is just the +1. This behaviour can be
+     * overridden in subclasses
+     */
     public void setNextPlayer() {
         idPlayer = (idPlayer+1)%players.size();
     }

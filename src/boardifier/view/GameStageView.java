@@ -1,9 +1,6 @@
-package src.boardifier.view;
+package boardifier.view;
 
-import src.boardifier.model.*;
-import src.boardifier.model.GameElement;
-import src.boardifier.model.GameException;
-import src.boardifier.model.GameStageModel;
+import boardifier.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +23,6 @@ public abstract class GameStageView {
      * All looks composing the stage.
      */
     protected List<ElementLook> looks;
-
     /**
      * The width of the game view in space.
      * If width and height are set to -1, the scene will be resized to the boundaries of all elements in the stage.
@@ -44,7 +40,6 @@ public abstract class GameStageView {
      * Otherwise, the scene will have the given dimension, clipping what is outside its boundaries.
      */
     protected int height;
-    private char[][] viewport; // a buffer of char that is used to store the visual aspect of the stage before begin printed o screen
 
     public GameStageView(String name, GameStageModel gameStageModel) {
         this.name = name;
@@ -79,10 +74,11 @@ public abstract class GameStageView {
     }
 
     public void addLook(ElementLook look) {
-
         looks.add(look);
+        // create the visual aspect of the look
         look.render();
     }
 
     public abstract void createLooks() throws GameException;
+
 }

@@ -1,12 +1,8 @@
-package src.boardifier.model.action;
+package boardifier.model.action;
 
-import src.boardifier.model.*;
-import src.boardifier.model.DiceElement;
-import src.boardifier.model.ElementTypes;
-import src.boardifier.model.GameElement;
-import src.boardifier.model.Model;
-import src.boardifier.model.animation.AnimationTypes;
-import src.boardifier.model.animation.CyclicFaceAnimation;
+import boardifier.model.*;
+import boardifier.model.animation.AnimationTypes;
+import boardifier.model.animation.CyclicFaceAnimation;
 
 import java.util.Calendar;
 import java.util.Random;

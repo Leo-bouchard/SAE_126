@@ -1,10 +1,9 @@
-package src.boardifier.model.action;
+package boardifier.model.action;
 
-import src.boardifier.model.GameElement;
-import src.boardifier.model.Model;
-import src.boardifier.model.animation.Animation;
-import src.boardifier.model.animation.AnimationCallback;
-import src.boardifier.model.animation.AnimationTypes;
+import boardifier.model.*;
+import boardifier.model.animation.Animation;
+import boardifier.model.animation.AnimationCallback;
+import boardifier.model.animation.AnimationTypes;
 
 public abstract class GameAction {
     protected Model model;
@@ -62,6 +61,8 @@ public abstract class GameAction {
      * Used in the ActionPlayer thread to prepare the animation before it is started
      */
     public Animation setupAnimation() {
+        // has to wait that the element is free to do its animation
+        element.waitForContainerOpEnd();
         // first create the animation, if it is possible
         createAnimation();
         if (animation == null) return null;

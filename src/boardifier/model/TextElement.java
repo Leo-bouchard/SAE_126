@@ -1,6 +1,6 @@
-package src.boardifier.model;
+package boardifier.model;
 
-import src.boardifier.model.animation.AnimationStep;
+import boardifier.model.animation.AnimationStep;
 
 
 public class TextElement extends GameElement {
