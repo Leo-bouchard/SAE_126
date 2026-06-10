@@ -71,12 +71,12 @@ public class AlquerquePlaylistController {
     }
 
     public void setVolume(double v) {
-        if (player != null) player.setVolume(v);
+        if (player != null) player.setVolume(v/100);
     }
 
     public double getVolume() {
         if (player != null) return player.getVolume();
-        return 0.5;
+        return (0.5);
     }
 
 }

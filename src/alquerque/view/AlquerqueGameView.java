@@ -11,6 +11,18 @@ import src.alquerque.control.AlquerqueGameController;
 
 public class AlquerqueGameView {
 
+
+    private static final String BTN_STYLE =
+            "-fx-font-size: 20px; -fx-font-family: 'Impact'; " +
+                    "-fx-background-color: #773eb8; -fx-text-fill: cornsilk; " +
+                    "-fx-background-radius: 12; -fx-cursor: hand; " +
+                    "-fx-padding: 12 0 12 0;";
+    private static final String BTN_HOVER =
+            "-fx-font-size: 20px; -fx-font-family: 'Impact'; " +
+                    "-fx-background-color: #6a1db3; -fx-text-fill: white; " +
+                    "-fx-background-radius: 12; -fx-cursor: hand; " +
+                    "-fx-padding: 12 0 12 0;";
+
     private VBox configBox;   // zone qui change selon le mode
 
     public VBox getPanel() {
@@ -20,6 +32,14 @@ public class AlquerqueGameView {
         Button PvP = new Button("PvsP");
         Button PvB = new Button("PvsB");
         Button BvB = new Button("BvsB");
+
+        for (Button b : new Button[]{PvP, PvB, BvB}) {
+            b.setPrefWidth(125);
+            b.setPrefHeight(25);
+            b.setStyle(BTN_STYLE);
+            b.setOnMouseEntered(e -> b.setStyle(BTN_HOVER));
+            b.setOnMouseExited(e -> b.setStyle(BTN_STYLE));
+        }
 
         HBox modeHbox = new HBox(10);
         modeHbox.setAlignment(Pos.CENTER);

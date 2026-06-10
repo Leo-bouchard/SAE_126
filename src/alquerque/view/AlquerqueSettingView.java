@@ -60,8 +60,9 @@ public class AlquerqueSettingView {
         });
 
         Label volLabel = new Label("Volume");
-        volLabel.setStyle("-fx-font-size: 16px; -fx-font-family: 'Arial';");
-        Slider volume = new Slider(0, 1, controller.getVolume());
+        volLabel.setStyle("-fx-font-size: 22px; -fx-font-family: 'Impact'; -fx-text-fill: #552688;");
+        Slider volume = new Slider(0, 100, controller.getVolume()*100);
+        volume.setStyle("-fx-control-inner-background: #552688;");
         volume.setMaxWidth(260);
         volume.setShowTickLabels(true);
         volume.setShowTickMarks(true);
