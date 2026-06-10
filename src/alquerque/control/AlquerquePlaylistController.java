@@ -46,11 +46,15 @@ public class AlquerquePlaylistController {
             System.out.println("Fichier introuvable : " + nom);
             return;
         }
-        Media media = new Media(url.toExternalForm());
-        player = new MediaPlayer(media);
-        player.setVolume(0.5);
-        player.setOnEndOfMedia(this::morceauSuivant);
-        player.play();
+        try {
+            Media media = new Media(url.toExternalForm());
+            player = new MediaPlayer(media);
+            player.setVolume(0.5);
+            player.setOnEndOfMedia(this::morceauSuivant);
+            player.play();
+        } catch (Exception e) {
+            System.out.println("Musique indisponible : " + e.getMessage());
+        }
     }
 
     private void morceauSuivant() {
