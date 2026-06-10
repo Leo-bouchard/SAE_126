@@ -3,6 +3,7 @@ package src.alquerque.control;
 import src.alquerque.model.AlquerqueStageModel;
 import src.alquerque.model.AlquerquePawn;
 import src.alquerque.model.AlquerqueBoard;
+import src.alquerque.view.AlquerqueSidePanel;
 import src.boardifier.control.ActionFactory;
 import src.boardifier.control.ActionPlayer;
 import src.boardifier.control.Controller;
@@ -37,6 +38,7 @@ public class AlquerqueController extends Controller {
 
         RootPane root = new RootPane();
         View view = new View(model, stage, root);
+        root.setStyle("-fx-background-color: f5e9c8;");
 
         AlquerqueController control = new AlquerqueController(model, view);
         control.setFirstStageName("alquerque");
@@ -44,6 +46,14 @@ public class AlquerqueController extends Controller {
 
         try {
             control.startGame();
+
+            AlquerqueSidePanel side = new AlquerqueSidePanel(stage, control, model);
+            javafx.scene.control.SplitPane split = new javafx.scene.control.SplitPane();
+            split.getItems().addAll(side.getRoot(), view.getRootPane());
+            split.setDividerPositions(0.28);
+
+            javafx.scene.Scene scene = new javafx.scene.Scene(split, 1000, 700);
+            stage.setScene(scene);
             stage.show();
         } catch (GameException e) {
             e.printStackTrace();
@@ -82,7 +92,6 @@ public class AlquerqueController extends Controller {
 
         ActionList actions;
         if (isCapture) {
-            // déplacement + suppression du pion sauté dans UNE seule liste
             int rowMid = (rowStart + rowEnd) / 2;
             int colMid = (colStart + colEnd) / 2;
             AlquerquePawn captured = (AlquerquePawn) board.getElement(rowMid, colMid);

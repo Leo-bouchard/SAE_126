@@ -32,10 +32,10 @@ public class AlquerqueControllerMouse extends ControllerMouse {
         AlquerqueStageModel stage = (AlquerqueStageModel) model.getGameStage();
         AlquerqueBoard board = stage.getBoard();
 
-        // coordonnées du clic
-        Coord2D click = new Coord2D(event.getX(), event.getY());
+        javafx.scene.layout.Pane rootPane = view.getRootPane();
+        javafx.geometry.Point2D local = rootPane.sceneToLocal(event.getSceneX(), event.getSceneY());
+        Coord2D click = new Coord2D(local.getX(), local.getY());
 
-        // récupérer la cellule cliquée via le look du board (marche même sur case vide)
         ContainerLook boardLook = (ContainerLook) control.getElementLook(board);
         int[] dest = boardLook.getCellFromSceneLocation(click);
         if (dest == null) return; // clic hors plateau
