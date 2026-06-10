@@ -80,8 +80,6 @@ public class AlquerqueController extends Controller {
             javafx.scene.Scene scene = new javafx.scene.Scene(split, 1000, 700);
             stage.setScene(scene);
             stage.show();
-
-            // si le tout premier joueur est un bot, on lance son tour
             control.lancerBotSiNecessaire();
 
         } catch (GameException e) {
@@ -151,19 +149,15 @@ public class AlquerqueController extends Controller {
         model.setNextPlayer();
         AlquerqueStageModel stage = (AlquerqueStageModel) model.getGameStage();
         stage.getPlayerName().setText(model.getCurrentPlayerName());
-
-        // si le nouveau joueur est un bot, il joue apres un petit delai
         lancerBotSiNecessaire();
     }
 
     @Override
     public void endGame() {
-        // enregistre la victoire avant d'afficher la boite de dialogue
         enregistrerVictoire();
         super.endGame();
     }
 
-    // ajoute une ligne "win" dans le fichier wings (en mode ajout)
     private void enregistrerVictoire() {
         int idWinner = model.getIdWinner();
         if (idWinner == -1) return;   // match nul : rien a noter
