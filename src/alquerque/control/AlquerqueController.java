@@ -11,15 +11,34 @@ import src.boardifier.control.Decider;
 import src.boardifier.control.StageFactory;
 import src.boardifier.model.GameException;
 import src.boardifier.model.Model;
+import src.boardifier.model.Player;
 import src.boardifier.model.action.ActionList;
 import src.boardifier.view.RootPane;
 import src.boardifier.view.View;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class AlquerqueController extends Controller {
 
-    public static int botForPlayer0 = 3;
-    public static int botForPlayer1 = 3;
+    // 0 = humain, 1 = Fred, 2 = Jesus, 3 = MasterMind
+    public static int botForPlayer0 = 0;
+    public static int botForPlayer1 = 0;
+
+    // noms des joueurs (remplis par le StartController)
+    public static String namePlayer0 = "Joueur 1";
+    public static String namePlayer1 = "Joueur 2";
+
+    // delai entre deux coups de bot (en millisecondes)
+    private static final int BOT_DELAY_MS = 800;
+
+    // fichier ou on note les victoires
+    private static final String FICHIER_WINS = "src/alquerque/savedData/wings";
 
     public AlquerqueController(Model model, View view) {
         super(model, view);
@@ -27,8 +46,14 @@ public class AlquerqueController extends Controller {
 
     public static void startGame(Stage stage) {
         Model model = new Model();
-        model.addHumanPlayer("Joueur 1");
-        model.addHumanPlayer("Joueur 2");
+
+        // joueur 0 : humain si bot==0, sinon ordinateur
+        if (botForPlayer0 == 0) model.addHumanPlayer(namePlayer0);
+        else model.addComputerPlayer(namePlayer0);
+
+        // joueur 1
+        if (botForPlayer1 == 0) model.addHumanPlayer(namePlayer1);
+        else model.addComputerPlayer(namePlayer1);
 
         StageFactory.registerModelAndView(
                 "alquerque",
@@ -55,8 +80,21 @@ public class AlquerqueController extends Controller {
             javafx.scene.Scene scene = new javafx.scene.Scene(split, 1000, 700);
             stage.setScene(scene);
             stage.show();
+
+            // si le tout premier joueur est un bot, on lance son tour
+            control.lancerBotSiNecessaire();
+
         } catch (GameException e) {
             e.printStackTrace();
+        }
+    }
+
+    // lance le tour du bot si le joueur courant en est un, avec un delai
+    private void lancerBotSiNecessaire() {
+        if (model.getCurrentPlayer().getType() == Player.COMPUTER) {
+            PauseTransition pause = new PauseTransition(Duration.millis(BOT_DELAY_MS));
+            pause.setOnFinished(e -> playBotTurn());
+            pause.play();
         }
     }
 
@@ -74,6 +112,7 @@ public class AlquerqueController extends Controller {
         }
 
         ActionList actions = decider.decide();
+        actions.setDoEndOfTurn(true);
         new ActionPlayer(model, this, actions).start();
     }
 
@@ -112,5 +151,29 @@ public class AlquerqueController extends Controller {
         model.setNextPlayer();
         AlquerqueStageModel stage = (AlquerqueStageModel) model.getGameStage();
         stage.getPlayerName().setText(model.getCurrentPlayerName());
+
+        // si le nouveau joueur est un bot, il joue apres un petit delai
+        lancerBotSiNecessaire();
+    }
+
+    @Override
+    public void endGame() {
+        // enregistre la victoire avant d'afficher la boite de dialogue
+        enregistrerVictoire();
+        super.endGame();
+    }
+
+    // ajoute une ligne "win" dans le fichier wings (en mode ajout)
+    private void enregistrerVictoire() {
+        int idWinner = model.getIdWinner();
+        if (idWinner == -1) return;   // match nul : rien a noter
+
+        String gagnant = model.getPlayers().get(idWinner).getName();
+        try (BufferedWriter w = new BufferedWriter(new FileWriter(FICHIER_WINS, true))) {  // true = ajout
+            w.write(gagnant + " win");
+            w.newLine();
+        } catch (IOException e) {
+            System.out.println("Impossible d'ecrire la victoire : " + e.getMessage());
+        }
     }
 }

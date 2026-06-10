@@ -17,7 +17,6 @@ public class AlquerqueMainMenuView {
     private Stage stage;
     private Scene scene;
 
-    // zone de droite : champ pour pouvoir changer son contenu
     private VBox rightBox;
 
     private static final String BTN_STYLE =
@@ -38,10 +37,8 @@ public class AlquerqueMainMenuView {
         initWidget();
     }
 
-    // construit (ou reconstruit) la page
     public void initWidget() {
 
-        // ----- zone GAUCHE : les boutons -----
         VBox leftBox = new VBox(20);
         leftBox.setAlignment(Pos.CENTER);
         leftBox.setPadding(new Insets(30));
@@ -87,7 +84,6 @@ public class AlquerqueMainMenuView {
         rightBox.getChildren().setAll(panel);
     }
 
-    // affiche la page dans la fenetre
     public void display() {
         stage.setTitle("Alquerque");
         stage.setScene(scene);
