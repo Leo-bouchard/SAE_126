@@ -29,14 +29,6 @@ public class AlquerqueController extends Controller {
         this.scanner = scanner;
     }
 
-    public void playTurn() {
-        int playerType = model.getCurrentPlayer().getType();
-        if (playerType == Player.COMPUTER) {
-            playBotTurn();
-        } else {
-            playHumanTurn();
-        }
-    }
 
     private void playBotTurn() {
         System.out.println("Bot's turn (" + model.getCurrentPlayerName() + ")...");
@@ -132,52 +124,25 @@ public class AlquerqueController extends Controller {
         }
 
 
-    private void playHumanTurn() {
-        System.out.print("Your turn (" + model.getCurrentPlayerName() + ") > ");
-        String input = scanner.nextLine().trim();
-
-        if (input.equals("stop")) {
-            model.stopStage();
-            return;
-        }
-
-        int[] coords;
-        try {
-            coords = parseInput(input);
-        } catch (Exception e) {
-            System.out.println("Invalid input format! Use format: A1 B2");
-            playHumanTurn();
-            return;
-        }
-
-        int rowStart = coords[0], colStart = coords[1];
-        int rowEnd = coords[2], colEnd = coords[3];
-
+    public void tryMove(AlquerquePawn pawn, int rowEnd, int colEnd) {
         AlquerqueStageModel stage = (AlquerqueStageModel) model.getGameStage();
         AlquerqueBoard board = stage.getBoard();
-        AlquerquePawn pawn = getPawnAt(board, rowStart, colStart);
-        if (pawn == null) {
-            System.out.println("Not your pawn!");
-            playHumanTurn();
+
+        int[] start = board.getElementCell(pawn);
+        int rowStart = start[0], colStart = start[1];
+
+        board.computeValidCells(pawn);
+        if (!board.canReachCell(rowEnd, colEnd)) {
             return;
         }
 
-        board.computeValidCells(pawn);
-        boolean moove = false;
-        if (board.canReachCell(rowEnd, colEnd)) {
-            moove = true;
-            if (Math.abs(rowEnd - rowStart) == 2 || Math.abs(colEnd - colStart) == 2) {
-                executeCapture(board, pawn, rowEnd, colEnd);
-                handleMultiCapture(board, pawn);
-            } else {
-                ActionList action = ActionFactory.generateMoveWithinContainer(this ,model, pawn, rowEnd, colEnd);
-                action.setDoEndOfTurn(true);
-                new ActionPlayer(model, this, action).start();
-            }
-        }
-        if (!moove) {
-            System.out.println("Impossible movement!");
-            playHumanTurn();
+        if (Math.abs(rowEnd - rowStart) == 2 || Math.abs(colEnd - colStart) == 2) {
+            executeCapture(board, pawn, rowEnd, colEnd);
+            handleMultiCapture(board, pawn);
+        } else {
+            ActionList action = ActionFactory.generateMoveWithinContainer(this, model, pawn, rowEnd, colEnd);
+            action.setDoEndOfTurn(true);
+            new ActionPlayer(model, this, action).start();
         }
     }
 
