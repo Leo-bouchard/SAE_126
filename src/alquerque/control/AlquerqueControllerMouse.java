@@ -7,7 +7,6 @@ import src.boardifier.control.ActionFactory;
 import src.boardifier.control.ActionPlayer;
 import src.boardifier.control.Controller;
 import src.boardifier.control.ControllerMouse;
-import src.boardifier.model.Coord2D;
 import src.boardifier.model.GameElement;
 import src.boardifier.model.Model;
 import src.boardifier.model.action.ActionList;
@@ -32,12 +31,8 @@ public class AlquerqueControllerMouse extends ControllerMouse {
         AlquerqueStageModel stage = (AlquerqueStageModel) model.getGameStage();
         AlquerqueBoard board = stage.getBoard();
 
-        javafx.scene.layout.Pane rootPane = view.getRootPane();
-        javafx.geometry.Point2D local = rootPane.sceneToLocal(event.getSceneX(), event.getSceneY());
-        Coord2D click = new Coord2D(local.getX(), local.getY());
-
         ContainerLook boardLook = (ContainerLook) control.getElementLook(board);
-        int[] dest = boardLook.getCellFromSceneLocation(click);
+        int[] dest = boardLook.getCellFromSceneLocation(event.getSceneX(), event.getSceneY());
         if (dest == null) return; // clic hors plateau
 
         int row = dest[0], col = dest[1];
