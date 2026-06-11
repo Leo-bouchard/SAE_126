@@ -46,11 +46,10 @@ public class AlquerqueController extends Controller {
     public static void startGame(Stage stage) {
         Model model = new Model();
 
-        // joueur 0 : humain si bot==0, sinon ordinateur
         if (botForPlayer0 == 0) model.addHumanPlayer(namePlayer0);
         else model.addComputerPlayer(namePlayer0);
 
-        // joueur 1
+
         if (botForPlayer1 == 0) model.addHumanPlayer(namePlayer1);
         else model.addComputerPlayer(namePlayer1);
 

@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.stage.Stage;
 import src.alquerque.control.AlquerqueBackToHomeController;
 import src.alquerque.control.AlquerqueGameButtonController;
+import src.alquerque.control.AlquerqueGoToShopControl;
 import src.alquerque.control.AlquerqueSkinButtonController;
 
 public class AlquerqueMainMenuView {
@@ -47,8 +48,10 @@ public class AlquerqueMainMenuView {
         Button game = new Button("Game");
         Button skin = new Button("Skin");
         Button back = new Button("Back");
+        Button shop = new Button("Shop");
 
-        for (Button b : new Button[]{game, skin, back}) {
+
+        for (Button b : new Button[]{game, skin, back, shop}) {
             b.setPrefWidth(220);
             b.setStyle(BTN_STYLE);
             b.setOnMouseEntered(e -> b.setStyle(BTN_HOVER));
@@ -58,9 +61,10 @@ public class AlquerqueMainMenuView {
 
         game.setOnAction(new AlquerqueGameButtonController(this));
         skin.setOnAction(new AlquerqueSkinButtonController(this));
+        shop.setOnAction(new AlquerqueGoToShopControl(this));
         back.setOnAction(new AlquerqueBackToHomeController(stage));
 
-        leftBox.getChildren().addAll(game, skin, back);
+        leftBox.getChildren().addAll(game, skin, shop,  back);
 
 
         rightBox = new VBox(20);
