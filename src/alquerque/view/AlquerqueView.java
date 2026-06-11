@@ -9,6 +9,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import src.alquerque.control.AlquerqueButtonGoSettingController;
 import src.alquerque.control.AlquerqueCloseController;
+import src.alquerque.control.AlquerqueCreditController;
 import src.alquerque.control.AlquerquePlayController;
 import src.alquerque.control.AlquerqueRulesController;
 
@@ -38,7 +39,6 @@ public class AlquerqueView {
         initWidget();
     }
 
-    // construit (ou reconstruit) la page d'accueil
     public void initWidget() {
 
         Label title = new Label("ALQUERQUE");
@@ -49,16 +49,16 @@ public class AlquerqueView {
         Button play = new Button("Play");
         Button rules = new Button("Rules");
         Button settings = new Button("Settings");
+        Button credits = new Button("Credits");
         Button exit = new Button("Exit");
 
-
-        // un handler par bouton (fichiers de control separes)
         play.setOnAction(new AlquerquePlayController(stage));
         rules.setOnAction(new AlquerqueRulesController(stage));
         settings.setOnAction(new AlquerqueButtonGoSettingController(stage));
+        credits.setOnAction(new AlquerqueCreditController(stage));
         exit.setOnAction(new AlquerqueCloseController(stage));
 
-        for (Button b : new Button[]{play, rules, exit, settings}) {
+        for (Button b : new Button[]{play, rules, settings, credits, exit}) {
             b.setPrefWidth(220);
             b.setStyle(BTN_STYLE);
             b.setOnMouseEntered(e -> b.setStyle(BTN_HOVER));
@@ -67,7 +67,7 @@ public class AlquerqueView {
 
         VBox vBoxButtonHome = new VBox(35);
         vBoxButtonHome.setAlignment(Pos.CENTER);
-        vBoxButtonHome.getChildren().addAll(play, rules,settings, exit);
+        vBoxButtonHome.getChildren().addAll(play, rules, settings, credits, exit);
 
         VBox root = new VBox(20);
         root.setAlignment(Pos.CENTER);
@@ -78,7 +78,6 @@ public class AlquerqueView {
         scene = new Scene(root, 1000, 700);
     }
 
-    // affiche la page d'accueil dans la fenetre
     public void display() {
         stage.setTitle("Alquerque - Menu");
         stage.setScene(scene);
