@@ -94,7 +94,7 @@ public class AlquerqueEndGameView {
         card.setEffect(shadow);
 
         // ----- banner -----
-        Label banner = new Label(draw ? "MATCH NUL" : "VICTOIRE !");
+        Label banner = new Label(draw ? "NULL" : "WIN");
         banner.setStyle("-fx-font-size: 46px; -fx-font-family: 'Impact'; " +
                 "-fx-text-fill: " + VIOLET + ";");
 
@@ -113,25 +113,25 @@ public class AlquerqueEndGameView {
             winner.setStyle("-fx-font-size: 30px; -fx-font-family: 'Impact'; " +
                     "-fx-text-fill: " + VIOLET_DARK + ";");
 
-            Label colour = new Label("remporte la partie avec les "
-                    + (winnerIsWhite ? "BLANCS" : "NOIRS"));
+            Label colour = new Label("Win : "
+                    + (winnerIsWhite ? "WHITE" : "BLACK"));
             colour.setStyle("-fx-font-size: 17px; -fx-text-fill: #2b2b2b;");
 
             card.getChildren().addAll(tokenPane, winner, colour);
         } else {
-            Label sub = new Label("Aucun joueur ne l'emporte");
+            Label sub = new Label("nobody win");
             sub.setStyle("-fx-font-size: 18px; -fx-text-fill: #2b2b2b;");
             card.getChildren().add(sub);
         }
 
         // ----- score -----
-        Label score = new Label("Blancs " + whitePawns + "   \u2022   " + blackPawns + " Noirs");
+        Label score = new Label("White " + whitePawns + "   \u2022   " + blackPawns + " Black");
         score.setStyle("-fx-font-size: 18px; -fx-font-family: 'Impact'; " +
                 "-fx-text-fill: " + VIOLET_LIGHT + ";");
         card.getChildren().add(score);
 
         // ----- buttons -----
-        Button replay = new Button("Rejouer");
+        Button replay = new Button("Replay");
         Button menu = new Button("Menu");
         for (Button b : new Button[]{replay, menu}) {
             b.setPrefWidth(210);
