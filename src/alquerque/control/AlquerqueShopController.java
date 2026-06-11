@@ -55,17 +55,27 @@ public class AlquerqueShopController {
     }
 
     private String rollRandomSkin() {
-        int roll = random.nextInt(1000) + 1;
+        int roll = random.nextInt(7900) + 1;
 
-        if (roll <= 500) {
-            return "WhitePawnMickey";
-        } else if (roll <= 800) {
+        if (roll <= 4000) {
             return "WhitePawn10bit";
-        } else if (roll <= 950) {
-            return "WhitePawnValou";
-        } else if (roll <= 990) {
+        } else if (roll <= 6000) {
+            return "WhitePawnStrar";
+        } else if (roll <= 7000) {
+            return "WhitePawnMickey";
+        } else if (roll <= 7500) {
+            return "WhitePawnPat";
+        }
+        else if (roll <= 7750) {
+            return "WhitePawnStarDrops";
+        }
+        else if (roll <= 7850) {
             return "WhitePawnUrssaf";
-        } else {
+        }
+        else if (roll <= 7900) {
+            return "WhitePawnValou";
+        }
+        else {
             return "BlackPawn";
         }
     }

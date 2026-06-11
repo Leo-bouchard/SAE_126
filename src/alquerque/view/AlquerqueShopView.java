@@ -1,6 +1,9 @@
 package src.alquerque.view;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.ParallelTransition;
 import javafx.animation.RotateTransition;
+import javafx.animation.ScaleTransition;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -26,7 +29,6 @@ public class AlquerqueShopView {
                     "-fx-background-radius: 12; -fx-cursor: hand; " +
                     "-fx-padding: 12 0 12 0;";
 
-
     public AlquerqueShopView() {
         this.controller = new AlquerqueShopController();
     }
@@ -46,17 +48,17 @@ public class AlquerqueShopView {
         skinView.setFitWidth(120);
         skinView.setFitHeight(120);
         skinView.setPreserveRatio(true);
+        skinView.setOpacity(0);
 
         Button btnShop = new Button("Buy 1 : 10 Wings");
-
 
         for (Button b : new Button[]{btnShop}) {
             b.setPrefWidth(270);
             b.setStyle(BTN_STYLE);
 
-            RotateTransition smallRotationButton = new RotateTransition(Duration.millis(10), b);
-            smallRotationButton.setFromAngle(-3);
-            smallRotationButton.setToAngle(3);
+            RotateTransition smallRotationButton = new RotateTransition(Duration.millis(50), b);
+            smallRotationButton.setFromAngle(-0.5);
+            smallRotationButton.setToAngle(0.5);
             smallRotationButton.setCycleCount(RotateTransition.INDEFINITE);
             smallRotationButton.setAutoReverse(true);
 
@@ -71,24 +73,25 @@ public class AlquerqueShopView {
             });
         }
 
-
         btnShop.setOnAction(e -> {
             AlquerqueShopController.ShopResult r = controller.buyRandomSkin();
 
             if (!r.success) {
                 resultLabel.setText("NO Wings !");
                 skinView.setImage(null);
+                skinView.setOpacity(0);
             } else {
                 if (r.isNew) {
                     resultLabel.setText("New skin : " + r.skin + " !");
                 } else {
-                    resultLabel.setText("Dubble : " + r.skin );
+                    resultLabel.setText("Dubble : " + r.skin);
                 }
 
                 try {
                     Image img = new Image(new java.io.File(
                             "src/alquerque/Image/" + r.skin + ".png").toURI().toString());
                     skinView.setImage(img);
+                    animerApparition(skinView);
                 } catch (Exception ex) {
                     skinView.setImage(null);
                 }
@@ -108,5 +111,17 @@ public class AlquerqueShopView {
         return box;
     }
 
+    private void animerApparition(ImageView view) {
+        FadeTransition fade = new FadeTransition(Duration.millis(400), view);
+        fade.setFromValue(0);
+        fade.setToValue(1);
 
+        ScaleTransition scale = new ScaleTransition(Duration.millis(400), view);
+        scale.setFromX(0.2);
+        scale.setFromY(0.2);
+        scale.setToX(1.0);
+        scale.setToY(1.0);
+
+        new ParallelTransition(fade, scale).play();
+    }
 }
