@@ -14,6 +14,11 @@ public class AlquerqueStageModel extends GameStageModel {
     private int blackPawnsCount = 12;
     private int whitePawnsCount = 12;
 
+    public void initPawnCounts(int black, int white) {
+        this.blackPawnsCount = black;
+        this.whitePawnsCount = white;
+    }
+
     public AlquerqueStageModel(String name, Model model) {
         super(name, model);
         setupCallbacks();

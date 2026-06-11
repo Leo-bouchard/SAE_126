@@ -43,8 +43,11 @@ public class AlquerqueStartController implements EventHandler<ActionEvent> {
                 break;
         }
 
-        AlquerqueController.startGame(stage);
-    }
+        String n0 = AlquerqueController.namePlayer0;
+        String n1 = AlquerqueController.namePlayer1;
+        AlquerqueController.demoMode = n0.equalsIgnoreCase("demo") && n1.equalsIgnoreCase("demo");
+
+        AlquerqueController.startGame(stage);    }
 
     // renvoie le nom saisi, ou un nom par defaut si vide
     private String nomOuDefaut(String saisi, String defaut) {

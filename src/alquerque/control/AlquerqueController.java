@@ -32,6 +32,8 @@ import java.util.Random;
 
 public class AlquerqueController extends Controller {
 
+    public static boolean demoMode = false;
+
     // 0 = human, 1 = Fred, 2 = Jesus, 3 = MasterMind
     public static int botForPlayer0 = 0;
     public static int botForPlayer1 = 0;

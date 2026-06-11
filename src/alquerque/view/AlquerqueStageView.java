@@ -23,8 +23,10 @@ public class AlquerqueStageView extends GameStageView {
 
         AlquerquePawn[] blackPawns = model.getBlackPawns();
         AlquerquePawn[] whitePawns = model.getRedPawns();
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < blackPawns.length; i++) {
             addLook(new PawnLook(blackPawns[i]));
+        }
+        for (int i = 0; i < whitePawns.length; i++) {
             addLook(new PawnLook(whitePawns[i]));
         }
     }
