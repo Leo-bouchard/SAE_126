@@ -16,7 +16,6 @@ import src.boardifier.model.action.ActionList;
 import src.boardifier.view.RootPane;
 import src.boardifier.view.View;
 import javafx.animation.PauseTransition;
-import javafx.application.Platform;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
