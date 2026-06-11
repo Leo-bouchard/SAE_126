@@ -40,7 +40,7 @@ public class AlquerqueControllerMouse extends ControllerMouse {
         if (selected == null) {
             AlquerquePawn p = (AlquerquePawn) board.getElement(row, col);
             System.out.println("Clic case [" + row + "," + col + "], pion = " + p);
-            if (p != null && p.getColor() != model.getIdPlayer()) {
+            if (p != null && p.getColor() == model.getIdPlayer()) {
                 selected = p;
                 board.computeValidCells(p);
                 control.update();
