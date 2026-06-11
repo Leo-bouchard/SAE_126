@@ -1,6 +1,9 @@
 package src.alquerque.view;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.ParallelTransition;
 import javafx.animation.RotateTransition;
+import javafx.animation.ScaleTransition;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -49,14 +52,13 @@ public class AlquerqueShopView {
 
         Button btnShop = new Button("Buy 1 : 10 Wings");
 
-
         for (Button b : new Button[]{btnShop}) {
             b.setPrefWidth(270);
             b.setStyle(BTN_STYLE);
 
             RotateTransition smallRotationButton = new RotateTransition(Duration.millis(10), b);
-            smallRotationButton.setFromAngle(-3);
-            smallRotationButton.setToAngle(3);
+            smallRotationButton.setFromAngle(-1);
+            smallRotationButton.setToAngle(1);
             smallRotationButton.setCycleCount(RotateTransition.INDEFINITE);
             smallRotationButton.setAutoReverse(true);
 
@@ -71,7 +73,6 @@ public class AlquerqueShopView {
             });
         }
 
-
         btnShop.setOnAction(e -> {
             AlquerqueShopController.ShopResult r = controller.buyRandomSkin();
 
@@ -82,13 +83,14 @@ public class AlquerqueShopView {
                 if (r.isNew) {
                     resultLabel.setText("New skin : " + r.skin + " !");
                 } else {
-                    resultLabel.setText("Dubble : " + r.skin );
+                    resultLabel.setText("Looser : " + r.skin);
                 }
 
                 try {
                     Image img = new Image(new java.io.File(
                             "src/alquerque/Image/" + r.skin + ".png").toURI().toString());
                     skinView.setImage(img);
+                    animerApparition(skinView);
                 } catch (Exception ex) {
                     skinView.setImage(null);
                 }
@@ -108,5 +110,18 @@ public class AlquerqueShopView {
         return box;
     }
 
+    private void animerApparition(ImageView view) {
+        FadeTransition fade = new FadeTransition(Duration.millis(350), view);
+        fade.setFromValue(0);
+        fade.setToValue(1);
 
+        ScaleTransition scale = new ScaleTransition(Duration.millis(350), view);
+        scale.setFromX(0.3);
+        scale.setFromY(0.3);
+        scale.setToX(1.0);
+        scale.setToY(1.0);
+
+        ParallelTransition apparition = new ParallelTransition(fade, scale);
+        apparition.play();
+    }
 }
