@@ -18,6 +18,7 @@ import src.boardifier.view.View;
 import javafx.animation.PauseTransition;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import src.alquerque.view.AlquerqueSidePanel;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -35,6 +36,17 @@ public class AlquerqueController extends Controller {
 
     // delai entre deux coups de bot (en millisecondes)
     private static final int BOT_DELAY_MS = 800;
+
+    private AlquerqueSidePanel sidePanel;
+
+    private AlquerquePawn multiCapturePawn = null;
+
+    public boolean isMultiCaptureInProgress() { return multiCapturePawn != null; }
+    public AlquerquePawn getMultiCapturePawn() { return multiCapturePawn; }
+
+    public void setSidePanel(AlquerqueSidePanel panel) {
+        this.sidePanel = panel;
+    }
 
     // fichier ou on note les victoires
     private static final String FICHIER_WINS = "src/alquerque/savedData/wings";
@@ -134,21 +146,43 @@ public class AlquerqueController extends Controller {
             if (captured != null) {
                 actions.addAll(ActionFactory.generateRemoveFromStage(model, captured));
             }
-        } else {
-            actions = ActionFactory.generateMoveWithinContainer(this, model, pawn, rowEnd, colEnd);
-        }
 
-        actions.setDoEndOfTurn(true);
-        new ActionPlayer(model, this, actions).start();
+            multiCapturePawn = pawn;
+            actions.setDoEndOfTurn(false);
+            new ActionPlayer(model, this, actions).start();
+
+            javafx.application.Platform.runLater(() -> {
+                if (multiCapturePawn == null) return;
+                java.util.List<int[]> captures = board.computeValidCaptureCells(multiCapturePawn);
+                if (captures.isEmpty()) {
+                    multiCapturePawn = null;
+                    endOfTurn();
+                }
+                board.resetReachableCells(false);
+                if (multiCapturePawn != null) {
+                    board.computeValidCells(multiCapturePawn);
+                }
+                update();
+            });
+        } else {
+            multiCapturePawn = null;
+            actions = ActionFactory.generateMoveWithinContainer(this, model, pawn, rowEnd, colEnd);
+            actions.setDoEndOfTurn(true);
+            new ActionPlayer(model, this, actions).start();
+        }
     }
 
     @Override
     public void endOfTurn() {
+        multiCapturePawn = null;
         model.setNextPlayer();
         AlquerqueStageModel stage = (AlquerqueStageModel) model.getGameStage();
+        if (stage == null) return;
         stage.getPlayerName().setText(model.getCurrentPlayerName());
+        if (sidePanel != null) sidePanel.refresh();
         lancerBotSiNecessaire();
     }
+
 
     @Override
     public void endGame() {
