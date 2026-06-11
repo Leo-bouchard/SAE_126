@@ -4,6 +4,8 @@ import src.alquerque.model.AlquerqueStageModel;
 import src.alquerque.model.AlquerquePawn;
 import src.alquerque.model.AlquerqueBoard;
 import src.alquerque.view.AlquerqueSidePanel;
+import src.alquerque.view.AlquerqueEndGameView;
+import src.alquerque.view.AlquerqueMainMenuView;
 import src.alquerque.view.BoardLook;
 import src.boardifier.control.ActionFactory;
 import src.boardifier.control.ActionPlayer;
@@ -279,9 +281,36 @@ public class AlquerqueController extends Controller {
         endGame();
     }
 
+    // shows our own styled end-of-game screen instead of the default Alert
     @Override
     public void endGame() {
-        super.endGame();
+        // disable all events so the board can no longer be played
+        model.setCaptureEvents(false);
+
+        AlquerqueStageModel stage = (AlquerqueStageModel) model.getGameStage();
+        int idWinner = model.getIdWinner();
+
+        // pawn counts for the final score (white = colour 0, black = colour 1)
+        int white = (stage != null) ? stage.getWhitePawnsCount() : 0;
+        int black = (stage != null) ? stage.getBlackPawnsCount() : 0;
+
+        // name of the winner (empty on a draw)
+        String winnerName = "";
+        if (idWinner != -1 && idWinner < model.getPlayers().size()) {
+            winnerName = model.getPlayers().get(idWinner).getName();
+        }
+
+        Stage window = view.getStage();
+
+        AlquerqueEndGameView endView =
+                new AlquerqueEndGameView(window, idWinner, winnerName, white, black);
+
+        // Rejouer: full restart -> re-draws the colours and rebuilds the scene
+        endView.setOnReplay(() -> startGame(window));
+        // Menu: go back to the main menu
+        endView.setOnMenu(() -> new AlquerqueMainMenuView(window).display());
+
+        endView.display();
     }
 
     // gives wings to a human player who beat a bot

@@ -58,7 +58,7 @@ public class AlquerqueShopController {
         int roll = random.nextInt(1000) + 1;
 
         if (roll <= 500) {
-            return "WhitePawn";
+            return "WhitePawnMickey";
         } else if (roll <= 800) {
             return "WhitePawn10bit";
         } else if (roll <= 950) {
