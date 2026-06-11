@@ -3,9 +3,9 @@
     <properties maven-id="org.openjfx:javafx-graphics:17.0.18" />
     <CLASSES>
       <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/17.0.18/javafx-graphics-17.0.18.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/17.0.18/javafx-graphics-17.0.18-mac-aarch64.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/17.0.18/javafx-graphics-17.0.18-linux.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-base/17.0.18/javafx-base-17.0.18.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-base/17.0.18/javafx-base-17.0.18-mac-aarch64.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-base/17.0.18/javafx-base-17.0.18-linux.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

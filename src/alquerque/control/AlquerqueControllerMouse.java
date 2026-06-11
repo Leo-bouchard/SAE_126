@@ -33,14 +33,22 @@ public class AlquerqueControllerMouse extends ControllerMouse {
 
         ContainerLook boardLook = (ContainerLook) control.getElementLook(board);
         int[] dest = boardLook.getCellFromSceneLocation(event.getSceneX(), event.getSceneY());
-        if (dest == null) return; // clic hors plateau
+        if (dest == null) return;
 
         int row = dest[0], col = dest[1];
+
+        if (control.isMultiCaptureInProgress()) {
+            selected = control.getMultiCapturePawn();
+            System.out.println("Multi-capture : destination [" + row + "," + col + "]");
+            control.tryMove(selected, row, col);
+            selected = null;
+            return;
+        }
 
         if (selected == null) {
             AlquerquePawn p = (AlquerquePawn) board.getElement(row, col);
             System.out.println("Clic case [" + row + "," + col + "], pion = " + p);
-            if (p != null && p.getColor() != model.getIdPlayer()) {
+            if (p != null && p.getColor() == model.getIdPlayer()) {
                 selected = p;
                 board.computeValidCells(p);
                 control.update();
@@ -51,7 +59,6 @@ public class AlquerqueControllerMouse extends ControllerMouse {
             control.tryMove(selected, row, col);
             selected = null;
             board.resetReachableCells(false);
-            control.update();
         }
     }
 }

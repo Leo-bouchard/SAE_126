@@ -12,14 +12,11 @@ public class AlquerqueStageView extends GameStageView {
     public AlquerqueStageView(String name, GameStageModel gameStageModel) {
         super(name, gameStageModel);
     }
-
     @Override
     public void createLooks() {
         AlquerqueStageModel model = (AlquerqueStageModel) gameStageModel;
-
-        addLook(new TextLook(14, "000000", model.getPlayerName()));
         addLook(new BoardLook(model.getBoard()));
-
+        
         AlquerquePawn[] blackPawns = model.getBlackPawns();
         AlquerquePawn[] whitePawns = model.getRedPawns();
         for (int i = 0; i < 12; i++) {
