@@ -31,6 +31,8 @@ public class AlquerquePlaylistController {
         morceaux.add("Jazz Music No Copyright.mp3");
         morceaux.add("Jazz Piano No Copyright.mp3");
         morceaux.add("Jazz Restaurant Music.mp3");
+        morceaux.add("Voicy_fortnite coral chorus.mp3");
+
 
         Collections.shuffle(morceaux);
     }
