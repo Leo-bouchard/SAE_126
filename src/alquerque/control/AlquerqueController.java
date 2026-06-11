@@ -4,6 +4,7 @@ import src.alquerque.model.AlquerqueStageModel;
 import src.alquerque.model.AlquerquePawn;
 import src.alquerque.model.AlquerqueBoard;
 import src.alquerque.view.AlquerqueSidePanel;
+import src.alquerque.view.BoardLook;
 import src.boardifier.control.ActionFactory;
 import src.boardifier.control.ActionPlayer;
 import src.boardifier.control.Controller;
@@ -18,27 +19,34 @@ import src.boardifier.view.View;
 import javafx.animation.PauseTransition;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import src.alquerque.view.AlquerqueSidePanel;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
+import java.util.Random;
 
 public class AlquerqueController extends Controller {
 
-    // 0 = humain, 1 = Fred, 2 = Jesus, 3 = MasterMind
+    // 0 = human, 1 = Fred, 2 = Jesus, 3 = MasterMind
     public static int botForPlayer0 = 0;
     public static int botForPlayer1 = 0;
 
-    // noms des joueurs (remplis par le StartController)
+    // player names (filled by the StartController)
     public static String namePlayer0 = "Joueur 1";
     public static String namePlayer1 = "Joueur 2";
 
-    // delai entre deux coups de bot (en millisecondes)
+    // delay between two bot moves (in milliseconds)
     private static final int BOT_DELAY_MS = 800;
+
+    // delay to let the move animation finish before checking chain captures
+    private static final int CAPTURE_CHECK_DELAY_MS = 600;
 
     private AlquerqueSidePanel sidePanel;
 
+    // multi-capture: pawn currently chaining captures, null if none
     private AlquerquePawn multiCapturePawn = null;
 
     public boolean isMultiCaptureInProgress() { return multiCapturePawn != null; }
@@ -48,8 +56,8 @@ public class AlquerqueController extends Controller {
         this.sidePanel = panel;
     }
 
-    // fichier ou on note les victoires
-    private static final String FICHIER_WINS = "src/alquerque/savedData/wings";
+    // file where the wings balance is stored
+    private static final String WINGS_FILE = "src/alquerque/savedData/wings";
 
     public AlquerqueController(Model model, View view) {
         super(model, view);
@@ -58,10 +66,17 @@ public class AlquerqueController extends Controller {
     public static void startGame(Stage stage) {
         Model model = new Model();
 
+        // randomly choose which player gets the white pawns (plays first)
+        if (new Random().nextBoolean()) {
+            String tmpName = namePlayer0; namePlayer0 = namePlayer1; namePlayer1 = tmpName;
+            int tmpBot = botForPlayer0; botForPlayer0 = botForPlayer1; botForPlayer1 = tmpBot;
+        }
+
+        // player 0: human if bot==0, otherwise computer
         if (botForPlayer0 == 0) model.addHumanPlayer(namePlayer0);
         else model.addComputerPlayer(namePlayer0);
 
-
+        // player 1
         if (botForPlayer1 == 0) model.addHumanPlayer(namePlayer1);
         else model.addComputerPlayer(namePlayer1);
 
@@ -83,6 +98,7 @@ public class AlquerqueController extends Controller {
             control.startGame();
 
             AlquerqueSidePanel side = new AlquerqueSidePanel(stage, control, model);
+            control.setSidePanel(side);
             javafx.scene.control.SplitPane split = new javafx.scene.control.SplitPane();
             split.getItems().addAll(side.getRoot(), view.getRootPane());
             split.setDividerPositions(0.28);
@@ -97,7 +113,15 @@ public class AlquerqueController extends Controller {
         }
     }
 
-    // lance le tour du bot si le joueur courant en est un, avec un delai
+    // refreshes the highlight overlay from the board state
+    public void refreshHighlights() {
+        AlquerqueStageModel stage = (AlquerqueStageModel) model.getGameStage();
+        if (stage == null) return;
+        BoardLook look = (BoardLook) getElementLook(stage.getBoard());
+        if (look != null) look.refreshHighlights();
+    }
+
+    // starts the bot turn if the current player is one, with a delay
     private void lancerBotSiNecessaire() {
         if (model.getCurrentPlayer().getType() == Player.COMPUTER) {
             PauseTransition pause = new PauseTransition(Duration.millis(BOT_DELAY_MS));
@@ -130,7 +154,13 @@ public class AlquerqueController extends Controller {
         int[] start = board.getElementCell(pawn);
         int rowStart = start[0], colStart = start[1];
 
-        board.computeValidCells(pawn);
+        // during a capture chain, only capture cells are valid destinations
+        boolean chaining = (multiCapturePawn != null && pawn == multiCapturePawn);
+        if (chaining) {
+            board.computeCaptureReachableCells(pawn);
+        } else {
+            board.computeValidCells(pawn);
+        }
         if (!board.canReachCell(rowEnd, colEnd)) {
             return;
         }
@@ -148,24 +178,37 @@ public class AlquerqueController extends Controller {
             }
 
             multiCapturePawn = pawn;
+            board.clearHighlights();
+            refreshHighlights();
             actions.setDoEndOfTurn(false);
             new ActionPlayer(model, this, actions).start();
 
-            javafx.application.Platform.runLater(() -> {
+            // wait for the animation to finish, then check if the chain can continue
+            PauseTransition wait = new PauseTransition(Duration.millis(CAPTURE_CHECK_DELAY_MS));
+            wait.setOnFinished(e -> {
                 if (multiCapturePawn == null) return;
-                java.util.List<int[]> captures = board.computeValidCaptureCells(multiCapturePawn);
+                List<int[]> captures = board.computeValidCaptureCells(multiCapturePawn);
                 if (captures.isEmpty()) {
+                    // no more captures available -> end of turn
                     multiCapturePawn = null;
+                    board.resetReachableCells(false);
+                    board.clearHighlights();
+                    refreshHighlights();
                     endOfTurn();
+                } else {
+                    // chain continues: highlight only the capture cells, enable Pass
+                    board.computeCaptureReachableCells(multiCapturePawn);
+                    board.computeCaptureHighlights(multiCapturePawn);
+                    if (sidePanel != null) sidePanel.setPassEnabled(true);
                 }
-                board.resetReachableCells(false);
-                if (multiCapturePawn != null) {
-                    board.computeValidCells(multiCapturePawn);
-                }
+                refreshHighlights();
                 update();
             });
+            wait.play();
         } else {
             multiCapturePawn = null;
+            board.clearHighlights();
+            refreshHighlights();
             actions = ActionFactory.generateMoveWithinContainer(this, model, pawn, rowEnd, colEnd);
             actions.setDoEndOfTurn(true);
             new ActionPlayer(model, this, actions).start();
@@ -175,31 +218,104 @@ public class AlquerqueController extends Controller {
     @Override
     public void endOfTurn() {
         multiCapturePawn = null;
-        model.setNextPlayer();
+        if (sidePanel != null) sidePanel.setPassEnabled(false);
         AlquerqueStageModel stage = (AlquerqueStageModel) model.getGameStage();
+        if (stage != null) {
+            stage.getBoard().clearHighlights();
+            refreshHighlights();
+        }
+        model.setNextPlayer();
+        stage = (AlquerqueStageModel) model.getGameStage();
         if (stage == null) return;
         stage.getPlayerName().setText(model.getCurrentPlayerName());
         if (sidePanel != null) sidePanel.refresh();
+
+        // check the end-of-game conditions before letting the next player move
+        if (checkEndConditions(stage)) return;
+
         lancerBotSiNecessaire();
     }
 
+    // returns true if the game just ended
+    private boolean checkEndConditions(AlquerqueStageModel stage) {
+        int white = stage.getWhitePawnsCount();
+        int black = stage.getBlackPawnsCount();
+
+        // one side has no pawn left
+        if (white == 0 || black == 0) {
+            triggerEnd(white == 0 ? 1 : 0);
+            return true;
+        }
+
+        // one pawn on each side -> draw
+        if (white == 1 && black == 1) {
+            triggerEnd(-1);
+            return true;
+        }
+
+        // neither side can move -> draw
+        boolean whiteCanMove = stage.colorHasAnyMove(0);
+        boolean blackCanMove = stage.colorHasAnyMove(1);
+        if (!whiteCanMove && !blackCanMove) {
+            triggerEnd(-1);
+            return true;
+        }
+
+        return false;
+    }
+
+    // sets the winner and shows the end-of-game popup
+    private void triggerEnd(int idWinner) {
+        model.setIdWinner(idWinner);
+        awardWings(idWinner);
+        endGame();
+    }
+
+    // we capture the winner and trigger the popup before the model gets reset
+    @Override
+    public void stopStage() {
+        int idWinner = model.getIdWinner();
+        awardWings(idWinner);
+        endGame();
+    }
 
     @Override
     public void endGame() {
-        enregistrerVictoire();
         super.endGame();
     }
 
-    private void enregistrerVictoire() {
-        int idWinner = model.getIdWinner();
-        if (idWinner == -1) return;   // match nul : rien a noter
+    // gives wings to a human player who beat a bot
+    private void awardWings(int idWinner) {
+        if (idWinner == -1) return;   // draw: nothing to award
 
-        String gagnant = model.getPlayers().get(idWinner).getName();
-        try (BufferedWriter w = new BufferedWriter(new FileWriter(FICHIER_WINS, true))) {  // true = ajout
-            w.write(gagnant + " win");
+        Player winner = model.getPlayers().get(idWinner);
+        if (winner.getType() != Player.HUMAN) return;   // bot win: no reward
+
+        // opponent must be a bot, reward depends on its level
+        int opponentBot = (idWinner == 0) ? botForPlayer1 : botForPlayer0;
+        if (opponentBot == 0) return;   // opponent was human: no wings
+
+        int reward = opponentBot * 10;  // Fred=10, Jesus=20, MasterMind=30
+        writeWings(readWings() + reward);
+    }
+
+    // reads the current wings balance from the file (0 if missing)
+    public static int readWings() {
+        try (BufferedReader r = new BufferedReader(new FileReader(WINGS_FILE))) {
+            String line = r.readLine();
+            return (line == null) ? 0 : Integer.parseInt(line.trim());
+        } catch (IOException | NumberFormatException e) {
+            return 0;
+        }
+    }
+
+    // overwrites the wings file with the new balance
+    private static void writeWings(int balance) {
+        try (BufferedWriter w = new BufferedWriter(new FileWriter(WINGS_FILE, false))) {
+            w.write(String.valueOf(balance));
             w.newLine();
         } catch (IOException e) {
-            System.out.println("Impossible d'ecrire la victoire : " + e.getMessage());
+            System.out.println("Cannot write wings balance: " + e.getMessage());
         }
     }
 }

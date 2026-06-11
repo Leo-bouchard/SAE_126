@@ -4,7 +4,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -19,6 +18,7 @@ public class AlquerqueSidePanel {
     private Label turnLabel;
     private Label blackTaken;
     private Label whiteTaken;
+    private Button pass;
 
     private final Model model;
     private final AlquerqueStageModel stage;
@@ -45,8 +45,11 @@ public class AlquerqueSidePanel {
             l.setStyle("-fx-font-size: 22px; -fx-text-fill: #2b2b2b;");
         }
 
-        Button pass = new Button("Skip capture");
+        pass = new Button("Skip capture");
         Button back = new Button("Main menu");
+
+        // the Pass button is only usable during a capture chain
+        pass.setDisable(true);
 
         VBox buttonCol = new VBox(10);
         buttonCol.setAlignment(Pos.CENTER);
@@ -74,6 +77,11 @@ public class AlquerqueSidePanel {
 
         root.getChildren().addAll(title, turnLabel, blackTaken, whiteTaken, spacer, buttonCol);
         refresh();
+    }
+
+    // enables/disables the Pass button (multi-capture only)
+    public void setPassEnabled(boolean enabled) {
+        pass.setDisable(!enabled);
     }
 
     public void refresh() {

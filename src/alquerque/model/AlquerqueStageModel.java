@@ -20,7 +20,7 @@ public class AlquerqueStageModel extends GameStageModel {
     }
 
 
-    // setteur
+    // setters
 
     public void setBlackPawns(AlquerquePawn[] pawns) {
         this.blackPawns = pawns;
@@ -48,7 +48,7 @@ public class AlquerqueStageModel extends GameStageModel {
         addElement(t);
     }
 
-    // getteur
+    // getters
     public AlquerqueBoard getBoard() { return board; }
     public AlquerquePawn[] getBlackPawns() { return blackPawns; }
     public AlquerquePawn[] getRedPawns() { return redPawns; }

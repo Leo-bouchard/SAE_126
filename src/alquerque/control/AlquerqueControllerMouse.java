@@ -3,23 +3,17 @@ package src.alquerque.control;
 import src.alquerque.model.AlquerqueBoard;
 import src.alquerque.model.AlquerquePawn;
 import src.alquerque.model.AlquerqueStageModel;
-import src.boardifier.control.ActionFactory;
-import src.boardifier.control.ActionPlayer;
 import src.boardifier.control.Controller;
 import src.boardifier.control.ControllerMouse;
-import src.boardifier.model.GameElement;
 import src.boardifier.model.Model;
-import src.boardifier.model.action.ActionList;
 import src.boardifier.view.ContainerLook;
 import src.boardifier.view.View;
 import javafx.scene.input.MouseEvent;
 
-import java.util.List;
-
 public class AlquerqueControllerMouse extends ControllerMouse {
 
     private AlquerqueController control;
-    private AlquerquePawn selected = null; //pawn selected
+    private AlquerquePawn selected = null; // pawn selected
     public AlquerqueControllerMouse(Model model, View view, Controller control) {
         super(model, view, control);
         this.control = (AlquerqueController) control;
@@ -33,10 +27,11 @@ public class AlquerqueControllerMouse extends ControllerMouse {
 
         ContainerLook boardLook = (ContainerLook) control.getElementLook(board);
         int[] dest = boardLook.getCellFromSceneLocation(event.getSceneX(), event.getSceneY());
-        if (dest == null) return;
+        if (dest == null) return; // click outside the board
 
         int row = dest[0], col = dest[1];
 
+        // during a capture chain, the pawn is imposed: clicks are only destinations
         if (control.isMultiCaptureInProgress()) {
             selected = control.getMultiCapturePawn();
             System.out.println("Multi-capture : destination [" + row + "," + col + "]");
@@ -51,6 +46,8 @@ public class AlquerqueControllerMouse extends ControllerMouse {
             if (p != null && p.getColor() == model.getIdPlayer()) {
                 selected = p;
                 board.computeValidCells(p);
+                board.computeHighlights(p);
+                control.refreshHighlights();
                 control.update();
                 System.out.println("Pion sélectionné !");
             }
