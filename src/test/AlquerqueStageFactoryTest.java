@@ -4,11 +4,11 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import src.alquerque.control.AlquerqueController;
-import src.alquerque.model.AlquerquePawn;
-import src.alquerque.model.AlquerqueStageFactory;
-import src.alquerque.model.AlquerqueStageModel;
-import src.boardifier.model.Model;
+import alquerque.control.AlquerqueController;
+import alquerque.model.AlquerquePawn;
+import alquerque.model.AlquerqueStageFactory;
+import alquerque.model.AlquerqueStageModel;
+import boardifier.model.Model;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;

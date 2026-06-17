@@ -1,9 +1,9 @@
-package src.alquerque.control;
+package alquerque.control;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import src.alquerque.view.AlquerqueMainMenuView;
-import src.alquerque.view.AlquerqueShopView;
+import alquerque.view.AlquerqueMainMenuView;
+import alquerque.view.AlquerqueShopView;
 
 public class AlquerqueGoToShopControl implements EventHandler<ActionEvent> {
     private AlquerqueMainMenuView menu;

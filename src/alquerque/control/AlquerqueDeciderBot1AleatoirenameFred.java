@@ -1,7 +1,7 @@
-package src.alquerque.control;
+package alquerque.control;
 
-import src.boardifier.control.Controller;
-import src.boardifier.model.Model;
+import boardifier.control.Controller;
+import boardifier.model.Model;
 
 import java.util.List;
 import java.util.Random;

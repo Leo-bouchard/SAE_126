@@ -3,13 +3,13 @@ package test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import src.alquerque.control.AlquerqueDeciderBase;
-import src.alquerque.control.AlquerqueDeciderBot1AleatoirenameFred;
-import src.alquerque.model.AlquerqueBoard;
-import src.alquerque.model.AlquerquePawn;
-import src.alquerque.model.AlquerqueStageModel;
-import src.boardifier.control.Controller;
-import src.boardifier.model.Model;
+import alquerque.control.AlquerqueDeciderBase;
+import alquerque.control.AlquerqueDeciderBot1AleatoirenameFred;
+import alquerque.model.AlquerqueBoard;
+import alquerque.model.AlquerquePawn;
+import alquerque.model.AlquerqueStageModel;
+import boardifier.control.Controller;
+import boardifier.model.Model;
 
 import java.util.List;
 

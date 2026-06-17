@@ -1,6 +1,6 @@
-package src.alquerque.model;
+package alquerque.model;
 
-import src.boardifier.model.*;
+import boardifier.model.*;
 
 public class AlquerqueStageModel extends GameStageModel {
 

@@ -1,9 +1,9 @@
-package src.boardifier.model.action;
+package boardifier.model.action;
 
-import src.boardifier.model.*;
-import src.boardifier.model.animation.Animation;
-import src.boardifier.model.animation.AnimationCallback;
-import src.boardifier.model.animation.AnimationTypes;
+import boardifier.model.*;
+import boardifier.model.animation.Animation;
+import boardifier.model.animation.AnimationCallback;
+import boardifier.model.animation.AnimationTypes;
 
 public abstract class GameAction {
     protected Model model;

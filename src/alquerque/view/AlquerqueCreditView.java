@@ -1,4 +1,4 @@
-package src.alquerque.view;
+package alquerque.view;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import src.alquerque.control.AlquerqueBackToHomeController;
+import alquerque.control.AlquerqueBackToHomeController;
 
 public class AlquerqueCreditView {
 

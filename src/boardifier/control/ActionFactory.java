@@ -1,13 +1,13 @@
-package src.boardifier.control;
+package boardifier.control;
 
-import src.boardifier.model.ContainerElement;
-import src.boardifier.model.Coord2D;
-import src.boardifier.model.GameElement;
-import src.boardifier.model.Model;
-import src.boardifier.model.action.*;
-import src.boardifier.model.animation.AnimationTypes;
-import src.boardifier.view.ContainerLook;
-import src.boardifier.view.ElementLook;
+import boardifier.model.ContainerElement;
+import boardifier.model.Coord2D;
+import boardifier.model.GameElement;
+import boardifier.model.Model;
+import boardifier.model.action.*;
+import boardifier.model.animation.AnimationTypes;
+import boardifier.view.ContainerLook;
+import boardifier.view.ElementLook;
 
 public class ActionFactory {
 

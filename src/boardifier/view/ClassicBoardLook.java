@@ -1,6 +1,6 @@
-package src.boardifier.view;
+package boardifier.view;
 
-import src.boardifier.model.ContainerElement;
+import boardifier.model.ContainerElement;
 import javafx.geometry.Bounds;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;

@@ -1,9 +1,9 @@
-package src.alquerque.control;
+package alquerque.control;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
-import src.alquerque.view.AlquerqueSettingView;
+import alquerque.view.AlquerqueSettingView;
 
 public class AlquerqueButtonGoSettingController implements EventHandler<ActionEvent> {
 

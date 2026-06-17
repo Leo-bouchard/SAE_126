@@ -1,7 +1,7 @@
-package src.boardifier.control;
+package boardifier.control;
 
-import src.boardifier.model.*;
-import src.boardifier.view.*;
+import boardifier.model.*;
+import boardifier.view.*;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;

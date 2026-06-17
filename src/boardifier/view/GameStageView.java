@@ -1,6 +1,6 @@
-package src.boardifier.view;
+package boardifier.view;
 
-import src.boardifier.model.*;
+import boardifier.model.*;
 
 import java.util.ArrayList;
 import java.util.List;

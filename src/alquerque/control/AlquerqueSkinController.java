@@ -1,4 +1,4 @@
-package src.alquerque.control;
+package alquerque.control;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

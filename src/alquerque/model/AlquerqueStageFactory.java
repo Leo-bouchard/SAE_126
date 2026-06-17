@@ -1,9 +1,9 @@
-package src.alquerque.model;
+package alquerque.model;
 
-import src.alquerque.control.AlquerqueController;
-import src.boardifier.model.GameStageModel;
-import src.boardifier.model.StageElementsFactory;
-import src.boardifier.model.TextElement;
+import alquerque.control.AlquerqueController;
+import boardifier.model.GameStageModel;
+import boardifier.model.StageElementsFactory;
+import boardifier.model.TextElement;
 
 public class AlquerqueStageFactory extends StageElementsFactory {
     private AlquerqueStageModel alquerqueStageModel;

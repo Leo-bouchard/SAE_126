@@ -1,9 +1,9 @@
-package src.boardifier.control;
+package boardifier.control;
 
-import src.boardifier.model.*;
-import src.boardifier.model.animation.Animation;
-import src.boardifier.model.action.ActionList;
-import src.boardifier.model.action.GameAction;
+import boardifier.model.*;
+import boardifier.model.animation.Animation;
+import boardifier.model.action.ActionList;
+import boardifier.model.action.GameAction;
 import javafx.application.Platform;
 import java.util.List;
 

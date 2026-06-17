@@ -3,12 +3,12 @@ package test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import src.alquerque.control.AlquerqueController;
-import src.alquerque.model.AlquerqueBoard;
-import src.alquerque.model.AlquerqueStageModel;
-import src.boardifier.model.Model;
-import src.boardifier.model.Player;
-import src.boardifier.model.TextElement;
+import alquerque.control.AlquerqueController;
+import alquerque.model.AlquerqueBoard;
+import alquerque.model.AlquerqueStageModel;
+import boardifier.model.Model;
+import boardifier.model.Player;
+import boardifier.model.TextElement;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -50,8 +50,8 @@ public class AlquerqueControllerTest {
         when(model.getPlayers()).thenReturn(players);
 
         controller = Mockito.mock(AlquerqueController.class);
-        injectField(controller, "model", model, "src.boardifier.control.Controller");
-        injectField(controller, "mapElementLook", new HashMap<>(), "src.boardifier.control.Controller");
+        injectField(controller, "model", model, "boardifier.control.Controller");
+        injectField(controller, "mapElementLook", new HashMap<>(), "boardifier.control.Controller");
 
         doCallRealMethod().when(controller).endOfTurn();
         doCallRealMethod().when(controller).isMultiCaptureInProgress();

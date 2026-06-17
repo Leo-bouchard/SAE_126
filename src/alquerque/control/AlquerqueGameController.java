@@ -1,6 +1,6 @@
-package src.alquerque.control;
+package alquerque.control;
 
-import src.alquerque.view.AlquerqueGameView;
+import alquerque.view.AlquerqueGameView;
 
 public class AlquerqueGameController {
 

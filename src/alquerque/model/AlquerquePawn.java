@@ -1,8 +1,8 @@
-package src.alquerque.model;
+package alquerque.model;
 
-import src.boardifier.model.ElementTypes;
-import src.boardifier.model.GameElement;
-import src.boardifier.model.GameStageModel;
+import boardifier.model.ElementTypes;
+import boardifier.model.GameElement;
+import boardifier.model.GameStageModel;
 
 public class AlquerquePawn extends GameElement {
 

@@ -1,7 +1,7 @@
-package src.alquerque.model;
+package alquerque.model;
 
-import src.boardifier.model.ContainerElement;
-import src.boardifier.model.GameStageModel;
+import boardifier.model.ContainerElement;
+import boardifier.model.GameStageModel;
 
 import java.util.ArrayList;
 import java.util.List;

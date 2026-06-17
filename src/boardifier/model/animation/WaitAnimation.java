@@ -1,6 +1,6 @@
-package src.boardifier.model.animation;
+package boardifier.model.animation;
 
-import src.boardifier.model.Model;
+import boardifier.model.Model;
 
 public class WaitAnimation extends Animation {
     protected int nbFrames;

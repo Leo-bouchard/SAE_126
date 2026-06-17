@@ -1,4 +1,4 @@
-package src.alquerque.view;
+package alquerque.view;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -8,10 +8,10 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.Node;
 import javafx.stage.Stage;
-import src.alquerque.control.AlquerqueBackToHomeController;
-import src.alquerque.control.AlquerqueGameButtonController;
-import src.alquerque.control.AlquerqueGoToShopControl;
-import src.alquerque.control.AlquerqueSkinButtonController;
+import alquerque.control.AlquerqueBackToHomeController;
+import alquerque.control.AlquerqueGameButtonController;
+import alquerque.control.AlquerqueGoToShopControl;
+import alquerque.control.AlquerqueSkinButtonController;
 
 public class AlquerqueMainMenuView {
 

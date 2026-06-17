@@ -1,13 +1,13 @@
-package src.alquerque.control;
+package alquerque.control;
 
-import src.alquerque.model.AlquerqueBoard;
-import src.alquerque.model.AlquerquePawn;
-import src.alquerque.model.AlquerqueStageModel;
-import src.boardifier.control.ActionFactory;
-import src.boardifier.control.Controller;
-import src.boardifier.control.Decider;
-import src.boardifier.model.Model;
-import src.boardifier.model.action.ActionList;
+import alquerque.model.AlquerqueBoard;
+import alquerque.model.AlquerquePawn;
+import alquerque.model.AlquerqueStageModel;
+import boardifier.control.ActionFactory;
+import boardifier.control.Controller;
+import boardifier.control.Decider;
+import boardifier.model.Model;
+import boardifier.model.action.ActionList;
 
 import java.util.ArrayList;
 import java.util.List;

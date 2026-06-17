@@ -1,10 +1,10 @@
-package src.boardifier.model.action;
+package boardifier.model.action;
 
-import src.boardifier.control.Logger;
-import src.boardifier.model.*;
-import src.boardifier.model.animation.AnimationTypes;
-import src.boardifier.model.animation.LinearMoveAnimation;
-import src.boardifier.model.animation.MoveAnimation;
+import boardifier.control.Logger;
+import boardifier.model.*;
+import boardifier.model.animation.AnimationTypes;
+import boardifier.model.animation.LinearMoveAnimation;
+import boardifier.model.animation.MoveAnimation;
 
 
 public class MoveWithinContainerAction extends GameAction {

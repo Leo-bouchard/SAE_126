@@ -1,9 +1,9 @@
-package src.alquerque.control;
+package alquerque.control;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
-import src.alquerque.view.AlquerqueCreditView;
+import alquerque.view.AlquerqueCreditView;
 
 public class AlquerqueCreditController implements EventHandler<ActionEvent> {
 

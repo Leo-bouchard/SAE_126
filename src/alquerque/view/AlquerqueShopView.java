@@ -1,4 +1,4 @@
-package src.alquerque.view;
+package alquerque.view;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
@@ -12,7 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-import src.alquerque.control.AlquerqueShopController;
+import alquerque.control.AlquerqueShopController;
 
 public class AlquerqueShopView {
 

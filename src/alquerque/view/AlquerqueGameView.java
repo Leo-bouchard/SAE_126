@@ -1,4 +1,4 @@
-package src.alquerque.view;
+package alquerque.view;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -7,8 +7,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import src.alquerque.control.AlquerqueGameController;
-import src.alquerque.control.AlquerqueStartController;
+import alquerque.control.AlquerqueGameController;
+import alquerque.control.AlquerqueStartController;
 
 public class AlquerqueGameView {
 

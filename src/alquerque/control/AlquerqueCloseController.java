@@ -1,4 +1,4 @@
-package src.alquerque.control;
+package alquerque.control;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

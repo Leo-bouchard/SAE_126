@@ -1,7 +1,7 @@
-package src.boardifier.view;
+package boardifier.view;
 
-import src.boardifier.control.Logger;
-import src.boardifier.model.ContainerElement;
+import boardifier.control.Logger;
+import boardifier.model.ContainerElement;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;

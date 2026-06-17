@@ -1,9 +1,9 @@
-package src.alquerque;
+package alquerque;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import src.alquerque.control.AlquerquePlaylistController;
-import src.alquerque.view.AlquerqueView;
+import alquerque.control.AlquerquePlaylistController;
+import alquerque.view.AlquerqueView;
 
 // change VM option with this : --module-path
 

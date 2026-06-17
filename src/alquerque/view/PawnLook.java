@@ -1,8 +1,8 @@
-package src.alquerque.view;
+package alquerque.view;
 
-import src.alquerque.model.AlquerquePawn;
-import src.boardifier.model.GameElement;
-import src.boardifier.view.ElementLook;
+import alquerque.model.AlquerquePawn;
+import boardifier.model.GameElement;
+import boardifier.view.ElementLook;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 

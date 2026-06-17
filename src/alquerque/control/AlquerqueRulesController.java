@@ -1,6 +1,6 @@
-package src.alquerque.control;
+package alquerque.control;
 
-import src.alquerque.view.AlquerqueRulesView;
+import alquerque.view.AlquerqueRulesView;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

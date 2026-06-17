@@ -1,4 +1,4 @@
-package src.alquerque.view;
+package alquerque.view;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;

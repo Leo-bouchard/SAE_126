@@ -1,23 +1,23 @@
-package src.alquerque.control;
+package alquerque.control;
 
-import src.alquerque.model.AlquerqueStageModel;
-import src.alquerque.model.AlquerquePawn;
-import src.alquerque.model.AlquerqueBoard;
-import src.alquerque.view.AlquerqueSidePanel;
-import src.alquerque.view.AlquerqueEndGameView;
-import src.alquerque.view.AlquerqueMainMenuView;
-import src.alquerque.view.BoardLook;
-import src.boardifier.control.ActionFactory;
-import src.boardifier.control.ActionPlayer;
-import src.boardifier.control.Controller;
-import src.boardifier.control.Decider;
-import src.boardifier.control.StageFactory;
-import src.boardifier.model.GameException;
-import src.boardifier.model.Model;
-import src.boardifier.model.Player;
-import src.boardifier.model.action.ActionList;
-import src.boardifier.view.RootPane;
-import src.boardifier.view.View;
+import alquerque.model.AlquerqueStageModel;
+import alquerque.model.AlquerquePawn;
+import alquerque.model.AlquerqueBoard;
+import alquerque.view.AlquerqueSidePanel;
+import alquerque.view.AlquerqueEndGameView;
+import alquerque.view.AlquerqueMainMenuView;
+import alquerque.view.BoardLook;
+import boardifier.control.ActionFactory;
+import boardifier.control.ActionPlayer;
+import boardifier.control.Controller;
+import boardifier.control.Decider;
+import boardifier.control.StageFactory;
+import boardifier.model.GameException;
+import boardifier.model.Model;
+import boardifier.model.Player;
+import boardifier.model.action.ActionList;
+import boardifier.view.RootPane;
+import boardifier.view.View;
 import javafx.animation.PauseTransition;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -86,8 +86,8 @@ public class AlquerqueController extends Controller {
 
         StageFactory.registerModelAndView(
                 "alquerque",
-                "src.alquerque.model.AlquerqueStageModel",
-                "src.alquerque.view.AlquerqueStageView"
+                "alquerque.model.AlquerqueStageModel",
+                "alquerque.view.AlquerqueStageView"
         );
 
         RootPane root = new RootPane();

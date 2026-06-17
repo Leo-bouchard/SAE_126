@@ -1,7 +1,7 @@
-package src.boardifier.control;
+package boardifier.control;
 
-import src.boardifier.model.Model;
-import src.boardifier.view.View;
+import boardifier.model.Model;
+import boardifier.view.View;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 

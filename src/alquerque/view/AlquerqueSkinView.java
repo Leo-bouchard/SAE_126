@@ -1,4 +1,4 @@
-package src.alquerque.view;
+package alquerque.view;
 
 import javafx.animation.RotateTransition;
 import javafx.geometry.Pos;
@@ -9,7 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-import src.alquerque.control.AlquerqueSkinController;
+import alquerque.control.AlquerqueSkinController;
 
 public class AlquerqueSkinView {
 

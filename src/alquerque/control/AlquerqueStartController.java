@@ -1,10 +1,10 @@
-package src.alquerque.control;
+package alquerque.control;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
 import javafx.scene.Node;
-import src.alquerque.view.AlquerqueGameView;
+import alquerque.view.AlquerqueGameView;
 
 public class AlquerqueStartController implements EventHandler<ActionEvent> {
 

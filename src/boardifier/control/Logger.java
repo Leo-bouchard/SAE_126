@@ -1,4 +1,4 @@
-package src.boardifier.control;
+package boardifier.control;
 
 public class Logger {
 

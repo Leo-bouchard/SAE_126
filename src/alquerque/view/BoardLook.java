@@ -1,8 +1,8 @@
-package src.alquerque.view;
+package alquerque.view;
 
-import src.alquerque.model.AlquerqueBoard;
-import src.boardifier.model.ContainerElement;
-import src.boardifier.view.GridLook;
+import alquerque.model.AlquerqueBoard;
+import boardifier.model.ContainerElement;
+import boardifier.view.GridLook;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -24,7 +24,7 @@ public class BoardLook extends GridLook {
         super(122, 122, board, 0, 40, 40, 0, Color.TRANSPARENT);
         this.board = (AlquerqueBoard) board;
 
-        Image image = new Image(getClass().getResourceAsStream("/src/alquerque/Image/BackgroundBoard.png"));
+        Image image = new Image(getClass().getResourceAsStream("/alquerque/Image/BackgroundBoard.png"));
         ImageView bg = new ImageView(image);
         bg.setFitWidth(600);
         bg.setFitHeight(600);
@@ -51,7 +51,7 @@ public class BoardLook extends GridLook {
     }
 
     private Image loadImage(String name) {
-        return new Image(getClass().getResourceAsStream("/src/alquerque/Image/" + name));
+        return new Image(getClass().getResourceAsStream("/alquerque/Image/" + name));
     }
 
     // refreshes the overlay layer from the board highlight state

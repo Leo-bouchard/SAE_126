@@ -3,9 +3,9 @@ package test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import src.alquerque.model.AlquerqueBoard;
-import src.alquerque.model.AlquerquePawn;
-import src.alquerque.model.AlquerqueStageModel;
+import alquerque.model.AlquerqueBoard;
+import alquerque.model.AlquerquePawn;
+import alquerque.model.AlquerqueStageModel;
 
 import java.util.List;
 

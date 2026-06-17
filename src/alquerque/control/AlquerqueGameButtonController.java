@@ -1,7 +1,7 @@
-package src.alquerque.control;
+package alquerque.control;
 
-import src.alquerque.view.AlquerqueGameView;
-import src.alquerque.view.AlquerqueMainMenuView;
+import alquerque.view.AlquerqueGameView;
+import alquerque.view.AlquerqueMainMenuView;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

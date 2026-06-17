@@ -1,13 +1,13 @@
-package src.alquerque.control;
+package alquerque.control;
 
-import src.alquerque.model.AlquerqueBoard;
-import src.alquerque.model.AlquerquePawn;
-import src.alquerque.model.AlquerqueStageModel;
-import src.boardifier.control.Controller;
-import src.boardifier.control.ControllerMouse;
-import src.boardifier.model.Model;
-import src.boardifier.view.ContainerLook;
-import src.boardifier.view.View;
+import alquerque.model.AlquerqueBoard;
+import alquerque.model.AlquerquePawn;
+import alquerque.model.AlquerqueStageModel;
+import boardifier.control.Controller;
+import boardifier.control.ControllerMouse;
+import boardifier.model.Model;
+import boardifier.view.ContainerLook;
+import boardifier.view.View;
 import javafx.scene.input.MouseEvent;
 
 public class AlquerqueControllerMouse extends ControllerMouse {
@@ -20,7 +20,7 @@ public class AlquerqueControllerMouse extends ControllerMouse {
     }
     @Override
     public void handle(MouseEvent event) {
-        if (model.getCurrentPlayer().getType() != src.boardifier.model.Player.HUMAN) return;
+        if (model.getCurrentPlayer().getType() != boardifier.model.Player.HUMAN) return;
 
         AlquerqueStageModel stage = (AlquerqueStageModel) model.getGameStage();
         AlquerqueBoard board = stage.getBoard();

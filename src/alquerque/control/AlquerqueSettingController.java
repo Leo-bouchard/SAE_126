@@ -1,4 +1,4 @@
-package src.alquerque.control;
+package alquerque.control;
 
 public class AlquerqueSettingController {
 

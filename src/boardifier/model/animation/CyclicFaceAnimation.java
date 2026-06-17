@@ -1,6 +1,6 @@
-package src.boardifier.model.animation;
+package boardifier.model.animation;
 
-import src.boardifier.model.Model;
+import boardifier.model.Model;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -1,4 +1,4 @@
-package src.alquerque.view;
+package alquerque.view;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -7,11 +7,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import src.alquerque.control.AlquerqueButtonGoSettingController;
-import src.alquerque.control.AlquerqueCloseController;
-import src.alquerque.control.AlquerqueCreditController;
-import src.alquerque.control.AlquerquePlayController;
-import src.alquerque.control.AlquerqueRulesController;
+import alquerque.control.AlquerqueButtonGoSettingController;
+import alquerque.control.AlquerqueCloseController;
+import alquerque.control.AlquerqueCreditController;
+import alquerque.control.AlquerquePlayController;
+import alquerque.control.AlquerqueRulesController;
 
 
 public class AlquerqueView {

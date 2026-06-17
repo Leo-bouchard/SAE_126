@@ -3,12 +3,12 @@ package test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import src.alquerque.model.AlquerqueBoard;
-import src.alquerque.model.AlquerquePawn;
-import src.alquerque.model.AlquerqueStageFactory;
-import src.alquerque.model.AlquerqueStageModel;
-import src.boardifier.model.Model;
-import src.boardifier.model.TextElement;
+import alquerque.model.AlquerqueBoard;
+import alquerque.model.AlquerquePawn;
+import alquerque.model.AlquerqueStageFactory;
+import alquerque.model.AlquerqueStageModel;
+import boardifier.model.Model;
+import boardifier.model.TextElement;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;

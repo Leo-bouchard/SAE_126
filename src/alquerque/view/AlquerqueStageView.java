@@ -1,11 +1,11 @@
-package src.alquerque.view;
+package alquerque.view;
 
-import src.alquerque.model.*;
-import src.alquerque.model.AlquerqueStageModel;
-import src.alquerque.model.AlquerquePawn;
-import src.boardifier.model.GameStageModel;
-import src.boardifier.view.GameStageView;
-import src.boardifier.view.TextLook;
+import alquerque.model.*;
+import alquerque.model.AlquerqueStageModel;
+import alquerque.model.AlquerquePawn;
+import boardifier.model.GameStageModel;
+import boardifier.view.GameStageView;
+import boardifier.view.TextLook;
 
 public class AlquerqueStageView extends GameStageView {
 

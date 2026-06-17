@@ -2,9 +2,9 @@ package test;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import src.alquerque.model.AlquerquePawn;
-import src.alquerque.model.AlquerqueStageModel;
-import src.boardifier.model.ElementTypes;
+import alquerque.model.AlquerquePawn;
+import alquerque.model.AlquerqueStageModel;
+import boardifier.model.ElementTypes;
 
 import static org.junit.jupiter.api.Assertions.*;
 

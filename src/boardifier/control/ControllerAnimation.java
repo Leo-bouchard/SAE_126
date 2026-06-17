@@ -1,8 +1,8 @@
-package src.boardifier.control;
+package boardifier.control;
 
-import src.boardifier.model.GameElement;
-import src.boardifier.model.Model;
-import src.boardifier.view.View;
+import boardifier.model.GameElement;
+import boardifier.model.Model;
+import boardifier.view.View;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 

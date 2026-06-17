@@ -1,4 +1,4 @@
-package src.alquerque.control;
+package alquerque.control;
 
 import java.io.IOException;
 import java.nio.file.*;

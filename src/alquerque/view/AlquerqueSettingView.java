@@ -1,4 +1,4 @@
-package src.alquerque.view;
+package alquerque.view;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -8,8 +8,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import src.alquerque.control.AlquerqueBackToHomeController;
-import src.alquerque.control.AlquerqueSettingController;
+import alquerque.control.AlquerqueBackToHomeController;
+import alquerque.control.AlquerqueSettingController;
 
 
 public class AlquerqueSettingView {

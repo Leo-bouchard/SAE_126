@@ -1,4 +1,4 @@
-package src.alquerque.control;
+package alquerque.control;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -31,7 +31,6 @@ public class AlquerquePlaylistController {
         morceaux.add("Jazz Music No Copyright.mp3");
         morceaux.add("Jazz Piano No Copyright.mp3");
         morceaux.add("Jazz Restaurant Music.mp3");
-        morceaux.add("Jazz Restaurant Music 2.mp3");
 
 
         Collections.shuffle(morceaux);
@@ -43,7 +42,7 @@ public class AlquerquePlaylistController {
     }
 
     private void jouerMorceau(String nom) {
-        URL url = getClass().getResource("/src/alquerque/playlist/" + nom);
+        URL url = getClass().getResource("/alquerque/playlist/" + nom);
         if (url == null) {
             System.out.println("Fichier introuvable : " + nom);
             return;

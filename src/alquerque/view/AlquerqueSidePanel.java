@@ -1,4 +1,4 @@
-package src.alquerque.view;
+package alquerque.view;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -8,9 +8,9 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import src.alquerque.control.AlquerqueController;
-import src.alquerque.model.AlquerqueStageModel;
-import src.boardifier.model.Model;
+import alquerque.control.AlquerqueController;
+import alquerque.model.AlquerqueStageModel;
+import boardifier.model.Model;
 
 public class AlquerqueSidePanel {
 

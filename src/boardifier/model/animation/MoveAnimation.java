@@ -1,7 +1,7 @@
-package src.boardifier.model.animation;
+package boardifier.model.animation;
 
-import src.boardifier.model.Coord2D;
-import src.boardifier.model.Model;
+import boardifier.model.Coord2D;
+import boardifier.model.Model;
 
 public class MoveAnimation extends Animation {
     protected Coord2D start;
